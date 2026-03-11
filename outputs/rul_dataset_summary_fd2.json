@@ -1,0 +1,151 @@
+{
+  "settings": {
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
+    "datasets": [
+      "femto",
+      "xjtu_sy"
+    ],
+    "fd": 2,
+    "rebuild_scalers": false,
+    "auto_rebuild_on_warning": false,
+    "reader_roots": {
+      "cmapss": "C:\\Users\\micha\\.rul-datasets\\CMAPSS",
+      "femto": "C:\\Users\\micha\\.rul-datasets\\FEMTOBearingDataSet",
+      "xjtu_sy": "C:\\Users\\micha\\.rul-datasets\\XJTU-SY",
+      "ncmapss": "C:\\Users\\micha\\.rul-datasets\\NCMAPSS"
+    }
+  },
+  "datasets": [
+    {
+      "dataset": "femto",
+      "status": "warning",
+      "reader_class": "FemtoReader",
+      "dataset_name": "femto",
+      "fd": 2,
+      "hparams": {
+        "dataset": "femto",
+        "fd": 2,
+        "window_size": 1024,
+        "max_rul": 125,
+        "percent_broken": null,
+        "percent_fail_runs": null,
+        "truncate_val": false,
+        "truncate_degraded_only": false,
+        "first_time_to_predict": null,
+        "norm_rul": false,
+        "run_split_dist": null
+      },
+      "splits": {
+        "dev": {
+          "num_runs": 2,
+          "num_windows_total": 1708,
+          "mean_windows_per_run": 854.0,
+          "window_size_mean": 1024.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 115.92505854800937
+        },
+        "val": {
+          "num_runs": 1,
+          "num_windows_total": 1955,
+          "mean_windows_per_run": 1955.0,
+          "window_size_mean": 1024.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 121.03580562659846
+        },
+        "test": {
+          "num_runs": 4,
+          "num_windows_total": 3993,
+          "mean_windows_per_run": 998.25,
+          "window_size_mean": 1024.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 117.23641372401703
+        }
+      },
+      "warning_recovery": {
+        "triggered": false,
+        "pickle_warning_count": 3,
+        "note": "Automatic rebuild disabled by --no-auto-rebuild-on-warning."
+      },
+      "scaler_rebuilt": false,
+      "warnings": [
+        {
+          "category": "InconsistentVersionWarning",
+          "message": "Trying to unpickle estimator StandardScaler from version 1.8.0 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations",
+          "filename": "C:\\Users\\micha\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\sklearn\\base.py",
+          "lineno": 442
+        },
+        {
+          "category": "InconsistentVersionWarning",
+          "message": "Trying to unpickle estimator StandardScaler from version 1.8.0 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations",
+          "filename": "C:\\Users\\micha\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\sklearn\\base.py",
+          "lineno": 442
+        },
+        {
+          "category": "InconsistentVersionWarning",
+          "message": "Trying to unpickle estimator StandardScaler from version 1.8.0 when using version 1.7.2. This might lead to breaking code or invalid results. Use at your own risk. For more info please refer to:\nhttps://scikit-learn.org/stable/model_persistence.html#security-maintainability-limitations",
+          "filename": "C:\\Users\\micha\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\sklearn\\base.py",
+          "lineno": 442
+        }
+      ]
+    },
+    {
+      "dataset": "xjtu_sy",
+      "status": "ok",
+      "reader_class": "XjtuSyReader",
+      "dataset_name": "xjtu-sy",
+      "fd": 2,
+      "hparams": {
+        "dataset": "xjtu-sy",
+        "fd": 2,
+        "window_size": 4096,
+        "max_rul": 125,
+        "percent_broken": null,
+        "percent_fail_runs": null,
+        "truncate_val": false,
+        "truncate_degraded_only": false,
+        "first_time_to_predict": null,
+        "norm_rul": false,
+        "run_split_dist": null
+      },
+      "splits": {
+        "dev": {
+          "num_runs": 2,
+          "num_windows_total": 652,
+          "mean_windows_per_run": 326.0,
+          "window_size_mean": 4096.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 101.22699386503068
+        },
+        "val": {
+          "num_runs": 1,
+          "num_windows_total": 533,
+          "mean_windows_per_run": 533.0,
+          "window_size_mean": 4096.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 110.45966228893059
+        },
+        "test": {
+          "num_runs": 2,
+          "num_windows_total": 381,
+          "mean_windows_per_run": 190.5,
+          "window_size_mean": 4096.0,
+          "num_channels_mean": 2.0,
+          "target_min": 1.0,
+          "target_max": 125.0,
+          "target_mean": 93.249343832021
+        }
+      },
+      "scaler_rebuilt": false
+    }
+  ]
+}

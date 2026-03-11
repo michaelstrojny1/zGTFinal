@@ -1,0 +1,53 @@
+{
+  "fd": 4,
+  "checkpoint": "outputs\\final_local_fd004\\model_fd004.pt",
+  "calibration_file": "outputs\\final_local_fd004\\calibration_bundle_fd004.npz",
+  "checkpoint_leakage_flag": true,
+  "calibration_size": 10727,
+  "pred_source": "cache:outputs\\final_local_fd004\\audit_cache_fd004.npz",
+  "tem_fleet_source": "tem_metrics:outputs\\final_local_fd004\\tem_metrics_fd004.json",
+  "num_runs": 248,
+  "num_points": 34092,
+  "use_conditional_calibration": true,
+  "cap_implied_rul": true,
+  "compute_tau_diagnostics": true,
+  "predict_batch_size": 8192,
+  "pvalue_safety_margin": 0.02,
+  "pvalue_all": {
+    "n": 34092,
+    "mean_p": 0.517329242902943,
+    "frac_le_0.1": 0.07227502053267629,
+    "frac_le_0.2": 0.16839727795377216,
+    "frac_le_0.5": 0.47899800539716064,
+    "superuniform_margin_0.1": 0.027724979467323718,
+    "superuniform_margin_0.2": 0.031602722046227855,
+    "superuniform_margin_0.5": 0.021001994602839358
+  },
+  "pvalue_healthy_prefix": {
+    "n": 26513,
+    "mean_p": 0.5358886576522147,
+    "frac_le_0.1": 0.06740089767283974,
+    "frac_le_0.2": 0.1426470033568438,
+    "frac_le_0.5": 0.44566816278806626,
+    "superuniform_margin_0.1": 0.03259910232716026,
+    "superuniform_margin_0.2": 0.05735299664315621,
+    "superuniform_margin_0.5": 0.05433183721193374
+  },
+  "tem_fleet": {
+    "num_engines": 248,
+    "num_tau_diagnostics_engines": 181,
+    "num_alerted": 4,
+    "alert_rate": 0.016129032258064516,
+    "mean_first_alert_step": 219.25,
+    "mean_temporal_rul_coverage": 0.959058955216691,
+    "mean_temporal_tau_coverage": 0.9463122814211409,
+    "tau_anytime_violation_rate": 0.16574585635359115
+  },
+  "notes": {
+    "superuniform_reference": {
+      "frac_le_0.1_should_be_<=~": 0.1,
+      "frac_le_0.2_should_be_<=~": 0.2,
+      "frac_le_0.5_should_be_<=~": 0.5
+    }
+  }
+}

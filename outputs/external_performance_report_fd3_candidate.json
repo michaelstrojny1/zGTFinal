@@ -1,0 +1,132 @@
+{
+  "settings": {
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
+    "datasets": [
+      "femto",
+      "xjtu_sy"
+    ],
+    "fd": 3,
+    "seed": 42,
+    "seed_mode": "dataset_adler32_mod_10000",
+    "max_rul": 125,
+    "batch_size": 128,
+    "num_workers": 8,
+    "prefetch_factor": 4,
+    "epochs": 15,
+    "lr": 0.003,
+    "weight_decay": 0.0001,
+    "hidden": 128,
+    "depth": 4,
+    "dropout": 0.05,
+    "low_rul_loss_weight": 1.0,
+    "low_rul_threshold": 30.0,
+    "low_rul_weight_power": 1.0,
+    "low_rul_weight_datasets": [],
+    "dataset_overrides_json": "outputs/external_dataset_overrides.json",
+    "dataset_overrides": {
+      "femto": {
+        "epochs": 15,
+        "lr": 0.003,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 4.0,
+        "low_rul_threshold": 25,
+        "low_rul_weight_power": 1.0
+      },
+      "xjtu_sy": {
+        "epochs": 15,
+        "lr": 0.003,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 2.0,
+        "low_rul_threshold": 20,
+        "low_rul_weight_power": 1.5
+      }
+    },
+    "alpha": 0.001,
+    "lambda_bet": 0.03,
+    "calibration_source": "val",
+    "calibration_fraction": 0.2,
+    "calibration_bins": 8,
+    "calibration_min_bin_size": 128,
+    "pvalue_safety_margin": 0.3,
+    "amp_enabled": true,
+    "compile_requested": false
+  },
+  "datasets": [
+    {
+      "dataset": "femto",
+      "status": "ok",
+      "fd": 3,
+      "num_runs": 1,
+      "metrics": {
+        "rmse": 51.317908585634974,
+        "mae": 49.379698300691246,
+        "rmse_last": 43.21875,
+        "mae_last": 43.21875,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 15,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 4.0,
+        "low_rul_threshold": 25.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\femto_fd003",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\femto_fd003\\model_fd003.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\femto_fd003\\calibration_bundle_fd003.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\femto_fd003\\train_metrics_fd003.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\femto_fd003\\tem_metrics_fd003.json"
+      },
+      "notes": [
+        "Applied low-RUL weighted training: weight=4.000, threshold=25.000, power=1.000."
+      ]
+    },
+    {
+      "dataset": "xjtu_sy",
+      "status": "ok",
+      "fd": 3,
+      "num_runs": 2,
+      "metrics": {
+        "rmse": 15.515736851425727,
+        "mae": 5.869894178752302,
+        "rmse_last": 21.240950508760783,
+        "mae_last": 20.625,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 15,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 2.0,
+        "low_rul_threshold": 20.0,
+        "low_rul_weight_power": 1.5
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\xjtu_sy_fd003",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\xjtu_sy_fd003\\model_fd003.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\xjtu_sy_fd003\\calibration_bundle_fd003.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\xjtu_sy_fd003\\train_metrics_fd003.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_fd3_candidate\\xjtu_sy_fd003\\tem_metrics_fd003.json"
+      },
+      "notes": [
+        "Applied low-RUL weighted training: weight=2.000, threshold=20.000, power=1.500."
+      ]
+    }
+  ]
+}

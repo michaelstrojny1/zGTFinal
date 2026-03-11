@@ -1,0 +1,53 @@
+{
+  "fd": 1,
+  "checkpoint": "outputs/_speedpass2_modal_local/model_fd001.pt",
+  "calibration_file": "outputs/_speedpass2_modal_local/calibration_bundle_fd001.npz",
+  "checkpoint_leakage_flag": true,
+  "calibration_size": 2625,
+  "pred_source": "cache:outputs\\_speedpass2_modal_local_m05\\audit_cache_fd001.npz",
+  "tem_fleet_source": "tem_metrics:outputs\\_speedpass2_modal_local_m05\\tem_metrics_fd001.json",
+  "num_runs": 100,
+  "num_points": 10196,
+  "use_conditional_calibration": true,
+  "cap_implied_rul": true,
+  "compute_tau_diagnostics": true,
+  "predict_batch_size": 8192,
+  "pvalue_safety_margin": 0.05,
+  "pvalue_all": {
+    "n": 10196,
+    "mean_p": 0.5325498773173971,
+    "frac_le_0.1": 0.04854845037269517,
+    "frac_le_0.2": 0.1224990192232248,
+    "frac_le_0.5": 0.525990584542958,
+    "superuniform_margin_0.1": 0.05145154962730483,
+    "superuniform_margin_0.2": 0.07750098077677521,
+    "superuniform_margin_0.5": -0.025990584542957995
+  },
+  "pvalue_healthy_prefix": {
+    "n": 7069,
+    "mean_p": 0.5275564511836819,
+    "frac_le_0.1": 0.05304852171452822,
+    "frac_le_0.2": 0.12307257037770547,
+    "frac_le_0.5": 0.5522704767293818,
+    "superuniform_margin_0.1": 0.04695147828547178,
+    "superuniform_margin_0.2": 0.07692742962229454,
+    "superuniform_margin_0.5": -0.05227047672938179
+  },
+  "tem_fleet": {
+    "num_engines": 100,
+    "num_tau_diagnostics_engines": 89,
+    "num_alerted": 0,
+    "alert_rate": 0.0,
+    "mean_first_alert_step": -1.0,
+    "mean_temporal_rul_coverage": 0.9818110577066602,
+    "mean_temporal_tau_coverage": 0.9795629861872587,
+    "tau_anytime_violation_rate": 0.0449438202247191
+  },
+  "notes": {
+    "superuniform_reference": {
+      "frac_le_0.1_should_be_<=~": 0.1,
+      "frac_le_0.2_should_be_<=~": 0.2,
+      "frac_le_0.5_should_be_<=~": 0.5
+    }
+  }
+}

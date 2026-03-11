@@ -1,0 +1,52 @@
+{
+  "fd": 1,
+  "checkpoint": "outputs\\_pipe_subprocess_cache_smoke\\model_fd001.pt",
+  "calibration_file": "outputs\\_pipe_subprocess_cache_smoke\\calibration_bundle_fd001.npz",
+  "checkpoint_leakage_flag": true,
+  "calibration_size": 2625,
+  "pred_source": "cache:outputs\\_pipe_subprocess_cache_smoke\\audit_cache_fd001.npz",
+  "tem_fleet_source": "tem_metrics:outputs\\_pipe_subprocess_cache_smoke\\tem_metrics_fd001.json",
+  "num_runs": 100,
+  "num_points": 10196,
+  "use_conditional_calibration": true,
+  "cap_implied_rul": true,
+  "compute_tau_diagnostics": true,
+  "predict_batch_size": 8192,
+  "pvalue_all": {
+    "n": 10196,
+    "mean_p": 0.4835827705714161,
+    "frac_le_0.1": 0.08091408395449196,
+    "frac_le_0.2": 0.175166732051785,
+    "frac_le_0.5": 0.5704197724597881,
+    "superuniform_margin_0.1": 0.01908591604550805,
+    "superuniform_margin_0.2": 0.024833267948215,
+    "superuniform_margin_0.5": -0.07041977245978814
+  },
+  "pvalue_healthy_prefix": {
+    "n": 7069,
+    "mean_p": 0.4784670746008402,
+    "frac_le_0.1": 0.08077521573065498,
+    "frac_le_0.2": 0.17230159852878765,
+    "frac_le_0.5": 0.592162965058707,
+    "superuniform_margin_0.1": 0.019224784269345027,
+    "superuniform_margin_0.2": 0.02769840147121236,
+    "superuniform_margin_0.5": -0.09216296505870702
+  },
+  "tem_fleet": {
+    "num_engines": 100,
+    "num_tau_diagnostics_engines": 89,
+    "num_alerted": 0,
+    "alert_rate": 0.0,
+    "mean_first_alert_step": -1.0,
+    "mean_temporal_rul_coverage": 0.9744635976855411,
+    "mean_temporal_tau_coverage": 0.972370273743244,
+    "tau_anytime_violation_rate": 0.06741573033707865
+  },
+  "notes": {
+    "superuniform_reference": {
+      "frac_le_0.1_should_be_<=~": 0.1,
+      "frac_le_0.2_should_be_<=~": 0.2,
+      "frac_le_0.5_should_be_<=~": 0.5
+    }
+  }
+}

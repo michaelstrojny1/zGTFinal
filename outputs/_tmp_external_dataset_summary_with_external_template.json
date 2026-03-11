@@ -1,0 +1,101 @@
+{
+  "inputs": {
+    "matrix_report": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050_report.json",
+    "rul_dataset_summary": "C:\\Users\\micha\\zGTFinal\\outputs\\rul_dataset_summary.json",
+    "external_performance_report": "C:\\Users\\micha\\zGTFinal\\outputs\\templates\\external_performance_template.json"
+  },
+  "benchmark_type": "synthetic_shift_grid",
+  "num_grid_points": 9,
+  "aggregate": {
+    "null_alert_rate_mean": 0.0,
+    "null_alert_rate_max": 0.0,
+    "degraded_alert_rate_mean": 0.06385185185185187,
+    "degraded_alert_rate_max": 0.16333333333333333,
+    "oracle_superuniform_violation_prob_mean": 0.0,
+    "oracle_superuniform_violation_prob_max": 0.0
+  },
+  "worst_cases": [
+    {
+      "sigma": 8.0,
+      "rho": 0.5,
+      "null_alert_rate": 0.0,
+      "degraded_alert_rate": 0.0,
+      "oracle_superuniform_violation_prob": 0.0
+    },
+    {
+      "sigma": 8.0,
+      "rho": 1.5,
+      "null_alert_rate": 0.0,
+      "degraded_alert_rate": 0.0006666666666666666,
+      "oracle_superuniform_violation_prob": 0.0
+    },
+    {
+      "sigma": 8.0,
+      "rho": 1.0,
+      "null_alert_rate": 0.0,
+      "degraded_alert_rate": 0.020666666666666667,
+      "oracle_superuniform_violation_prob": 0.0
+    }
+  ],
+  "notes": [
+    "Derived from the matrix synthetic_grid branch.",
+    "Use this as shift robustness evidence; add real external model evaluations for stronger generalization claims."
+  ],
+  "real_rul_datasets": {
+    "source": "C:\\Users\\micha\\zGTFinal\\outputs\\rul_dataset_summary.json",
+    "num_total": 3,
+    "num_ok": 3,
+    "datasets": [
+      {
+        "dataset": "cmapss",
+        "status": "ok",
+        "dev_num_runs": 80,
+        "test_num_runs": 100
+      },
+      {
+        "dataset": "femto",
+        "status": "ok",
+        "dev_num_runs": 2,
+        "test_num_runs": 4
+      },
+      {
+        "dataset": "xjtu_sy",
+        "status": "ok",
+        "dev_num_runs": 2,
+        "test_num_runs": 2
+      }
+    ]
+  },
+  "real_external_performance": {
+    "source": "C:\\Users\\micha\\zGTFinal\\outputs\\templates\\external_performance_template.json",
+    "num_total": 2,
+    "num_ok": 0,
+    "datasets": [
+      {
+        "dataset": "femto",
+        "status": "pending",
+        "num_runs": null,
+        "metrics": {
+          "rul_cov": null,
+          "tau_v": null,
+          "rmse": null
+        }
+      },
+      {
+        "dataset": "xjtu_sy",
+        "status": "pending",
+        "num_runs": null,
+        "metrics": {
+          "rul_cov": null,
+          "tau_v": null,
+          "rmse": null
+        }
+      }
+    ]
+  },
+  "evidence_strength": {
+    "has_synthetic_shift_grid": true,
+    "has_real_dataset_availability": true,
+    "has_real_external_performance": false
+  }
+}

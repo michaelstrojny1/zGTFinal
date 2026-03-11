@@ -1,0 +1,44 @@
+{
+  "settings": {
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
+    "datasets": [
+      "ncmapss"
+    ],
+    "fd": 1,
+    "seed": 42,
+    "seed_mode": "dataset_adler32_mod_10000",
+    "max_rul": 125,
+    "batch_size": 128,
+    "num_workers": 0,
+    "prefetch_factor": 4,
+    "epochs": 5,
+    "lr": 0.003,
+    "weight_decay": 0.0001,
+    "hidden": 128,
+    "depth": 4,
+    "dropout": 0.05,
+    "low_rul_loss_weight": 1.0,
+    "low_rul_threshold": 30.0,
+    "low_rul_weight_power": 1.0,
+    "low_rul_weight_datasets": [],
+    "dataset_overrides_json": "",
+    "dataset_overrides": {},
+    "alpha": 0.05,
+    "lambda_bet": 0.02,
+    "calibration_source": "val",
+    "calibration_fraction": 0.2,
+    "calibration_bins": 8,
+    "calibration_min_bin_size": 128,
+    "pvalue_safety_margin": 0.02,
+    "amp_enabled": true,
+    "compile_requested": false
+  },
+  "datasets": [
+    {
+      "dataset": "ncmapss",
+      "status": "error",
+      "error": "OSError: [Errno 22] Invalid argument",
+      "traceback_tail": "Traceback (most recent call last):\n  File \"C:\\Users\\micha\\zGTFinal\\scripts\\run_real_external_evals.py\", line 704, in main\n    _evaluate_one_dataset(\n    ~~~~~~~~~~~~~~~~~~~~~^\n        dataset=dataset,\n        ^^^^^^^^^^^^^^^^\n    ...<6 lines>...\n        dataset_overrides=dataset_overrides,\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"C:\\Users\\micha\\zGTFinal\\scripts\\run_real_external_evals.py\", line 277, in _evaluate_one_dataset\n    splits = _load_splits(reader, key)\n  File \"C:\\Users\\micha\\zGTFinal\\scripts\\run_real_external_evals.py\", line 183, in _load_splits\n    reader.prepare_data()\n    ~~~~~~~~~~~~~~~~~~~^^\nOSError: [Errno 22] Invalid argument\n"
+    }
+  ]
+}

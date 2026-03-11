@@ -1,0 +1,140 @@
+{
+  "inputs": {
+    "matrix_report": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050_report.json",
+    "alpha": 0.01
+  },
+  "methods": [
+    {
+      "name": "split_conformal_global",
+      "comparator_type": "external",
+      "description": "External baseline: classical split-conformal absolute-residual interval with global quantile.",
+      "per_fd": [
+        {
+          "fd": 1,
+          "rmse": 18.8353868257331,
+          "rul_cov": 0.9766278325813912,
+          "tau_v": 0.19101123595505617,
+          "run_dir": ""
+        },
+        {
+          "fd": 2,
+          "rmse": 22.68432116332615,
+          "rul_cov": 0.9939471689320668,
+          "tau_v": 0.04455445544554455,
+          "run_dir": ""
+        },
+        {
+          "fd": 3,
+          "rmse": 23.538568748970274,
+          "rul_cov": 0.9682468061387052,
+          "tau_v": 0.17647058823529413,
+          "run_dir": ""
+        },
+        {
+          "fd": 4,
+          "rmse": 24.77944291808525,
+          "rul_cov": 0.9911013484205056,
+          "tau_v": 0.09944751381215469,
+          "run_dir": ""
+        }
+      ]
+    },
+    {
+      "name": "split_conformal_binned_pred",
+      "comparator_type": "external",
+      "description": "External baseline: split-conformal absolute-residual interval with predicted-RUL binwise quantiles.",
+      "per_fd": [
+        {
+          "fd": 1,
+          "rmse": 18.8353868257331,
+          "rul_cov": 0.9540334842379885,
+          "tau_v": 0.33707865168539325,
+          "run_dir": ""
+        },
+        {
+          "fd": 2,
+          "rmse": 22.68432116332615,
+          "rul_cov": 0.9871914535844076,
+          "tau_v": 0.10396039603960396,
+          "run_dir": ""
+        },
+        {
+          "fd": 3,
+          "rmse": 23.538568748970274,
+          "rul_cov": 0.9146661529853666,
+          "tau_v": 0.36470588235294116,
+          "run_dir": ""
+        },
+        {
+          "fd": 4,
+          "rmse": 24.77944291808525,
+          "rul_cov": 0.9875289739252724,
+          "tau_v": 0.15469613259668508,
+          "run_dir": ""
+        }
+      ]
+    }
+  ],
+  "diagnostics": [
+    {
+      "fd": 1,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd001",
+      "r_max": 125,
+      "n_bins": 8,
+      "min_bin_size": 128,
+      "q_global": 43.8125,
+      "q_bin_min": 26.09375,
+      "q_bin_max": 63.6875,
+      "num_tau_diagnostics_global": 89,
+      "num_runs_global": 100,
+      "num_tau_diagnostics_binned": 89,
+      "num_runs_binned": 100
+    },
+    {
+      "fd": 2,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd002",
+      "r_max": 125,
+      "n_bins": 16,
+      "min_bin_size": 128,
+      "q_global": 60.4375,
+      "q_bin_min": 45.46875,
+      "q_bin_max": 74.6875,
+      "num_tau_diagnostics_global": 202,
+      "num_runs_global": 259,
+      "num_tau_diagnostics_binned": 202,
+      "num_runs_binned": 259
+    },
+    {
+      "fd": 3,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd003",
+      "r_max": 125,
+      "n_bins": 12,
+      "min_bin_size": 128,
+      "q_global": 48.25,
+      "q_bin_min": 10.578125,
+      "q_bin_max": 52.25,
+      "num_tau_diagnostics_global": 85,
+      "num_runs_global": 100,
+      "num_tau_diagnostics_binned": 85,
+      "num_runs_binned": 100
+    },
+    {
+      "fd": 4,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd004",
+      "r_max": 125,
+      "n_bins": 12,
+      "min_bin_size": 128,
+      "q_global": 67.625,
+      "q_bin_min": 36.6875,
+      "q_bin_max": 75.875,
+      "num_tau_diagnostics_global": 181,
+      "num_runs_global": 248,
+      "num_tau_diagnostics_binned": 181,
+      "num_runs_binned": 248
+    }
+  ],
+  "notes": [
+    "These baselines are generated from strict_main prediction/caching artifacts and use non-sequential split-conformal intervals.",
+    "run_dir is intentionally empty because these baselines do not emit full TEM per-run artifacts."
+  ]
+}

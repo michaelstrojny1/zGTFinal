@@ -1,0 +1,52 @@
+{
+  "fd": 1,
+  "checkpoint": "outputs\\_pub_fd001_dev40\\model_fd001.pt",
+  "calibration_file": "outputs\\_pub_fd001_dev40\\calibration_bundle_fd001.npz",
+  "checkpoint_leakage_flag": true,
+  "calibration_size": 5448,
+  "pred_source": "cache:outputs\\_pub_fd001_dev40\\audit_cache_fd001.npz",
+  "tem_fleet_source": "tem_metrics:outputs\\_pub_fd001_dev40\\tem_metrics_fd001.json",
+  "num_runs": 100,
+  "num_points": 10196,
+  "use_conditional_calibration": true,
+  "cap_implied_rul": true,
+  "compute_tau_diagnostics": true,
+  "predict_batch_size": 8192,
+  "pvalue_all": {
+    "n": 10196,
+    "mean_p": 0.48329583159764306,
+    "frac_le_0.1": 0.07581404472342095,
+    "frac_le_0.2": 0.14937230286386818,
+    "frac_le_0.5": 0.5720870929776383,
+    "superuniform_margin_0.1": 0.02418595527657906,
+    "superuniform_margin_0.2": 0.05062769713613183,
+    "superuniform_margin_0.5": -0.07208709297763827
+  },
+  "pvalue_healthy_prefix": {
+    "n": 7069,
+    "mean_p": 0.4627463255221937,
+    "frac_le_0.1": 0.07964351393407837,
+    "frac_le_0.2": 0.14952609987268356,
+    "frac_le_0.5": 0.6177677182062526,
+    "superuniform_margin_0.1": 0.020356486065921636,
+    "superuniform_margin_0.2": 0.05047390012731645,
+    "superuniform_margin_0.5": -0.11776771820625265
+  },
+  "tem_fleet": {
+    "num_engines": 100,
+    "num_tau_diagnostics_engines": 89,
+    "num_alerted": 0,
+    "alert_rate": 0.0,
+    "mean_first_alert_step": -1.0,
+    "mean_temporal_rul_coverage": 0.9595691175400982,
+    "mean_temporal_tau_coverage": 0.9554155823492685,
+    "tau_anytime_violation_rate": 0.1348314606741573
+  },
+  "notes": {
+    "superuniform_reference": {
+      "frac_le_0.1_should_be_<=~": 0.1,
+      "frac_le_0.2_should_be_<=~": 0.2,
+      "frac_le_0.5_should_be_<=~": 0.5
+    }
+  }
+}

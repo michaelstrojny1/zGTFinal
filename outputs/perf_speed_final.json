@@ -1,0 +1,26 @@
+{
+  "timestamp_local": "2026-03-04",
+  "speed": {
+    "tem_fd001_seconds": {
+      "numba_off": 9.897,
+      "numba_on_warm": 7.581,
+      "speedup_x": 1.305
+    },
+    "audit_fd001_seconds": {
+      "recompute": 7.63,
+      "cache_plus_tem_metrics": 0.208,
+      "speedup_x": 36.683
+    },
+    "full_pipeline_fd001_epochs1_seconds": 33.4,
+    "full_pipeline_fd002_epochs5_seconds": 40.4
+  },
+  "quality": {
+    "default2_fd001_findings_without_tau_gap": 0,
+    "default2_fd002_findings_without_tau_gap": 0,
+    "modal_local_fallback_findings_without_tau_gap": 0
+  },
+  "root_cause": {
+    "fd002_conditional_low_rul_shift": "Detected residual-distribution shift in low-RUL bin (KS ~0.148, mean residual test > calibration).",
+    "mitigation": "Use val calibration by default + conservative p-value safety margin 0.02."
+  }
+}

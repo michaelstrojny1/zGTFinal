@@ -1,0 +1,205 @@
+{
+  "inputs": {
+    "report_json": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050_report.json",
+    "topology_json": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\topology_rul_landscape.json",
+    "paper_md": "C:\\Users\\micha\\zGTFinal\\paper\\topological_evidence_curves.md"
+  },
+  "thresholds": {
+    "min_unique_topology_families": 2,
+    "min_external_baselines": 2,
+    "min_real_external_eval_datasets": 1,
+    "min_tau_identifiability_ratio": 0.75
+  },
+  "score_10": 5.5,
+  "target_9plus_pass": false,
+  "gates": [
+    {
+      "name": "Core Validity Artifacts",
+      "pass": true,
+      "weight": 2.0,
+      "score": 2.0,
+      "details": "suspicious=0, strict_deep=0, regimes=0, unexpected_all=0"
+    },
+    {
+      "name": "Baseline Coverage/Tau Strength",
+      "pass": false,
+      "weight": 1.5,
+      "score": 0.0,
+      "details": "min_rul_cov=0.976, max_tau_v=0.079, min_tau_ident_ratio=0.730, required>=0.750"
+    },
+    {
+      "name": "Seed Robustness",
+      "pass": true,
+      "weight": 2.0,
+      "score": 2.0,
+      "details": "all FD require n>=3, tau_v_max<=0.12, rul_cov_std<=0.02; failing_fds=none"
+    },
+    {
+      "name": "Split Robustness (val vs dev_holdout)",
+      "pass": true,
+      "weight": 1.0,
+      "score": 1.0,
+      "details": "require |delta_cov|<=0.03 and |delta_tau|<=0.05 per FD"
+    },
+    {
+      "name": "Topology Signal Strength",
+      "pass": false,
+      "weight": 1.5,
+      "score": 0.0,
+      "details": "raw_hits=2, unique_families=1 (required>=2), families=['surface_h1']"
+    },
+    {
+      "name": "Baseline Comparator Package",
+      "pass": false,
+      "weight": 1.0,
+      "score": 0.0,
+      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\baseline_comparison.json; external_baselines=0; required>=2"
+    },
+    {
+      "name": "External Dataset Generalization",
+      "pass": false,
+      "weight": 0.5,
+      "score": 0.0,
+      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=0; required>=1"
+    },
+    {
+      "name": "Proof Maturity",
+      "pass": true,
+      "weight": 0.5,
+      "score": 0.5,
+      "details": "paper should not rely on sketch-only theorem statements"
+    }
+  ],
+  "seed_fd_stats": [
+    {
+      "fd": 1,
+      "n": 3,
+      "tau_v_min": 0.056179775280898875,
+      "tau_v_max": 0.07865168539325842,
+      "rul_cov_std": 0.007714625909534059,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "n": 3,
+      "tau_v_min": 0.06435643564356436,
+      "tau_v_max": 0.10891089108910891,
+      "rul_cov_std": 0.006691600011194323,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "n": 3,
+      "tau_v_min": 0.023529411764705882,
+      "tau_v_max": 0.03529411764705882,
+      "rul_cov_std": 0.0021239001615971065,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "n": 3,
+      "tau_v_min": 0.0,
+      "tau_v_max": 0.016574585635359115,
+      "rul_cov_std": 0.0015250403762690605,
+      "pass_gate": true
+    }
+  ],
+  "split_deltas": [
+    {
+      "fd": 1,
+      "delta_cov_val_minus_dev": 0.011421850081565266,
+      "delta_tau_val_minus_dev": -0.02247191011235955,
+      "delta_rmse_val_minus_dev": -1.3196591787454395,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "delta_cov_val_minus_dev": -0.0010171314020128719,
+      "delta_tau_val_minus_dev": 0.0,
+      "delta_rmse_val_minus_dev": -0.891974406781646,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "delta_cov_val_minus_dev": 0.00611579243030691,
+      "delta_tau_val_minus_dev": -0.023529411764705882,
+      "delta_rmse_val_minus_dev": -1.2317836364263073,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "delta_cov_val_minus_dev": -0.0007347670250896776,
+      "delta_tau_val_minus_dev": 0.0,
+      "delta_rmse_val_minus_dev": -0.2456401748874839,
+      "pass_gate": true
+    }
+  ],
+  "tau_identifiability_by_fd": [
+    {
+      "fd": 1,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd001",
+      "num_tau_diagnostics_engines": 89,
+      "num_engines": 100,
+      "tau_identifiability_ratio": 0.89,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd002",
+      "num_tau_diagnostics_engines": 202,
+      "num_engines": 259,
+      "tau_identifiability_ratio": 0.7799227799227799,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd003",
+      "num_tau_diagnostics_engines": 85,
+      "num_engines": 100,
+      "tau_identifiability_ratio": 0.85,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd004",
+      "num_tau_diagnostics_engines": 181,
+      "num_engines": 248,
+      "tau_identifiability_ratio": 0.7298387096774194,
+      "pass_gate": false
+    }
+  ],
+  "topology_hits_raw": [
+    {
+      "name": "corr_surface_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.49340761488077045,
+      "ci_high": -0.27680325957031454
+    },
+    {
+      "name": "corr_surface_superlevel_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.4931642590143309,
+      "ci_high": -0.28690712309274324
+    }
+  ],
+  "topology_hits_unique_family": [
+    {
+      "name": "corr_surface_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.49340761488077045,
+      "ci_high": -0.27680325957031454
+    }
+  ],
+  "topology_unique_families": [
+    "surface_h1"
+  ],
+  "priorities": [
+    "Increase tau-identifiable coverage (labeling/diagnostic policy) so each FD clears tau_identifiability_ratio >= 0.75; current failing FD: [4].",
+    "Add external baseline comparisons (not only internal ablations) and ensure external_baselines >= 2 in baseline_comparison.json.",
+    "Add real external model-evaluation results (coverage/tau/rmse) and ensure external_eval_ok >= 1 in external_dataset_summary.json.",
+    "Strengthen topology claims with at least two independent topology families (not duplicated variants of the same surface statistic), plus multiplicity control."
+  ]
+}

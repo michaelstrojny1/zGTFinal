@@ -1,0 +1,2515 @@
+{
+  "timestamp_local": "2026-03-05T02:25:48",
+  "settings": {
+    "fds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "baseline_prefix": "final_local_fd",
+    "run_fulltopo": true,
+    "run_ablation": true,
+    "ablation_margins": [
+      0.0,
+      0.01,
+      0.02,
+      0.05
+    ],
+    "ablation_bins": [
+      8,
+      12
+    ],
+    "ablation_min_bin_sizes": [
+      128,
+      512
+    ],
+    "lambda_bet": 0.07,
+    "evidence_mode": "fixed_tau",
+    "tau_max": 1000,
+    "predict_batch_size": 8192,
+    "min_persistence": 0.5,
+    "alert_patience": 3,
+    "healthy_rul_floor": 100.0
+  },
+  "global_findings": [
+    {
+      "severity": "medium",
+      "fd": 1,
+      "type": "regime_pvalue_failure",
+      "message": "At least one strict regime p-value block failed superuniform checks."
+    },
+    {
+      "severity": "medium",
+      "fd": 2,
+      "type": "regime_pvalue_failure",
+      "message": "At least one strict regime p-value block failed superuniform checks."
+    },
+    {
+      "severity": "medium",
+      "fd": 3,
+      "type": "regime_pvalue_failure",
+      "message": "At least one strict regime p-value block failed superuniform checks."
+    },
+    {
+      "severity": "medium",
+      "fd": 4,
+      "type": "regime_pvalue_failure",
+      "message": "At least one strict regime p-value block failed superuniform checks."
+    }
+  ],
+  "fds": [
+    {
+      "fd": "fd001",
+      "baseline_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\final_local_fd001",
+      "fulltopo_dir": "outputs\\phd_ultra\\fd001\\fulltopo",
+      "deep_check": {
+        "no_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 0,
+          "findings": []
+        },
+        "with_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 1,
+          "findings": [
+            {
+              "severity": "low",
+              "type": "tau_identifiability_gap",
+              "message": "tau diagnostics available for 89/100 engines (capped/censored runs excluded)",
+              "artifact": "outputs\\phd_ultra\\fd001\\fulltopo\\tem_metrics_fd001.json"
+            }
+          ]
+        }
+      },
+      "strict": {
+        "integrity": {
+          "has_nan_core": false,
+          "coverage_in_range": true,
+          "surface_topology_present_all_runs": true
+        },
+        "regime_pvalue_checks": {
+          "global": {
+            "n": 10196,
+            "mean_p": 0.5791974862647338,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.07502942330325618,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.14456649666535895,
+                "bound": 0.21188410096009197,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.3928991761475088,
+                "bound": 0.514855126200115,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "healthy_prefix": {
+            "n": 7069,
+            "mean_p": 0.5903964293047128,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.06068750884142029,
+                "bound": 0.11070442931236323,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1161408968736738,
+                "bound": 0.2142725724164843,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.37940302730230585,
+                "bound": 0.5178407155206054,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "low_rul": {
+            "n": 332,
+            "mean_p": 0.46599391328306994,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.20783132530120482,
+                "bound": 0.14939391699536067,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.3433734939759036,
+                "bound": 0.26585855599381425,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5331325301204819,
+                "bound": 0.5823231949922678,
+                "pass": true
+              }
+            ],
+            "status": "fail"
+          },
+          "mid_rul": {
+            "n": 1703,
+            "mean_p": 0.550219485486661,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.1092190252495596,
+                "bound": 0.12180897152526954,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.2172636523781562,
+                "bound": 0.2290786287003594,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4368761009982384,
+                "bound": 0.5363482858754492,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "high_rul": {
+            "n": 8161,
+            "mean_p": 0.5898497496583093,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.062492341624800885,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.12130866315402525,
+                "bound": 0.21328340937363874,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.3780173998284524,
+                "bound": 0.5166042617170484,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "early_time": {
+            "n": 3424,
+            "mean_p": 0.6354040107538933,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.04672897196261682,
+                "bound": 0.11538068335805493,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.09258177570093458,
+                "bound": 0.2205075778107399,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.32389018691588783,
+                "bound": 0.5256344722634249,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "mid_time": {
+            "n": 3362,
+            "mean_p": 0.5886848382423082,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.07674003569303986,
+                "bound": 0.11552185617238764,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.13027959547888163,
+                "bound": 0.2206958082298502,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.37031528851873885,
+                "bound": 0.5258697602873127,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "late_time": {
+            "n": 3410,
+            "mean_p": 0.5134063961769075,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.10175953079178886,
+                "bound": 0.1154122242681417,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.21085043988269794,
+                "bound": 0.22054963235752226,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4844574780058651,
+                "bound": 0.5256870404469028,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          }
+        },
+        "residual_shift": {
+          "global_ks_cal_vs_test": 0.020305889061990434,
+          "conditional_bins": [
+            {
+              "bin": 0,
+              "lo": 1.0,
+              "hi": 49.0,
+              "n_cal": 960,
+              "n_test": 823,
+              "mean_res_cal": 8.513358561197917,
+              "mean_res_test": 12.036043818347508,
+              "ks": 0.17061057108140942
+            },
+            {
+              "bin": 1,
+              "lo": 49.0,
+              "hi": 98.0,
+              "n_cal": 980,
+              "n_test": 2172,
+              "mean_res_cal": 14.81329719387755,
+              "mean_res_test": 13.65481842771639,
+              "ks": 0.1078832638027587
+            },
+            {
+              "bin": 2,
+              "lo": 98.0,
+              "hi": 125.0,
+              "n_cal": 522,
+              "n_test": 1991,
+              "mean_res_cal": 19.531190134099617,
+              "mean_res_test": 15.0435867654445,
+              "ks": 0.17400139709150952
+            },
+            {
+              "bin": 3,
+              "lo": 125.0,
+              "hi": 126.0,
+              "n_cal": 1451,
+              "n_test": 5210,
+              "mean_res_cal": 19.199819090282563,
+              "mean_res_test": 16.656699856046064,
+              "ks": 0.11742778492825778
+            }
+          ]
+        },
+        "outliers": {
+          "lowest_rul_coverage_run_indices": [
+            92,
+            90,
+            44
+          ],
+          "highest_topo_gamma_run_indices": [
+            6,
+            92,
+            8
+          ],
+          "highest_ridge_tv_run_indices": [
+            92,
+            27,
+            34
+          ]
+        },
+        "fleet": {
+          "num_engines": 100,
+          "num_tau_diagnostics_engines": 89,
+          "num_alerted": 1,
+          "alert_rate": 0.01,
+          "mean_first_alert_step": 129.0,
+          "mean_temporal_rul_coverage": 0.9761191996137489,
+          "mean_temporal_tau_coverage": 0.9757685555377119,
+          "tau_anytime_violation_rate": 0.056179775280898875
+        },
+        "audit_pvalue_all": {
+          "n": 10196,
+          "mean_p": 0.5791974862647338,
+          "frac_le_0.1": 0.07502942330325618,
+          "frac_le_0.2": 0.14456649666535895,
+          "frac_le_0.5": 0.3928991761475088,
+          "superuniform_margin_0.1": 0.024970576696743824,
+          "superuniform_margin_0.2": 0.05543350333464106,
+          "superuniform_margin_0.5": 0.1071008238524912
+        },
+        "audit_pvalue_healthy_prefix": {
+          "n": 7069,
+          "mean_p": 0.5903964293047128,
+          "frac_le_0.1": 0.06068750884142029,
+          "frac_le_0.2": 0.1161408968736738,
+          "frac_le_0.5": 0.37940302730230585,
+          "superuniform_margin_0.1": 0.03931249115857972,
+          "superuniform_margin_0.2": 0.08385910312632622,
+          "superuniform_margin_0.5": 0.12059697269769415
+        }
+      },
+      "gates": {
+        "no_taugap_findings": 0,
+        "with_taugap_findings": 1,
+        "integrity_ok": true,
+        "regime_pvalue_ok": false
+      },
+      "ablation": [
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p05_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9793041301089747,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.10278540604158494,
+          "pvalue_healthy_frac_le_0.2": 0.11161408968736738,
+          "pvalue_all_mean": 0.6012100698274473,
+          "pvalue_healthy_mean": 0.6007111567123626
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p05_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9793041301089747,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.10278540604158494,
+          "pvalue_healthy_frac_le_0.2": 0.11161408968736738,
+          "pvalue_all_mean": 0.6012100698274473,
+          "pvalue_healthy_mean": 0.6007111567123626
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p05_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9789204406615343,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.1224990192232248,
+          "pvalue_healthy_frac_le_0.2": 0.09619465270901117,
+          "pvalue_all_mean": 0.607645995397226,
+          "pvalue_healthy_mean": 0.6188915496572387
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p05_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9788140576828109,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.11985092193016869,
+          "pvalue_healthy_frac_le_0.2": 0.09364832366671381,
+          "pvalue_all_mean": 0.611941837109607,
+          "pvalue_healthy_mean": 0.624104187399997
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p02_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9761191996137489,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.14456649666535895,
+          "pvalue_healthy_frac_le_0.2": 0.1161408968736738,
+          "pvalue_all_mean": 0.5791974862647338,
+          "pvalue_healthy_mean": 0.5903964293047128
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p02_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9760128166350255,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.13887799136916437,
+          "pvalue_healthy_frac_le_0.2": 0.11175555241193945,
+          "pvalue_all_mean": 0.5834989077759161,
+          "pvalue_healthy_mean": 0.5955990113427926
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p01_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9753383989146133,
+          "tau_anytime_violation_rate": 0.056179775280898875,
+          "pvalue_all_frac_le_0.2": 0.14270302079246763,
+          "pvalue_healthy_frac_le_0.2": 0.11500919507709718,
+          "pvalue_all_mean": 0.573759524640187,
+          "pvalue_healthy_mean": 0.5858516415878722
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p01_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9752422450684594,
+          "tau_anytime_violation_rate": 0.06741573033707865,
+          "pvalue_all_frac_le_0.2": 0.149176147508827,
+          "pvalue_healthy_frac_le_0.2": 0.11953600226340359,
+          "pvalue_all_mean": 0.5694421633109583,
+          "pvalue_healthy_mean": 0.5806429915220436
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p0_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.97381571847186,
+          "tau_anytime_violation_rate": 0.06741573033707865,
+          "pvalue_all_frac_le_0.2": 0.1594743036484896,
+          "pvalue_healthy_frac_le_0.2": 0.12972131843259302,
+          "pvalue_all_mean": 0.5595447414619871,
+          "pvalue_healthy_mean": 0.5707553885443605
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p0_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.973707022819686,
+          "tau_anytime_violation_rate": 0.06741573033707865,
+          "pvalue_all_frac_le_0.2": 0.15260886622204786,
+          "pvalue_healthy_frac_le_0.2": 0.12505304852171453,
+          "pvalue_all_mean": 0.56386832091999,
+          "pvalue_healthy_mean": 0.5759586199694512
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p02_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9752891277429739,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.12720674774421342,
+          "pvalue_healthy_frac_le_0.2": 0.13566275286462018,
+          "pvalue_all_mean": 0.5725851815724582,
+          "pvalue_healthy_mean": 0.5721365625366889
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p02_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9752891277429739,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.12720674774421342,
+          "pvalue_healthy_frac_le_0.2": 0.13566275286462018,
+          "pvalue_all_mean": 0.5725851815724582,
+          "pvalue_healthy_mean": 0.5721365625366889
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p01_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9738394307227682,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.1327971753628874,
+          "pvalue_healthy_frac_le_0.2": 0.14033102277549866,
+          "pvalue_all_mean": 0.5628045955992433,
+          "pvalue_healthy_mean": 0.5623703463928694
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p01_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9738394307227682,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.1327971753628874,
+          "pvalue_healthy_frac_le_0.2": 0.14033102277549866,
+          "pvalue_all_mean": 0.5628045955992433,
+          "pvalue_healthy_mean": 0.5623703463928694
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p0_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9724588907482422,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.1442722636327972,
+          "pvalue_healthy_frac_le_0.2": 0.15277974253784127,
+          "pvalue_all_mean": 0.5528897312524326,
+          "pvalue_healthy_mean": 0.5524631581120314
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p0_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9724588907482422,
+          "tau_anytime_violation_rate": 0.07865168539325842,
+          "pvalue_all_frac_le_0.2": 0.1442722636327972,
+          "pvalue_healthy_frac_le_0.2": 0.15277974253784127,
+          "pvalue_all_mean": 0.5528897312524326,
+          "pvalue_healthy_mean": 0.5524631581120314
+        }
+      ],
+      "ablation_best": {
+        "config": {
+          "pvalue_safety_margin": 0.05,
+          "calibration_bins": 8,
+          "calibration_min_bin_size": 512
+        },
+        "out_dir": "outputs\\phd_ultra\\fd001\\ablation\\m0p05_b8_mbs512",
+        "deep_findings_no_taugap": 0,
+        "alert_rate": 0.01,
+        "mean_temporal_rul_coverage": 0.9793041301089747,
+        "tau_anytime_violation_rate": 0.056179775280898875,
+        "pvalue_all_frac_le_0.2": 0.10278540604158494,
+        "pvalue_healthy_frac_le_0.2": 0.11161408968736738,
+        "pvalue_all_mean": 0.6012100698274473,
+        "pvalue_healthy_mean": 0.6007111567123626
+      }
+    },
+    {
+      "fd": "fd002",
+      "baseline_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\final_local_fd002",
+      "fulltopo_dir": "outputs\\phd_ultra\\fd002\\fulltopo",
+      "deep_check": {
+        "no_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 0,
+          "findings": []
+        },
+        "with_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 1,
+          "findings": [
+            {
+              "severity": "low",
+              "type": "tau_identifiability_gap",
+              "message": "tau diagnostics available for 202/259 engines (capped/censored runs excluded)",
+              "artifact": "outputs\\phd_ultra\\fd002\\fulltopo\\tem_metrics_fd002.json"
+            }
+          ]
+        }
+      },
+      "strict": {
+        "integrity": {
+          "has_nan_core": false,
+          "coverage_in_range": true,
+          "surface_topology_present_all_runs": true
+        },
+        "regime_pvalue_checks": {
+          "global": {
+            "n": 26511,
+            "mean_p": 0.5147965157041866,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.08554939459092452,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.19365546376975595,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4984346120478292,
+                "bound": 0.51,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "healthy_prefix": {
+            "n": 17850,
+            "mean_p": 0.5266807760429387,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.0773109243697479,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1785434173669468,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4788795518207283,
+                "bound": 0.5112272178284768,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "low_rul": {
+            "n": 1087,
+            "mean_p": 0.4407616356735999,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.12879484820607176,
+                "bound": 0.12729780564793208,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.23919043238270468,
+                "bound": 0.2363970741972428,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.6264949402023919,
+                "bound": 0.5454963427465535,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "mid_rul": {
+            "n": 4623,
+            "mean_p": 0.48340878407423205,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.12113346311918667,
+                "bound": 0.1132367255018634,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.26779147739563053,
+                "bound": 0.21764896733581787,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5425048669695003,
+                "bound": 0.5220612091697723,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "high_rul": {
+            "n": 20801,
+            "mean_p": 0.5256412538378594,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.07538099129849526,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1747992884957454,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4819479832700351,
+                "bound": 0.5104003786731252,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "early_time": {
+            "n": 8892,
+            "mean_p": 0.5617400087183642,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.05004498425551057,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1424876293297346,
+                "bound": 0.21272569525951557,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4290373369320738,
+                "bound": 0.5159071190743945,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "mid_time": {
+            "n": 8750,
+            "mean_p": 0.4731680166987064,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.108,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.23314285714285715,
+                "bound": 0.21282853961179637,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5552,
+                "bound": 0.5160356745147454,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "late_time": {
+            "n": 8869,
+            "mean_p": 0.5088012317280772,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.09899650467921975,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.20599842146803474,
+                "bound": 0.21274218536423714,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5120081181643928,
+                "bound": 0.5159277317052964,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          }
+        },
+        "residual_shift": {
+          "global_ks_cal_vs_test": 0.03582944433539623,
+          "conditional_bins": [
+            {
+              "bin": 0,
+              "lo": 1.0,
+              "hi": 44.0,
+              "n_cal": 2236,
+              "n_test": 1999,
+              "mean_res_cal": 19.215571367676656,
+              "mean_res_test": 25.430533626188094,
+              "ks": 0.14626297943247113
+            },
+            {
+              "bin": 1,
+              "lo": 44.0,
+              "hi": 88.0,
+              "n_cal": 2288,
+              "n_test": 4809,
+              "mean_res_cal": 22.56797694493007,
+              "mean_res_test": 22.987849929819088,
+              "ks": 0.04117152861694351
+            },
+            {
+              "bin": 2,
+              "lo": 88.0,
+              "hi": 125.0,
+              "n_cal": 1847,
+              "n_test": 6227,
+              "mean_res_cal": 13.593614645370872,
+              "mean_res_test": 13.203860205556447,
+              "ks": 0.039438169822825664
+            },
+            {
+              "bin": 3,
+              "lo": 125.0,
+              "hi": 126.0,
+              "n_cal": 2777,
+              "n_test": 13476,
+              "mean_res_cal": 18.363746849117753,
+              "mean_res_test": 18.460652270703473,
+              "ks": 0.023153954166828333
+            }
+          ]
+        },
+        "outliers": {
+          "lowest_rul_coverage_run_indices": [
+            249,
+            96,
+            57
+          ],
+          "highest_topo_gamma_run_indices": [
+            115,
+            38,
+            88
+          ],
+          "highest_ridge_tv_run_indices": [
+            64,
+            194,
+            16
+          ]
+        },
+        "fleet": {
+          "num_engines": 259,
+          "num_tau_diagnostics_engines": 202,
+          "num_alerted": 0,
+          "alert_rate": 0.0,
+          "mean_first_alert_step": -1.0,
+          "mean_temporal_rul_coverage": 0.9566765388814051,
+          "mean_temporal_tau_coverage": 0.9444516018330887,
+          "tau_anytime_violation_rate": 0.16336633663366337
+        },
+        "audit_pvalue_all": {
+          "n": 26511,
+          "mean_p": 0.5147965157041866,
+          "frac_le_0.1": 0.08554939459092452,
+          "frac_le_0.2": 0.19365546376975595,
+          "frac_le_0.5": 0.4984346120478292,
+          "superuniform_margin_0.1": 0.014450605409075487,
+          "superuniform_margin_0.2": 0.006344536230244058,
+          "superuniform_margin_0.5": 0.0015653879521708158
+        },
+        "audit_pvalue_healthy_prefix": {
+          "n": 17850,
+          "mean_p": 0.5266807760429387,
+          "frac_le_0.1": 0.0773109243697479,
+          "frac_le_0.2": 0.1785434173669468,
+          "frac_le_0.5": 0.4788795518207283,
+          "superuniform_margin_0.1": 0.022689075630252103,
+          "superuniform_margin_0.2": 0.021456582633053223,
+          "superuniform_margin_0.5": 0.021120448179271722
+        }
+      },
+      "gates": {
+        "no_taugap_findings": 0,
+        "with_taugap_findings": 1,
+        "integrity_ok": true,
+        "regime_pvalue_ok": false
+      },
+      "ablation": [
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p05_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.963724920267744,
+          "tau_anytime_violation_rate": 0.13366336633663367,
+          "pvalue_all_frac_le_0.2": 0.1598204518878956,
+          "pvalue_healthy_frac_le_0.2": 0.14397759103641455,
+          "pvalue_all_mean": 0.5433317444465253,
+          "pvalue_healthy_mean": 0.5550654254582118
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p05_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.963724920267744,
+          "tau_anytime_violation_rate": 0.13366336633663367,
+          "pvalue_all_frac_le_0.2": 0.1598204518878956,
+          "pvalue_healthy_frac_le_0.2": 0.14397759103641455,
+          "pvalue_all_mean": 0.5433317444465253,
+          "pvalue_healthy_mean": 0.5550654254582118
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p05_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9636786043995166,
+          "tau_anytime_violation_rate": 0.13366336633663367,
+          "pvalue_all_frac_le_0.2": 0.15914148843876127,
+          "pvalue_healthy_frac_le_0.2": 0.1458263305322129,
+          "pvalue_all_mean": 0.5423353442669606,
+          "pvalue_healthy_mean": 0.5493387503706831
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p05_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.963676858386002,
+          "tau_anytime_violation_rate": 0.13366336633663367,
+          "pvalue_all_frac_le_0.2": 0.15963185092980273,
+          "pvalue_healthy_frac_le_0.2": 0.1465546218487395,
+          "pvalue_all_mean": 0.5430550467291257,
+          "pvalue_healthy_mean": 0.5504078042946705
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p02_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9566765388814051,
+          "tau_anytime_violation_rate": 0.16336633663366337,
+          "pvalue_all_frac_le_0.2": 0.19365546376975595,
+          "pvalue_healthy_frac_le_0.2": 0.1785434173669468,
+          "pvalue_all_mean": 0.5147970768235134,
+          "pvalue_healthy_mean": 0.5266814213694639
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p02_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9566765388814051,
+          "tau_anytime_violation_rate": 0.16336633663366337,
+          "pvalue_all_frac_le_0.2": 0.19365546376975595,
+          "pvalue_healthy_frac_le_0.2": 0.1785434173669468,
+          "pvalue_all_mean": 0.5147970768235134,
+          "pvalue_healthy_mean": 0.5266814213694639
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p02_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9563606097278111,
+          "tau_anytime_violation_rate": 0.16831683168316833,
+          "pvalue_all_frac_le_0.2": 0.19184489457206444,
+          "pvalue_healthy_frac_le_0.2": 0.1796078431372549,
+          "pvalue_all_mean": 0.5145849163401952,
+          "pvalue_healthy_mean": 0.5220333697890817
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p02_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.003861003861003861,
+          "mean_temporal_rul_coverage": 0.956329482381254,
+          "tau_anytime_violation_rate": 0.16831683168316833,
+          "pvalue_all_frac_le_0.2": 0.19161857342235297,
+          "pvalue_healthy_frac_le_0.2": 0.1792717086834734,
+          "pvalue_all_mean": 0.5138171268640855,
+          "pvalue_healthy_mean": 0.5208930411167487
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p01_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9534602448175903,
+          "tau_anytime_violation_rate": 0.1782178217821782,
+          "pvalue_all_frac_le_0.2": 0.20587680585417373,
+          "pvalue_healthy_frac_le_0.2": 0.19182072829131652,
+          "pvalue_all_mean": 0.5050526660306902,
+          "pvalue_healthy_mean": 0.5169938535888858
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p01_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9534602448175903,
+          "tau_anytime_violation_rate": 0.1782178217821782,
+          "pvalue_all_frac_le_0.2": 0.20587680585417373,
+          "pvalue_healthy_frac_le_0.2": 0.19182072829131652,
+          "pvalue_all_mean": 0.5050526660306902,
+          "pvalue_healthy_mean": 0.5169938535888858
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p01_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.003861003861003861,
+          "mean_temporal_rul_coverage": 0.9530306885332817,
+          "tau_anytime_violation_rate": 0.1782178217821782,
+          "pvalue_all_frac_le_0.2": 0.20455659914752367,
+          "pvalue_healthy_frac_le_0.2": 0.19254901960784312,
+          "pvalue_all_mean": 0.5040806049323584,
+          "pvalue_healthy_mean": 0.5111923260072093
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p01_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9530279422642853,
+          "tau_anytime_violation_rate": 0.1782178217821782,
+          "pvalue_all_frac_le_0.2": 0.20466975972237939,
+          "pvalue_healthy_frac_le_0.2": 0.1927170868347339,
+          "pvalue_all_mean": 0.5048584204997463,
+          "pvalue_healthy_mean": 0.5123476901010877
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p0_b12_mbs512",
+          "deep_findings_no_taugap": 2,
+          "alert_rate": 0.003861003861003861,
+          "mean_temporal_rul_coverage": 0.9499919392991848,
+          "tau_anytime_violation_rate": 0.18811881188118812,
+          "pvalue_all_frac_le_0.2": 0.2147033306929199,
+          "pvalue_healthy_frac_le_0.2": 0.20095238095238097,
+          "pvalue_all_mean": 0.49418792944619727,
+          "pvalue_healthy_mean": 0.5013171419455199
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p0_b8_mbs128",
+          "deep_findings_no_taugap": 2,
+          "alert_rate": 0.003861003861003861,
+          "mean_temporal_rul_coverage": 0.9502055280445547,
+          "tau_anytime_violation_rate": 0.19306930693069307,
+          "pvalue_all_frac_le_0.2": 0.2150050922258685,
+          "pvalue_healthy_frac_le_0.2": 0.200672268907563,
+          "pvalue_all_mean": 0.4951582295297272,
+          "pvalue_healthy_mean": 0.5071266344579485
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p0_b8_mbs512",
+          "deep_findings_no_taugap": 2,
+          "alert_rate": 0.003861003861003861,
+          "mean_temporal_rul_coverage": 0.9502055280445547,
+          "tau_anytime_violation_rate": 0.19306930693069307,
+          "pvalue_all_frac_le_0.2": 0.2150050922258685,
+          "pvalue_healthy_frac_le_0.2": 0.200672268907563,
+          "pvalue_all_mean": 0.4951582295297272,
+          "pvalue_healthy_mean": 0.5071266344579485
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p0_b12_mbs128",
+          "deep_findings_no_taugap": 2,
+          "alert_rate": 0.0,
+          "mean_temporal_rul_coverage": 0.9499502741033239,
+          "tau_anytime_violation_rate": 0.19306930693069307,
+          "pvalue_all_frac_le_0.2": 0.2147033306929199,
+          "pvalue_healthy_frac_le_0.2": 0.20095238095238097,
+          "pvalue_all_mean": 0.49497127551428016,
+          "pvalue_healthy_mean": 0.5024807199948005
+        }
+      ],
+      "ablation_best": {
+        "config": {
+          "pvalue_safety_margin": 0.05,
+          "calibration_bins": 8,
+          "calibration_min_bin_size": 128
+        },
+        "out_dir": "outputs\\phd_ultra\\fd002\\ablation\\m0p05_b8_mbs128",
+        "deep_findings_no_taugap": 0,
+        "alert_rate": 0.0,
+        "mean_temporal_rul_coverage": 0.963724920267744,
+        "tau_anytime_violation_rate": 0.13366336633663367,
+        "pvalue_all_frac_le_0.2": 0.1598204518878956,
+        "pvalue_healthy_frac_le_0.2": 0.14397759103641455,
+        "pvalue_all_mean": 0.5433317444465253,
+        "pvalue_healthy_mean": 0.5550654254582118
+      }
+    },
+    {
+      "fd": "fd003",
+      "baseline_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\final_local_fd003",
+      "fulltopo_dir": "outputs\\phd_ultra\\fd003\\fulltopo",
+      "deep_check": {
+        "no_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 0,
+          "findings": []
+        },
+        "with_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 1,
+          "findings": [
+            {
+              "severity": "low",
+              "type": "tau_identifiability_gap",
+              "message": "tau diagnostics available for 85/100 engines (capped/censored runs excluded)",
+              "artifact": "outputs\\phd_ultra\\fd003\\fulltopo\\tem_metrics_fd003.json"
+            }
+          ]
+        }
+      },
+      "strict": {
+        "integrity": {
+          "has_nan_core": false,
+          "coverage_in_range": true,
+          "surface_topology_present_all_runs": true
+        },
+        "regime_pvalue_checks": {
+          "global": {
+            "n": 13696,
+            "mean_p": 0.5824472968611073,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.06549357476635514,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.16508469626168223,
+                "bound": 0.21025378890536997,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4107038551401869,
+                "bound": 0.5128172361317125,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "healthy_prefix": {
+            "n": 10457,
+            "mean_p": 0.6288289018918152,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.032131586497083295,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.12527493544993784,
+                "bound": 0.21173485403714995,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.3577507889452042,
+                "bound": 0.5146685675464374,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "low_rul": {
+            "n": 291,
+            "mean_p": 0.31837198518716137,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.281786941580756,
+                "bound": 0.15275893435844945,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.422680412371134,
+                "bound": 0.27034524581126596,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.7731958762886598,
+                "bound": 0.5879315572640824,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "mid_rul": {
+            "n": 1736,
+            "mean_p": 0.43494250278967944,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.2574884792626728,
+                "bound": 0.12160069123317938,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.3824884792626728,
+                "bound": 0.22880092164423918,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5207373271889401,
+                "bound": 0.536001152055299,
+                "pass": true
+              }
+            ],
+            "status": "fail"
+          },
+          "high_rul": {
+            "n": 11669,
+            "mean_p": 0.6109770970329401,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.031536549832890566,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1263175936241323,
+                "bound": 0.21110873037977074,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.3852943696974891,
+                "bound": 0.5138859129747134,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "early_time": {
+            "n": 4585,
+            "mean_p": 0.6932535349213375,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.025081788440567066,
+                "bound": 0.11329146461549156,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1044711014176663,
+                "bound": 0.2177219528206554,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.26324972737186475,
+                "bound": 0.5221524410258193,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "mid_time": {
+            "n": 4535,
+            "mean_p": 0.5761150797265344,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.039470782800441015,
+                "bound": 0.11336453533988959,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.14906284454244764,
+                "bound": 0.21781938045318613,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.43836824696802645,
+                "bound": 0.5222742255664826,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "late_time": {
+            "n": 4576,
+            "mean_p": 0.4776986087490298,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.13177447552447552,
+                "bound": 0.11330452890975437,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.2416958041958042,
+                "bound": 0.2177393718796725,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5310314685314685,
+                "bound": 0.5221742148495906,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          }
+        },
+        "residual_shift": {
+          "global_ks_cal_vs_test": 0.10178023614150059,
+          "conditional_bins": [
+            {
+              "bin": 0,
+              "lo": 1.0,
+              "hi": 55.0,
+              "n_cal": 1080,
+              "n_test": 903,
+              "mean_res_cal": 11.671752025462963,
+              "mean_res_test": 22.33315597314507,
+              "ks": 0.26629752676264307
+            },
+            {
+              "bin": 1,
+              "lo": 55.0,
+              "hi": 110.0,
+              "n_cal": 1100,
+              "n_test": 3036,
+              "mean_res_cal": 18.09455965909091,
+              "mean_res_test": 19.17658926218709,
+              "ks": 0.06256916996047435
+            },
+            {
+              "bin": 2,
+              "lo": 110.0,
+              "hi": 125.0,
+              "n_cal": 291,
+              "n_test": 1131,
+              "mean_res_cal": 14.330648625429554,
+              "mean_res_test": 10.250331564986737,
+              "ks": 0.15319897545279693
+            },
+            {
+              "bin": 3,
+              "lo": 125.0,
+              "hi": 126.0,
+              "n_cal": 1890,
+              "n_test": 8626,
+              "mean_res_cal": 9.681878306878307,
+              "mean_res_test": 7.075839033155576,
+              "ks": 0.21124077938360342
+            }
+          ]
+        },
+        "outliers": {
+          "lowest_rul_coverage_run_indices": [
+            47,
+            95,
+            25
+          ],
+          "highest_topo_gamma_run_indices": [
+            36,
+            3,
+            95
+          ],
+          "highest_ridge_tv_run_indices": [
+            23,
+            95,
+            22
+          ]
+        },
+        "fleet": {
+          "num_engines": 100,
+          "num_tau_diagnostics_engines": 85,
+          "num_alerted": 1,
+          "alert_rate": 0.01,
+          "mean_first_alert_step": 259.0,
+          "mean_temporal_rul_coverage": 0.9677611207541506,
+          "mean_temporal_tau_coverage": 0.964906775656903,
+          "tau_anytime_violation_rate": 0.1411764705882353
+        },
+        "audit_pvalue_all": {
+          "n": 13696,
+          "mean_p": 0.5824472968611073,
+          "frac_le_0.1": 0.06549357476635514,
+          "frac_le_0.2": 0.16508469626168223,
+          "frac_le_0.5": 0.4107038551401869,
+          "superuniform_margin_0.1": 0.03450642523364486,
+          "superuniform_margin_0.2": 0.03491530373831778,
+          "superuniform_margin_0.5": 0.08929614485981308
+        },
+        "audit_pvalue_healthy_prefix": {
+          "n": 10457,
+          "mean_p": 0.6288289018918152,
+          "frac_le_0.1": 0.032131586497083295,
+          "frac_le_0.2": 0.12527493544993784,
+          "frac_le_0.5": 0.3577507889452042,
+          "superuniform_margin_0.1": 0.06786841350291671,
+          "superuniform_margin_0.2": 0.07472506455006217,
+          "superuniform_margin_0.5": 0.14224921105479582
+        }
+      },
+      "gates": {
+        "no_taugap_findings": 0,
+        "with_taugap_findings": 1,
+        "integrity_ok": true,
+        "regime_pvalue_ok": false
+      },
+      "ablation": [
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p05_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9821576993326812,
+          "tau_anytime_violation_rate": 0.07058823529411765,
+          "pvalue_all_frac_le_0.2": 0.13310455607476634,
+          "pvalue_healthy_frac_le_0.2": 0.09448216505689969,
+          "pvalue_all_mean": 0.6100446311358658,
+          "pvalue_healthy_mean": 0.6559414379939957
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p05_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9814938283000145,
+          "tau_anytime_violation_rate": 0.08235294117647059,
+          "pvalue_all_frac_le_0.2": 0.13843457943925233,
+          "pvalue_healthy_frac_le_0.2": 0.1014631347422779,
+          "pvalue_all_mean": 0.6077105570881007,
+          "pvalue_healthy_mean": 0.6528843969537175
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p05_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9809947810422045,
+          "tau_anytime_violation_rate": 0.08235294117647059,
+          "pvalue_all_frac_le_0.2": 0.1308411214953271,
+          "pvalue_healthy_frac_le_0.2": 0.09448216505689969,
+          "pvalue_all_mean": 0.6099842795457445,
+          "pvalue_healthy_mean": 0.6535222443471327
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p05_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.02,
+          "mean_temporal_rul_coverage": 0.9706452696225079,
+          "tau_anytime_violation_rate": 0.12941176470588237,
+          "pvalue_all_frac_le_0.2": 0.16063084112149534,
+          "pvalue_healthy_frac_le_0.2": 0.10318446973319308,
+          "pvalue_all_mean": 0.5803220919146376,
+          "pvalue_healthy_mean": 0.6461599681292108
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p02_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9677611207541506,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.16508469626168223,
+          "pvalue_healthy_frac_le_0.2": 0.12527493544993784,
+          "pvalue_all_mean": 0.5824472968611073,
+          "pvalue_healthy_mean": 0.6288289018918152
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p02_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9670572367384475,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.16617990654205608,
+          "pvalue_healthy_frac_le_0.2": 0.1267093812757005,
+          "pvalue_all_mean": 0.580106244018118,
+          "pvalue_healthy_mean": 0.6257627204116981
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p02_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9669819547495487,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.16238317757009346,
+          "pvalue_healthy_frac_le_0.2": 0.1256574543368079,
+          "pvalue_all_mean": 0.5823842944925963,
+          "pvalue_healthy_mean": 0.6263948894433023
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p01_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9640325222671956,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.17523364485981308,
+          "pvalue_healthy_frac_le_0.2": 0.13531605623027637,
+          "pvalue_all_mean": 0.5728120669906698,
+          "pvalue_healthy_mean": 0.6192728141031567
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p01_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9634309445663337,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.1745035046728972,
+          "pvalue_healthy_frac_le_0.2": 0.13435975901310127,
+          "pvalue_all_mean": 0.5704824787973112,
+          "pvalue_healthy_mean": 0.6162216483867715
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p01_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9632772670683281,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.174357476635514,
+          "pvalue_healthy_frac_le_0.2": 0.13608109400401644,
+          "pvalue_all_mean": 0.5727492617087717,
+          "pvalue_healthy_mean": 0.616836820364978
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p0_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9605572942182817,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.18268107476635514,
+          "pvalue_healthy_frac_le_0.2": 0.1413407286984795,
+          "pvalue_all_mean": 0.5629380249620632,
+          "pvalue_healthy_mean": 0.6094204613316831
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p0_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9602484253753749,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.1822429906542056,
+          "pvalue_healthy_frac_le_0.2": 0.14277517452424213,
+          "pvalue_all_mean": 0.5628755639547979,
+          "pvalue_healthy_mean": 0.60698356846178
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p0_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.01,
+          "mean_temporal_rul_coverage": 0.9599470445944537,
+          "tau_anytime_violation_rate": 0.1411764705882353,
+          "pvalue_all_frac_le_0.2": 0.18195093457943926,
+          "pvalue_healthy_frac_le_0.2": 0.1403844314813044,
+          "pvalue_all_mean": 0.5606107056958562,
+          "pvalue_healthy_mean": 0.6063722673305386
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p02_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.02,
+          "mean_temporal_rul_coverage": 0.9593543950841823,
+          "tau_anytime_violation_rate": 0.16470588235294117,
+          "pvalue_all_frac_le_0.2": 0.19297605140186916,
+          "pvalue_healthy_frac_le_0.2": 0.1308214593095534,
+          "pvalue_all_mean": 0.5526150403304099,
+          "pvalue_healthy_mean": 0.6190235055290381
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p01_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.02,
+          "mean_temporal_rul_coverage": 0.9556273264644249,
+          "tau_anytime_violation_rate": 0.16470588235294117,
+          "pvalue_all_frac_le_0.2": 0.20166471962616822,
+          "pvalue_healthy_frac_le_0.2": 0.13894998565554173,
+          "pvalue_all_mean": 0.5429784256332348,
+          "pvalue_healthy_mean": 0.6094797072550225
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p0_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.02,
+          "mean_temporal_rul_coverage": 0.9524779285724745,
+          "tau_anytime_violation_rate": 0.16470588235294117,
+          "pvalue_all_frac_le_0.2": 0.21013434579439252,
+          "pvalue_healthy_frac_le_0.2": 0.14583532561920245,
+          "pvalue_all_mean": 0.5330990522186949,
+          "pvalue_healthy_mean": 0.5996282364729383
+        }
+      ],
+      "ablation_best": {
+        "config": {
+          "pvalue_safety_margin": 0.05,
+          "calibration_bins": 8,
+          "calibration_min_bin_size": 128
+        },
+        "out_dir": "outputs\\phd_ultra\\fd003\\ablation\\m0p05_b8_mbs128",
+        "deep_findings_no_taugap": 0,
+        "alert_rate": 0.01,
+        "mean_temporal_rul_coverage": 0.9821576993326812,
+        "tau_anytime_violation_rate": 0.07058823529411765,
+        "pvalue_all_frac_le_0.2": 0.13310455607476634,
+        "pvalue_healthy_frac_le_0.2": 0.09448216505689969,
+        "pvalue_all_mean": 0.6100446311358658,
+        "pvalue_healthy_mean": 0.6559414379939957
+      }
+    },
+    {
+      "fd": "fd004",
+      "baseline_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\final_local_fd004",
+      "fulltopo_dir": "outputs\\phd_ultra\\fd004\\fulltopo",
+      "deep_check": {
+        "no_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 0,
+          "findings": []
+        },
+        "with_taugap": {
+          "scanned": {
+            "tem_metrics": 1,
+            "audit": 1,
+            "synthetic": 0
+          },
+          "num_findings": 1,
+          "findings": [
+            {
+              "severity": "low",
+              "type": "tau_identifiability_gap",
+              "message": "tau diagnostics available for 181/248 engines (capped/censored runs excluded)",
+              "artifact": "outputs\\phd_ultra\\fd004\\fulltopo\\tem_metrics_fd004.json"
+            }
+          ]
+        }
+      },
+      "strict": {
+        "integrity": {
+          "has_nan_core": false,
+          "coverage_in_range": true,
+          "surface_topology_present_all_runs": true
+        },
+        "regime_pvalue_checks": {
+          "global": {
+            "n": 34092,
+            "mean_p": 0.517331638696509,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.07227502053267629,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.16839727795377216,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.47896867300246393,
+                "bound": 0.51,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "healthy_prefix": {
+            "n": 26513,
+            "mean_p": 0.5358920988546764,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.06740089767283974,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1426470033568438,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.4456304454418587,
+                "bound": 0.51,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "low_rul": {
+            "n": 864,
+            "mean_p": 0.31272245281986943,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.2013888888888889,
+                "bound": 0.13061862178478972,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.47337962962962965,
+                "bound": 0.2408248290463863,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.7858796296296297,
+                "bound": 0.5510310363079829,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "mid_rul": {
+            "n": 4134,
+            "mean_p": 0.42768450111494394,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.09192065795839381,
+                "bound": 0.11399771907606257,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.2818093855829705,
+                "bound": 0.2186636254347501,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.6279632317368167,
+                "bound": 0.5233295317934376,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          },
+          "high_rul": {
+            "n": 29094,
+            "mean_p": 0.5361459510413087,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.06564927476455626,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.1432254073004743,
+                "bound": 0.21000000000000002,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.44868357736990444,
+                "bound": 0.51,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "early_time": {
+            "n": 11421,
+            "mean_p": 0.5717607165665795,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.03309692671394799,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.08817091323001489,
+                "bound": 0.21122869228088692,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.40005253480430786,
+                "bound": 0.5140358653511087,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "mid_time": {
+            "n": 11283,
+            "mean_p": 0.5258642916100223,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.07108038642205088,
+                "bound": 0.11,
+                "pass": true
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.15607551183195958,
+                "bound": 0.21129715147641162,
+                "pass": true
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.45519808561552777,
+                "bound": 0.5141214393455145,
+                "pass": true
+              }
+            ],
+            "status": "ok"
+          },
+          "late_time": {
+            "n": 11388,
+            "mean_p": 0.45429085706872113,
+            "checks": [
+              {
+                "a": 0.1,
+                "frac_le_a": 0.11275026343519494,
+                "bound": 0.11,
+                "pass": false
+              },
+              {
+                "a": 0.2,
+                "frac_le_a": 0.26106427818756583,
+                "bound": 0.2112449496918475,
+                "pass": false
+              },
+              {
+                "a": 0.5,
+                "frac_le_a": 0.5816649104320337,
+                "bound": 0.5140561871148094,
+                "pass": false
+              }
+            ],
+            "status": "fail"
+          }
+        },
+        "residual_shift": {
+          "global_ks_cal_vs_test": 0.05707890135806884,
+          "conditional_bins": [
+            {
+              "bin": 0,
+              "lo": 1.0,
+              "hi": 54.0,
+              "n_cal": 2650,
+              "n_test": 2494,
+              "mean_res_cal": 16.200008844339624,
+              "mean_res_test": 29.10918548265838,
+              "ks": 0.315857832382624
+            },
+            {
+              "bin": 1,
+              "lo": 54.0,
+              "hi": 108.0,
+              "n_cal": 2692,
+              "n_test": 6284,
+              "mean_res_cal": 21.871755432763745,
+              "mean_res_test": 21.044294040420116,
+              "ks": 0.05118851811671993
+            },
+            {
+              "bin": 2,
+              "lo": 108.0,
+              "hi": 125.0,
+              "n_cal": 822,
+              "n_test": 2742,
+              "mean_res_cal": 16.190617396593673,
+              "mean_res_test": 14.25474106491612,
+              "ks": 0.05771002039110462
+            },
+            {
+              "bin": 3,
+              "lo": 125.0,
+              "hi": 126.0,
+              "n_cal": 4563,
+              "n_test": 22572,
+              "mean_res_cal": 13.335798816568047,
+              "mean_res_test": 13.224212208433014,
+              "ks": 0.040466169008679165
+            }
+          ]
+        },
+        "outliers": {
+          "lowest_rul_coverage_run_indices": [
+            85,
+            150,
+            180
+          ],
+          "highest_topo_gamma_run_indices": [
+            233,
+            76,
+            72
+          ],
+          "highest_ridge_tv_run_indices": [
+            24,
+            101,
+            134
+          ]
+        },
+        "fleet": {
+          "num_engines": 248,
+          "num_tau_diagnostics_engines": 181,
+          "num_alerted": 4,
+          "alert_rate": 0.016129032258064516,
+          "mean_first_alert_step": 219.25,
+          "mean_temporal_rul_coverage": 0.9590769949634995,
+          "mean_temporal_tau_coverage": 0.946375101359995,
+          "tau_anytime_violation_rate": 0.16574585635359115
+        },
+        "audit_pvalue_all": {
+          "n": 34092,
+          "mean_p": 0.517331638696509,
+          "frac_le_0.1": 0.07227502053267629,
+          "frac_le_0.2": 0.16839727795377216,
+          "frac_le_0.5": 0.47896867300246393,
+          "superuniform_margin_0.1": 0.027724979467323718,
+          "superuniform_margin_0.2": 0.031602722046227855,
+          "superuniform_margin_0.5": 0.02103132699753607
+        },
+        "audit_pvalue_healthy_prefix": {
+          "n": 26513,
+          "mean_p": 0.5358920988546764,
+          "frac_le_0.1": 0.06740089767283974,
+          "frac_le_0.2": 0.1426470033568438,
+          "frac_le_0.5": 0.4456304454418587,
+          "superuniform_margin_0.1": 0.03259910232716026,
+          "superuniform_margin_0.2": 0.05735299664315621,
+          "superuniform_margin_0.5": 0.0543695545581413
+        }
+      },
+      "gates": {
+        "no_taugap_findings": 0,
+        "with_taugap_findings": 1,
+        "integrity_ok": true,
+        "regime_pvalue_ok": false
+      },
+      "ablation": [
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p05_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.012096774193548387,
+          "mean_temporal_rul_coverage": 0.968308626878567,
+          "tau_anytime_violation_rate": 0.12154696132596685,
+          "pvalue_all_frac_le_0.2": 0.13780359028511088,
+          "pvalue_healthy_frac_le_0.2": 0.11737638139780485,
+          "pvalue_all_mean": 0.5464389593789336,
+          "pvalue_healthy_mean": 0.5649681745674011
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p05_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.012096774193548387,
+          "mean_temporal_rul_coverage": 0.968308626878567,
+          "tau_anytime_violation_rate": 0.12154696132596685,
+          "pvalue_all_frac_le_0.2": 0.13780359028511088,
+          "pvalue_healthy_frac_le_0.2": 0.11737638139780485,
+          "pvalue_all_mean": 0.546439038246942,
+          "pvalue_healthy_mean": 0.5649680805539358
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p05_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.012096774193548387,
+          "mean_temporal_rul_coverage": 0.9681473961288747,
+          "tau_anytime_violation_rate": 0.1270718232044199,
+          "pvalue_all_frac_le_0.2": 0.13554499589346475,
+          "pvalue_healthy_frac_le_0.2": 0.11809301097574774,
+          "pvalue_all_mean": 0.5468097220481598,
+          "pvalue_healthy_mean": 0.5633835027020891
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.05,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p05_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.012096774193548387,
+          "mean_temporal_rul_coverage": 0.9681473961288747,
+          "tau_anytime_violation_rate": 0.1270718232044199,
+          "pvalue_all_frac_le_0.2": 0.13554499589346475,
+          "pvalue_healthy_frac_le_0.2": 0.11809301097574774,
+          "pvalue_all_mean": 0.5468097792768005,
+          "pvalue_healthy_mean": 0.5633834507051472
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p02_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9590769949634995,
+          "tau_anytime_violation_rate": 0.16574585635359115,
+          "pvalue_all_frac_le_0.2": 0.16839727795377216,
+          "pvalue_healthy_frac_le_0.2": 0.1426470033568438,
+          "pvalue_all_mean": 0.517331638696509,
+          "pvalue_healthy_mean": 0.5358920988546764
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p02_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9590769949634995,
+          "tau_anytime_violation_rate": 0.16574585635359115,
+          "pvalue_all_frac_le_0.2": 0.16839727795377216,
+          "pvalue_healthy_frac_le_0.2": 0.1426470033568438,
+          "pvalue_all_mean": 0.517331638696509,
+          "pvalue_healthy_mean": 0.5358920988546764
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p02_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9588374218352631,
+          "tau_anytime_violation_rate": 0.16574585635359115,
+          "pvalue_all_frac_le_0.2": 0.16751730611287105,
+          "pvalue_healthy_frac_le_0.2": 0.1435145023196168,
+          "pvalue_all_mean": 0.5177038361111616,
+          "pvalue_healthy_mean": 0.5342963875180906
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.02,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p02_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9588374218352631,
+          "tau_anytime_violation_rate": 0.16574585635359115,
+          "pvalue_all_frac_le_0.2": 0.16751730611287105,
+          "pvalue_healthy_frac_le_0.2": 0.1435145023196168,
+          "pvalue_all_mean": 0.5177038361111616,
+          "pvalue_healthy_mean": 0.5342963875180906
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p01_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9542748784586599,
+          "tau_anytime_violation_rate": 0.1878453038674033,
+          "pvalue_all_frac_le_0.2": 0.17898627243928195,
+          "pvalue_healthy_frac_le_0.2": 0.151133406253536,
+          "pvalue_all_mean": 0.5074563350772932,
+          "pvalue_healthy_mean": 0.526021528819839
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p01_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9542748784586599,
+          "tau_anytime_violation_rate": 0.1878453038674033,
+          "pvalue_all_frac_le_0.2": 0.17898627243928195,
+          "pvalue_healthy_frac_le_0.2": 0.151133406253536,
+          "pvalue_all_mean": 0.5074563350772932,
+          "pvalue_healthy_mean": 0.526021528819839
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p01_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.020161290322580645,
+          "mean_temporal_rul_coverage": 0.9539661880263142,
+          "tau_anytime_violation_rate": 0.1878453038674033,
+          "pvalue_all_frac_le_0.2": 0.1777836442567171,
+          "pvalue_healthy_frac_le_0.2": 0.15192547052389394,
+          "pvalue_all_mean": 0.5078271828529048,
+          "pvalue_healthy_mean": 0.524423045759015
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.01,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p01_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.020161290322580645,
+          "mean_temporal_rul_coverage": 0.9539661880263142,
+          "tau_anytime_violation_rate": 0.1878453038674033,
+          "pvalue_all_frac_le_0.2": 0.1777836442567171,
+          "pvalue_healthy_frac_le_0.2": 0.15192547052389394,
+          "pvalue_all_mean": 0.5078274328886975,
+          "pvalue_healthy_mean": 0.5244232416850323
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p0_b8_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.949792421378533,
+          "tau_anytime_violation_rate": 0.19337016574585636,
+          "pvalue_all_frac_le_0.2": 0.191129883843717,
+          "pvalue_healthy_frac_le_0.2": 0.1616188284992268,
+          "pvalue_all_mean": 0.4975074114329833,
+          "pvalue_healthy_mean": 0.516078061478422
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 8,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p0_b8_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.949792421378533,
+          "tau_anytime_violation_rate": 0.19337016574585636,
+          "pvalue_all_frac_le_0.2": 0.191129883843717,
+          "pvalue_healthy_frac_le_0.2": 0.1616188284992268,
+          "pvalue_all_mean": 0.49750713975782307,
+          "pvalue_healthy_mean": 0.516077907568928
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 128
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p0_b12_mbs128",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9494117400305012,
+          "tau_anytime_violation_rate": 0.19337016574585636,
+          "pvalue_all_frac_le_0.2": 0.1900739176346357,
+          "pvalue_healthy_frac_le_0.2": 0.16248632746199979,
+          "pvalue_all_mean": 0.4978792744230626,
+          "pvalue_healthy_mean": 0.5144786164682391
+        },
+        {
+          "config": {
+            "pvalue_safety_margin": 0.0,
+            "calibration_bins": 12,
+            "calibration_min_bin_size": 512
+          },
+          "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p0_b12_mbs512",
+          "deep_findings_no_taugap": 0,
+          "alert_rate": 0.016129032258064516,
+          "mean_temporal_rul_coverage": 0.9494117400305012,
+          "tau_anytime_violation_rate": 0.19337016574585636,
+          "pvalue_all_frac_le_0.2": 0.1900739176346357,
+          "pvalue_healthy_frac_le_0.2": 0.16248632746199979,
+          "pvalue_all_mean": 0.4978792744230626,
+          "pvalue_healthy_mean": 0.5144786164682391
+        }
+      ],
+      "ablation_best": {
+        "config": {
+          "pvalue_safety_margin": 0.05,
+          "calibration_bins": 8,
+          "calibration_min_bin_size": 512
+        },
+        "out_dir": "outputs\\phd_ultra\\fd004\\ablation\\m0p05_b8_mbs512",
+        "deep_findings_no_taugap": 0,
+        "alert_rate": 0.012096774193548387,
+        "mean_temporal_rul_coverage": 0.968308626878567,
+        "tau_anytime_violation_rate": 0.12154696132596685,
+        "pvalue_all_frac_le_0.2": 0.13780359028511088,
+        "pvalue_healthy_frac_le_0.2": 0.11737638139780485,
+        "pvalue_all_mean": 0.5464389593789336,
+        "pvalue_healthy_mean": 0.5649681745674011
+      }
+    }
+  ]
+}

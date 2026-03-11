@@ -1,0 +1,288 @@
+{
+  "inputs": {
+    "report_json": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050_report.json",
+    "topology_json": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\topology_rul_landscape.json",
+    "paper_md": "C:\\Users\\micha\\zGTFinal\\paper\\topological_evidence_curves.md"
+  },
+  "thresholds": {
+    "min_unique_topology_families": 2,
+    "min_external_baselines": 2,
+    "min_real_external_eval_datasets": 1,
+    "min_tau_identifiability_ratio": 0.75,
+    "tau_identifiability_deficit_tolerance": 0.03,
+    "max_tau_identifiability_severe_fails": 0
+  },
+  "score_10": 10.0,
+  "target_9plus_pass": true,
+  "score_10_conservative": 10.0,
+  "target_9plus_pass_conservative": true,
+  "gates": [
+    {
+      "name": "Core Validity Artifacts",
+      "pass": true,
+      "weight": 2.0,
+      "score": 2.0,
+      "details": "suspicious=0, strict_deep=0, regimes=0, unexpected_all=0"
+    },
+    {
+      "name": "Baseline Coverage/Tau Strength",
+      "pass": true,
+      "weight": 1.5,
+      "score": 1.5,
+      "details": "min_rul_cov=0.976, max_tau_v=0.079, min_tau_ident_ratio=0.754, pooled_tau_ident_ratio=0.796, required>=0.750, deficit_tolerance=0.030, severe_fail_fds=[]"
+    },
+    {
+      "name": "Seed Robustness",
+      "pass": true,
+      "weight": 2.0,
+      "score": 2.0,
+      "details": "all FD require n>=3, tau_v_max<=0.12, rul_cov_std<=0.02; failing_fds=none"
+    },
+    {
+      "name": "Split Robustness (val vs dev_holdout)",
+      "pass": true,
+      "weight": 1.0,
+      "score": 1.0,
+      "details": "require |delta_cov|<=0.03 and |delta_tau|<=0.05 per FD"
+    },
+    {
+      "name": "Topology Signal Strength",
+      "pass": true,
+      "weight": 1.5,
+      "score": 1.5,
+      "details": "raw_hits=3, unique_families=2 (required>=2), families=['persistent_valleys', 'surface_h1']"
+    },
+    {
+      "name": "Baseline Comparator Package",
+      "pass": true,
+      "weight": 1.0,
+      "score": 1.0,
+      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\baseline_comparison.json; external_baselines=4; required>=2"
+    },
+    {
+      "name": "External Dataset Generalization",
+      "pass": true,
+      "weight": 0.5,
+      "score": 0.5,
+      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=3; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3"
+    },
+    {
+      "name": "Proof Maturity",
+      "pass": true,
+      "weight": 0.5,
+      "score": 0.5,
+      "details": "paper should not rely on sketch-only theorem statements"
+    }
+  ],
+  "seed_fd_stats": [
+    {
+      "fd": 1,
+      "n": 3,
+      "tau_v_min": 0.056179775280898875,
+      "tau_v_max": 0.07865168539325842,
+      "rul_cov_std": 0.007714625909534059,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "n": 3,
+      "tau_v_min": 0.06435643564356436,
+      "tau_v_max": 0.10891089108910891,
+      "rul_cov_std": 0.006691600011194323,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "n": 3,
+      "tau_v_min": 0.023529411764705882,
+      "tau_v_max": 0.03529411764705882,
+      "rul_cov_std": 0.0021239001615971065,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "n": 3,
+      "tau_v_min": 0.0,
+      "tau_v_max": 0.016574585635359115,
+      "rul_cov_std": 0.0015250403762690605,
+      "pass_gate": true
+    }
+  ],
+  "split_deltas": [
+    {
+      "fd": 1,
+      "delta_cov_val_minus_dev": 0.011421850081565266,
+      "delta_tau_val_minus_dev": -0.02247191011235955,
+      "delta_rmse_val_minus_dev": -1.3196591787454395,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "delta_cov_val_minus_dev": -0.0010171314020128719,
+      "delta_tau_val_minus_dev": 0.0,
+      "delta_rmse_val_minus_dev": -0.891974406781646,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "delta_cov_val_minus_dev": 0.00611579243030691,
+      "delta_tau_val_minus_dev": -0.023529411764705882,
+      "delta_rmse_val_minus_dev": -1.2317836364263073,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "delta_cov_val_minus_dev": -0.0007347670250896776,
+      "delta_tau_val_minus_dev": 0.0,
+      "delta_rmse_val_minus_dev": -0.2456401748874839,
+      "pass_gate": true
+    }
+  ],
+  "tau_identifiability_by_fd": [
+    {
+      "fd": 1,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd001",
+      "num_tau_diagnostics_engines": 89,
+      "num_engines": 100,
+      "tau_identifiability_ratio": 0.89,
+      "pass_gate": true
+    },
+    {
+      "fd": 2,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd002",
+      "num_tau_diagnostics_engines": 202,
+      "num_engines": 259,
+      "tau_identifiability_ratio": 0.7799227799227799,
+      "pass_gate": true
+    },
+    {
+      "fd": 3,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd003",
+      "num_tau_diagnostics_engines": 85,
+      "num_engines": 100,
+      "tau_identifiability_ratio": 0.85,
+      "pass_gate": true
+    },
+    {
+      "fd": 4,
+      "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd004",
+      "num_tau_diagnostics_engines": 187,
+      "num_engines": 248,
+      "tau_identifiability_ratio": 0.7540322580645161,
+      "pass_gate": true
+    }
+  ],
+  "tau_identifiability_pooled_ratio": 0.7963224893917963,
+  "tau_identifiability_fail_fds": [],
+  "tau_identifiability_severe_fail_fds": [],
+  "tau_identifiability_deficits": [
+    {
+      "fd": 1,
+      "deficit_vs_threshold": 0.0
+    },
+    {
+      "fd": 2,
+      "deficit_vs_threshold": 0.0
+    },
+    {
+      "fd": 3,
+      "deficit_vs_threshold": 0.0
+    },
+    {
+      "fd": 4,
+      "deficit_vs_threshold": 0.0
+    }
+  ],
+  "external_metric_alerts": [
+    {
+      "dataset": "femto",
+      "severity": "info",
+      "message": "Near-perfect coverage/tau may indicate an overly conservative policy."
+    },
+    {
+      "dataset": "xjtu_sy",
+      "severity": "info",
+      "message": "Near-perfect coverage/tau may indicate an overly conservative policy."
+    },
+    {
+      "dataset": "cmapss",
+      "severity": "info",
+      "message": "Near-perfect coverage/tau may indicate an overly conservative policy."
+    }
+  ],
+  "external_near_perfect_count": 3,
+  "external_num_ok_datasets": 3,
+  "external_num_audited_datasets": 3,
+  "external_overconservative_strong_evidence": false,
+  "external_pvalue_overconservative_rows": [
+    {
+      "dataset": "femto",
+      "fd": 1,
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\femto_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.46801581763200745
+    },
+    {
+      "dataset": "xjtu_sy",
+      "fd": 1,
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\xjtu_sy_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.0
+    },
+    {
+      "dataset": "cmapss",
+      "fd": 1,
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\cmapss_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.19340918007061592
+    }
+  ],
+  "topology_hits_raw": [
+    {
+      "name": "corr_surface_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.49340761488077045,
+      "ci_high": -0.27680325957031454
+    },
+    {
+      "name": "corr_surface_superlevel_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.4931642590143309,
+      "ci_high": -0.28690712309274324
+    },
+    {
+      "name": "corr_mean_persistent_valleys_vs_rul_coverage",
+      "family": "persistent_valleys",
+      "corr": -0.25729058105856606,
+      "ci_low": -0.49729017575105333,
+      "ci_high": -0.01848688236138207
+    }
+  ],
+  "topology_hits_unique_family": [
+    {
+      "name": "corr_mean_persistent_valleys_vs_rul_coverage",
+      "family": "persistent_valleys",
+      "corr": -0.25729058105856606,
+      "ci_low": -0.49729017575105333,
+      "ci_high": -0.01848688236138207
+    },
+    {
+      "name": "corr_surface_h1_vs_rul_coverage",
+      "family": "surface_h1",
+      "corr": -0.39521764409881444,
+      "ci_low": -0.49340761488077045,
+      "ci_high": -0.27680325957031454
+    }
+  ],
+  "topology_unique_families": [
+    "persistent_valleys",
+    "surface_h1"
+  ],
+  "strict_regimes_report": {
+    "path": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\deep_check_regimes_stricter_strict_main.json",
+    "num_findings_total": 0
+  },
+  "risk_penalties": [],
+  "priorities": [
+    "Freeze this run as v1.0 artifact bundle and lock submission hash."
+  ]
+}

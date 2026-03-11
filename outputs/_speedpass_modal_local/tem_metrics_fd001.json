@@ -1,0 +1,4039 @@
+{
+  "fd": 1,
+  "checkpoint_leakage_flag": true,
+  "config": {
+    "alpha": 0.05,
+    "lambda_bet": 0.07,
+    "evidence_mode": "fixed_tau",
+    "gamma_crit": 1.5,
+    "width_crit": 25,
+    "min_persistence": 0.5,
+    "alert_patience": 3,
+    "compute_tau_diagnostics": true,
+    "cap_implied_rul": true,
+    "use_conditional_calibration": true,
+    "calibration_bins": 8,
+    "calibration_min_bin_size": 128,
+    "r_max": 125,
+    "window_size": 30,
+    "predict_batch_size": 8192,
+    "topology_level": "lite",
+    "surface_topology_scope": "none",
+    "save_plots": false,
+    "tau_max": 1000,
+    "checkpoint": "outputs\\_speedpass_modal_local\\model_fd001.pt",
+    "calibration": "outputs\\_speedpass_modal_local\\calibration_bundle_fd001.npz"
+  },
+  "fleet_summary": {
+    "num_engines": 100,
+    "num_tau_diagnostics_engines": 89,
+    "num_alerted": 0,
+    "alert_rate": 0.0,
+    "mean_first_alert_step": -1.0,
+    "mean_temporal_rul_coverage": 0.9744635976855411,
+    "mean_temporal_tau_coverage": 0.972370273743244,
+    "tau_anytime_violation_rate": 0.06741573033707865
+  },
+  "per_run": [
+    {
+      "run_index": 0,
+      "num_steps": 2,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 112.0,
+      "mean_gamma": 1.0012870572173624,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 113,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 2,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.19371339549629701,
+          "mean_second_h0": 0.19342239423391705,
+          "mean_gamma": 1.0012870572173624,
+          "max_gamma": 1.001989231868733,
+          "mean_persistent_valleys": 0.0,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 0.0,
+          "mean_jump": 0.0,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 1,
+      "num_steps": 20,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 98.0,
+      "mean_gamma": 1.0089448974499264,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 117,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 20,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4964546809802706,
+          "mean_second_h0": 0.4938309665983029,
+          "mean_gamma": 1.0089448974499264,
+          "max_gamma": 1.0673171260113028,
+          "mean_persistent_valleys": 1.15,
+          "mean_local_minima": 7.1
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 21.0,
+          "mean_jump": 1.105263157894737,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 2,
+      "num_steps": 97,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 69.0,
+      "mean_gamma": 3.037135396869704,
+      "mean_width": 116.0721649484536,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 165,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 97,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.49028339677366145,
+          "mean_second_h0": 0.39813769260705356,
+          "mean_gamma": 3.037135396869704,
+          "max_gamma": 18.880665925843438,
+          "mean_persistent_valleys": 1.0618556701030928,
+          "mean_local_minima": 6.680412371134021
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 123.0,
+          "mean_jump": 1.28125,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 3,
+      "num_steps": 77,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 82.0,
+      "mean_gamma": 1.0813160042829333,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 158,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 77,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4992279128642796,
+          "mean_second_h0": 0.47995528941730076,
+          "mean_gamma": 1.0813160042829333,
+          "max_gamma": 1.958495682621013,
+          "mean_persistent_valleys": 1.1818181818181819,
+          "mean_local_minima": 6.9480519480519485
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 87.0,
+          "mean_jump": 1.144736842105263,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 4,
+      "num_steps": 69,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 91.0,
+      "mean_gamma": 1.090242539515182,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 159,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 69,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.47825453167890325,
+          "mean_second_h0": 0.4615465608517247,
+          "mean_gamma": 1.090242539515182,
+          "max_gamma": 2.440506701235263,
+          "mean_persistent_valleys": 1.0869565217391304,
+          "mean_local_minima": 6.9855072463768115
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 87.0,
+          "mean_jump": 1.2794117647058822,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 5,
+      "num_steps": 76,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 93.0,
+      "mean_gamma": 1.0627204323421637,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 168,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 76,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4987926112683616,
+          "mean_second_h0": 0.48108793567674324,
+          "mean_gamma": 1.0627204323421637,
+          "max_gamma": 1.7204829738010263,
+          "mean_persistent_valleys": 1.1710526315789473,
+          "mean_local_minima": 6.9868421052631575
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 89.0,
+          "mean_jump": 1.1866666666666668,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 6,
+      "num_steps": 131,
+      "first_alert_step": -1,
+      "final_r_star": 103,
+      "final_true_rul": 91.0,
+      "mean_gamma": 1.2499574589289022,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 221,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 131,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.546920450311749,
+          "mean_second_h0": 0.45883464697138676,
+          "mean_gamma": 1.2499574589289022,
+          "max_gamma": 2.1812106870353998,
+          "mean_persistent_valleys": 1.0458015267175573,
+          "mean_local_minima": 7.137404580152672
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 103,
+          "total_variation_l1": 146.0,
+          "mean_jump": 1.123076923076923,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 7,
+      "num_steps": 137,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 95.0,
+      "mean_gamma": 1.2616181633977264,
+      "mean_width": 123.73722627737226,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 231,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 137,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.42443008960057377,
+          "mean_second_h0": 0.36745256180417785,
+          "mean_gamma": 1.2616181633977264,
+          "max_gamma": 3.046360599748551,
+          "mean_persistent_valleys": 0.7518248175182481,
+          "mean_local_minima": 6.963503649635037
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 143.0,
+          "mean_jump": 1.0514705882352942,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 8,
+      "num_steps": 26,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 111.0,
+      "mean_gamma": 1.03501670190665,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 136,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 26,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.47376804473650186,
+          "mean_second_h0": 0.4647587590931875,
+          "mean_gamma": 1.03501670190665,
+          "max_gamma": 1.3352265886226367,
+          "mean_persistent_valleys": 1.0769230769230769,
+          "mean_local_minima": 7.076923076923077
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 42,
+          "total_variation_l1": 42.0,
+          "mean_jump": 1.68,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 9,
+      "num_steps": 163,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 96.0,
+      "mean_gamma": 1.2044572217017355,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 258,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 163,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5013849752904734,
+          "mean_second_h0": 0.4275375604362404,
+          "mean_gamma": 1.2044572217017355,
+          "max_gamma": 2.2318770319987014,
+          "mean_persistent_valleys": 0.8404907975460123,
+          "mean_local_minima": 7.128834355828221
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.154320987654321,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 10,
+      "num_steps": 54,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 97.0,
+      "mean_gamma": 1.0243198815460526,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 150,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 54,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.49802984518042176,
+          "mean_second_h0": 0.49252163760048573,
+          "mean_gamma": 1.0243198815460526,
+          "max_gamma": 1.2996779664541158,
+          "mean_persistent_valleys": 1.2222222222222223,
+          "mean_local_minima": 7.037037037037037
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 58.0,
+          "mean_jump": 1.0943396226415094,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 11,
+      "num_steps": 188,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 124.0,
+      "mean_gamma": 1.334444830938695,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 311,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 188,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.47312575984538413,
+          "mean_second_h0": 0.3884650061363618,
+          "mean_gamma": 1.334444830938695,
+          "max_gamma": 3.839655108057697,
+          "mean_persistent_valleys": 0.7287234042553191,
+          "mean_local_minima": 7.095744680851064
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.0,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 12,
+      "num_steps": 166,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 95.0,
+      "mean_gamma": 1.2133518660616354,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 260,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 166,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4939880312634265,
+          "mean_second_h0": 0.42144922488781006,
+          "mean_gamma": 1.2133518660616354,
+          "max_gamma": 2.27561066312553,
+          "mean_persistent_valleys": 0.8253012048192772,
+          "mean_local_minima": 7.108433734939759
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.1333333333333333,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 13,
+      "num_steps": 17,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 107.0,
+      "mean_gamma": 1.002848383099566,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 123,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 17,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5478092462740873,
+          "mean_second_h0": 0.5462935656922371,
+          "mean_gamma": 1.002848383099566,
+          "max_gamma": 1.0068564496482002,
+          "mean_persistent_valleys": 1.411764705882353,
+          "mean_local_minima": 7.0588235294117645
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 42.0,
+          "mean_jump": 2.625,
+          "p90_jump": 10.5
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 14,
+      "num_steps": 47,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 83.0,
+      "mean_gamma": 1.156241611796792,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 129,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 47,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5402478229921387,
+          "mean_second_h0": 0.5022005413193125,
+          "mean_gamma": 1.156241611796792,
+          "max_gamma": 2.7978522299149806,
+          "mean_persistent_valleys": 1.1702127659574468,
+          "mean_local_minima": 7.170212765957447
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 476.0,
+          "mean_jump": 10.347826086956522,
+          "p90_jump": 31.5
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 15,
+      "num_steps": 84,
+      "first_alert_step": -1,
+      "final_r_star": 83,
+      "final_true_rul": 84.0,
+      "mean_gamma": 1.1679909684468623,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 167,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 84,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5791227009123611,
+          "mean_second_h0": 0.5161016738336682,
+          "mean_gamma": 1.1679909684468623,
+          "max_gamma": 2.6652520401684257,
+          "mean_persistent_valleys": 1.2380952380952381,
+          "mean_local_minima": 7.166666666666667
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 83,
+          "total_variation_l1": 618.0,
+          "mean_jump": 7.445783132530121,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 16,
+      "num_steps": 136,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 50.0,
+      "mean_gamma": 1.247749506995459,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 185,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 136,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5399987699389865,
+          "mean_second_h0": 0.4520796893160154,
+          "mean_gamma": 1.247749506995459,
+          "max_gamma": 2.4192403418308466,
+          "mean_persistent_valleys": 1.0,
+          "mean_local_minima": 7.132352941176471
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 42,
+          "total_variation_l1": 207.0,
+          "mean_jump": 1.5333333333333334,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 17,
+      "num_steps": 104,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 28.0,
+      "mean_gamma": 1.1785550131760127,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 131,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 104,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5735817162836264,
+          "mean_second_h0": 0.5024423683369771,
+          "mean_gamma": 1.1785550131760127,
+          "max_gamma": 2.396986520789457,
+          "mean_persistent_valleys": 1.2019230769230769,
+          "mean_local_minima": 7.153846153846154
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.8155339805825244,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 18,
+      "num_steps": 106,
+      "first_alert_step": -1,
+      "final_r_star": 83,
+      "final_true_rul": 87.0,
+      "mean_gamma": 1.1826695699796683,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 192,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 106,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5686468279451236,
+          "mean_second_h0": 0.4993774005129549,
+          "mean_gamma": 1.1826695699796683,
+          "max_gamma": 2.3150932031561546,
+          "mean_persistent_valleys": 1.169811320754717,
+          "mean_local_minima": 7.19811320754717
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 83,
+          "total_variation_l1": 166.0,
+          "mean_jump": 1.5809523809523809,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 19,
+      "num_steps": 155,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 16.0,
+      "mean_gamma": 1.1759458705095969,
+      "mean_width": 122.92258064516129,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 170,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 155,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.419416874475704,
+          "mean_second_h0": 0.3729191871995642,
+          "mean_gamma": 1.1759458705095969,
+          "max_gamma": 2.5665932130110884,
+          "mean_persistent_valleys": 0.6645161290322581,
+          "mean_local_minima": 6.72258064516129
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 130.0,
+          "mean_jump": 0.8441558441558441,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 20,
+      "num_steps": 119,
+      "first_alert_step": -1,
+      "final_r_star": 103,
+      "final_true_rul": 57.0,
+      "mean_gamma": 1.3160688264491025,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 175,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 119,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5854530193737518,
+          "mean_second_h0": 0.4787269014240271,
+          "mean_gamma": 1.3160688264491025,
+          "max_gamma": 2.5927627898986594,
+          "mean_persistent_valleys": 1.1764705882352942,
+          "mean_local_minima": 7.100840336134453
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 103,
+          "total_variation_l1": 146.0,
+          "mean_jump": 1.2372881355932204,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 21,
+      "num_steps": 10,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 111.0,
+      "mean_gamma": 1.0026360794880511,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 120,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 10,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5066412579292506,
+          "mean_second_h0": 0.5051338797676701,
+          "mean_gamma": 1.0026360794880511,
+          "max_gamma": 1.0042760445512144,
+          "mean_persistent_valleys": 1.2,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 21.0,
+          "mean_jump": 2.3333333333333335,
+          "p90_jump": 4.200000000000004
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 22,
+      "num_steps": 101,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 113.0,
+      "mean_gamma": 1.1928464988521743,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 213,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 101,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5600899604584352,
+          "mean_second_h0": 0.4998415092531917,
+          "mean_gamma": 1.1928464988521743,
+          "max_gamma": 3.652443602559342,
+          "mean_persistent_valleys": 1.2277227722772277,
+          "mean_local_minima": 7.198019801980198
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 1.24,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 23,
+      "num_steps": 157,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 20.0,
+      "mean_gamma": 1.2554227157918225,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 176,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 157,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4924776390759485,
+          "mean_second_h0": 0.41578584122471784,
+          "mean_gamma": 1.2554227157918225,
+          "max_gamma": 3.519819413384341,
+          "mean_persistent_valleys": 0.8726114649681529,
+          "mean_local_minima": 7.070063694267516
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.1987179487179487,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 24,
+      "num_steps": 19,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.0299356999687062,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 19,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5301025286496188,
+          "mean_second_h0": 0.5184053349049969,
+          "mean_gamma": 1.0299356999687062,
+          "max_gamma": 1.259018203119472,
+          "mean_persistent_valleys": 1.263157894736842,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 0.0,
+          "mean_jump": 0.0,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 25,
+      "num_steps": 47,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 119.0,
+      "mean_gamma": 1.170795883717557,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 165,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 47,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5400434755605684,
+          "mean_second_h0": 0.501707308515478,
+          "mean_gamma": 1.170795883717557,
+          "max_gamma": 3.315548378245496,
+          "mean_persistent_valleys": 1.1063829787234043,
+          "mean_local_minima": 7.085106382978723
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 74.0,
+          "mean_jump": 1.608695652173913,
+          "p90_jump": 3.5
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 26,
+      "num_steps": 111,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 66.0,
+      "mean_gamma": 1.2258326929490557,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 176,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 111,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5653291552400005,
+          "mean_second_h0": 0.487878331180609,
+          "mean_gamma": 1.2258326929490557,
+          "max_gamma": 2.1880892123140567,
+          "mean_persistent_valleys": 1.1531531531531531,
+          "mean_local_minima": 7.1441441441441444
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 1.7,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 27,
+      "num_steps": 129,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 97.0,
+      "mean_gamma": 1.2349745978908813,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 225,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 129,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4392230593122558,
+          "mean_second_h0": 0.3855461049742699,
+          "mean_gamma": 1.2349745978908813,
+          "max_gamma": 3.0651703228539247,
+          "mean_persistent_valleys": 0.7984496124031008,
+          "mean_local_minima": 6.976744186046512
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 149.0,
+          "mean_jump": 1.1640625,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 28,
+      "num_steps": 142,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 90.0,
+      "mean_gamma": 1.169571504739625,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 231,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 142,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.47407917444277875,
+          "mean_second_h0": 0.42283893343619644,
+          "mean_gamma": 1.169571504739625,
+          "max_gamma": 3.3055091415500506,
+          "mean_persistent_valleys": 0.7323943661971831,
+          "mean_local_minima": 7.014084507042254
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 1,
+          "total_variation_l1": 236.0,
+          "mean_jump": 1.673758865248227,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 29,
+      "num_steps": 114,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 115.0,
+      "mean_gamma": 1.6491546071235437,
+      "mean_width": 120.09649122807018,
+      "temporal_rul_coverage": 0.7719298245614035,
+      "true_tau_estimate": 228,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.7719298245614035,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 114,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.43689906230138637,
+          "mean_second_h0": 0.3605772431295762,
+          "mean_gamma": 1.6491546071235437,
+          "max_gamma": 6.595377153591485,
+          "mean_persistent_valleys": 0.8947368421052632,
+          "mean_local_minima": 6.885964912280702
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 149.0,
+          "mean_jump": 1.3185840707964602,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 30,
+      "num_steps": 167,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 8.0,
+      "mean_gamma": 1.1743788887063344,
+      "mean_width": 123.50898203592814,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 174,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 167,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.44314002188435925,
+          "mean_second_h0": 0.391646693184685,
+          "mean_gamma": 1.1743788887063344,
+          "max_gamma": 3.3536486811576185,
+          "mean_persistent_valleys": 0.6167664670658682,
+          "mean_local_minima": 6.724550898203593
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 1,
+          "total_variation_l1": 242.0,
+          "mean_jump": 1.4578313253012047,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 31,
+      "num_steps": 116,
+      "first_alert_step": -1,
+      "final_r_star": 103,
+      "final_true_rul": 48.0,
+      "mean_gamma": 1.3153152981849527,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 163,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 116,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5580592845710144,
+          "mean_second_h0": 0.4718737684185271,
+          "mean_gamma": 1.3153152981849527,
+          "max_gamma": 7.146585756443722,
+          "mean_persistent_valleys": 1.1551724137931034,
+          "mean_local_minima": 7.155172413793103
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 103,
+          "total_variation_l1": 146.0,
+          "mean_jump": 1.2695652173913043,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 32,
+      "num_steps": 21,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 106.0,
+      "mean_gamma": 1.023727350631937,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 126,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 21,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.48018590926098736,
+          "mean_second_h0": 0.4757185080093983,
+          "mean_gamma": 1.023727350631937,
+          "max_gamma": 1.2410655481116684,
+          "mean_persistent_valleys": 1.1428571428571428,
+          "mean_local_minima": 7.238095238095238
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 42,
+          "total_variation_l1": 21.0,
+          "mean_jump": 1.05,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 33,
+      "num_steps": 174,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 7.0,
+      "mean_gamma": 1.2717147878921427,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 180,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 174,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4669193409262963,
+          "mean_second_h0": 0.3958899115182472,
+          "mean_gamma": 1.2717147878921427,
+          "max_gamma": 8.505712635746637,
+          "mean_persistent_valleys": 0.7873563218390804,
+          "mean_local_minima": 7.017241379310345
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 42,
+          "total_variation_l1": 207.0,
+          "mean_jump": 1.1965317919075145,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 34,
+      "num_steps": 169,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 11.0,
+      "mean_gamma": 3.092736476577136,
+      "mean_width": 86.48520710059172,
+      "temporal_rul_coverage": 0.6982248520710059,
+      "true_tau_estimate": 179,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.6982248520710059,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 169,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.3132848707963869,
+          "mean_second_h0": 0.23873572405664564,
+          "mean_gamma": 3.092736476577136,
+          "max_gamma": 20.10045978668416,
+          "mean_persistent_valleys": 0.6094674556213018,
+          "mean_local_minima": 5.804733727810651
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 151.0,
+          "mean_jump": 0.8988095238095238,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 35,
+      "num_steps": 97,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 19.0,
+      "mean_gamma": 2.73911795078494,
+      "mean_width": 107.51546391752578,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 115,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 97,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4858954457821347,
+          "mean_second_h0": 0.39672222916332595,
+          "mean_gamma": 2.73911795078494,
+          "max_gamma": 21.53883000781094,
+          "mean_persistent_valleys": 1.0618556701030928,
+          "mean_local_minima": 5.082474226804123
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 110.0,
+          "mean_jump": 1.1458333333333333,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 36,
+      "num_steps": 92,
+      "first_alert_step": -1,
+      "final_r_star": 83,
+      "final_true_rul": 21.0,
+      "mean_gamma": 1.1823831028746719,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 112,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 92,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5761897151555604,
+          "mean_second_h0": 0.5047954616439099,
+          "mean_gamma": 1.1823831028746719,
+          "max_gamma": 2.308411359151617,
+          "mean_persistent_valleys": 1.2282608695652173,
+          "mean_local_minima": 7.217391304347826
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 83,
+          "total_variation_l1": 166.0,
+          "mean_jump": 1.8241758241758241,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 37,
+      "num_steps": 96,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 50.0,
+      "mean_gamma": 6.857790300685892,
+      "mean_width": 107.96875,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 145,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 96,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.48181766257363695,
+          "mean_second_h0": 0.3918918328262258,
+          "mean_gamma": 6.857790300685892,
+          "max_gamma": 362.4649036624877,
+          "mean_persistent_valleys": 1.0520833333333333,
+          "mean_local_minima": 4.708333333333333
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 68.0,
+          "mean_jump": 0.7157894736842105,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 38,
+      "num_steps": 8,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.005069304602907,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 8,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4607382405270635,
+          "mean_second_h0": 0.45784853969388173,
+          "mean_gamma": 1.005069304602907,
+          "max_gamma": 1.0093727468629088,
+          "mean_persistent_valleys": 1.0,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 20.0,
+          "mean_jump": 2.857142857142857,
+          "p90_jump": 8.000000000000007
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 39,
+      "num_steps": 104,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 28.0,
+      "mean_gamma": 17.2057697419461,
+      "mean_width": 104.32692307692308,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 131,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 104,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.46410017018031524,
+          "mean_second_h0": 0.362628569075678,
+          "mean_gamma": 17.2057697419461,
+          "max_gamma": 657.7154307739397,
+          "mean_persistent_valleys": 0.9711538461538461,
+          "mean_local_minima": 4.596153846153846
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 120.0,
+          "mean_jump": 1.1650485436893203,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 40,
+      "num_steps": 94,
+      "first_alert_step": -1,
+      "final_r_star": 83,
+      "final_true_rul": 18.0,
+      "mean_gamma": 1.1636634104029249,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 111,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 94,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5786472877206768,
+          "mean_second_h0": 0.5108810852169148,
+          "mean_gamma": 1.1636634104029249,
+          "max_gamma": 2.1926245801657256,
+          "mean_persistent_valleys": 1.2340425531914894,
+          "mean_local_minima": 7.170212765957447
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 83,
+          "total_variation_l1": 166.0,
+          "mean_jump": 1.7849462365591398,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 41,
+      "num_steps": 127,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 10.0,
+      "mean_gamma": 1.3142247926912418,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 136,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 127,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.553847300416155,
+          "mean_second_h0": 0.454810818103947,
+          "mean_gamma": 1.3142247926912418,
+          "max_gamma": 2.868095689550723,
+          "mean_persistent_valleys": 1.0708661417322836,
+          "mean_local_minima": 7.102362204724409
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 42,
+          "total_variation_l1": 207.0,
+          "mean_jump": 1.6428571428571428,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 42,
+      "num_steps": 143,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 59.0,
+      "mean_gamma": 1.1769893641596216,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 201,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 143,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.428844042634477,
+          "mean_second_h0": 0.38081713951274626,
+          "mean_gamma": 1.1769893641596216,
+          "max_gamma": 2.5834157212433,
+          "mean_persistent_valleys": 0.7132867132867133,
+          "mean_local_minima": 6.958041958041958
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 174.0,
+          "mean_jump": 1.2253521126760563,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 43,
+      "num_steps": 25,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 109.0,
+      "mean_gamma": 1.1440861367871566,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 133,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 25,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.48804084352077,
+          "mean_second_h0": 0.46364724414024544,
+          "mean_gamma": 1.1440861367871566,
+          "max_gamma": 2.6858846153925295,
+          "mean_persistent_valleys": 1.04,
+          "mean_local_minima": 6.88
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 42,
+          "total_variation_l1": 42.0,
+          "mean_jump": 1.75,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 44,
+      "num_steps": 123,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 114.0,
+      "mean_gamma": 1.9644163710135485,
+      "mean_width": 110.86178861788618,
+      "temporal_rul_coverage": 0.5853658536585366,
+      "true_tau_estimate": 236,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.5853658536585366,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 123,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4078374732318897,
+          "mean_second_h0": 0.3270188790984032,
+          "mean_gamma": 1.9644163710135485,
+          "max_gamma": 8.128218484272512,
+          "mean_persistent_valleys": 0.8292682926829268,
+          "mean_local_minima": 6.813008130081301
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 135.0,
+          "mean_jump": 1.1065573770491803,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 45,
+      "num_steps": 117,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 47.0,
+      "mean_gamma": 1.2844594641544895,
+      "mean_width": 123.73504273504274,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 163,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 117,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4586782567568259,
+          "mean_second_h0": 0.39510698594545884,
+          "mean_gamma": 1.2844594641544895,
+          "max_gamma": 3.1063223643549613,
+          "mean_persistent_valleys": 0.8717948717948718,
+          "mean_local_minima": 6.846153846153846
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 145.0,
+          "mean_jump": 1.25,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 46,
+      "num_steps": 44,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.0272164831783626,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 44,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.47019407409174313,
+          "mean_second_h0": 0.4638208139410322,
+          "mean_gamma": 1.0272164831783626,
+          "max_gamma": 1.27134292838566,
+          "mean_persistent_valleys": 1.0909090909090908,
+          "mean_local_minima": 7.113636363636363
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 46.0,
+          "mean_jump": 1.069767441860465,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 47,
+      "num_steps": 49,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 92.0,
+      "mean_gamma": 1.0969544002111538,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 140,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 49,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5056457358049877,
+          "mean_second_h0": 0.4866092174602409,
+          "mean_gamma": 1.0969544002111538,
+          "max_gamma": 2.721906393128753,
+          "mean_persistent_valleys": 1.1428571428571428,
+          "mean_local_minima": 6.8979591836734695
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 69.0,
+          "mean_jump": 1.4375,
+          "p90_jump": 0.9000000000000128
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 48,
+      "num_steps": 274,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 21.0,
+      "mean_gamma": 1.3671568093213187,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 294,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 274,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.41812281004711355,
+          "mean_second_h0": 0.3389444733077166,
+          "mean_gamma": 1.3671568093213187,
+          "max_gamma": 4.222705263775547,
+          "mean_persistent_valleys": 0.5,
+          "mean_local_minima": 6.930656934306569
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 1,
+          "total_variation_l1": 248.0,
+          "mean_jump": 0.9084249084249084,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 49,
+      "num_steps": 45,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 79.0,
+      "mean_gamma": 1.1261395358130661,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 123,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 45,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5176153638678489,
+          "mean_second_h0": 0.4935973177472237,
+          "mean_gamma": 1.1261395358130661,
+          "max_gamma": 3.038473433635409,
+          "mean_persistent_valleys": 1.0666666666666667,
+          "mean_local_minima": 6.977777777777778
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 82.0,
+          "mean_jump": 1.8636363636363635,
+          "p90_jump": 7.000000000000028
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 50,
+      "num_steps": 115,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 114.0,
+      "mean_gamma": 1.208924959940444,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 228,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 115,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4737719793060109,
+          "mean_second_h0": 0.41732569839905814,
+          "mean_gamma": 1.208924959940444,
+          "max_gamma": 2.600961288368305,
+          "mean_persistent_valleys": 0.8869565217391304,
+          "mean_local_minima": 6.973913043478261
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 130.0,
+          "mean_jump": 1.1403508771929824,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 51,
+      "num_steps": 160,
+      "first_alert_step": -1,
+      "final_r_star": 83,
+      "final_true_rul": 29.0,
+      "mean_gamma": 3.834536702653577,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 188,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 160,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4846609650584712,
+          "mean_second_h0": 0.3508474580942267,
+          "mean_gamma": 3.834536702653577,
+          "max_gamma": 176.907070225376,
+          "mean_persistent_valleys": 0.85625,
+          "mean_local_minima": 6.8625
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 83,
+          "total_variation_l1": 166.0,
+          "mean_jump": 1.0440251572327044,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 52,
+      "num_steps": 135,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 26.0,
+      "mean_gamma": 1.183568767264217,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 160,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 135,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.462604458580387,
+          "mean_second_h0": 0.4106573224267867,
+          "mean_gamma": 1.183568767264217,
+          "max_gamma": 2.982282379427748,
+          "mean_persistent_valleys": 0.762962962962963,
+          "mean_local_minima": 6.911111111111111
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 202.0,
+          "mean_jump": 1.507462686567164,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 53,
+      "num_steps": 92,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 97.0,
+      "mean_gamma": 1.5010278236640489,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 188,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 92,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5497884385585925,
+          "mean_second_h0": 0.49811406297271643,
+          "mean_gamma": 1.5010278236640489,
+          "max_gamma": 31.269605327885078,
+          "mean_persistent_valleys": 1.2173913043478262,
+          "mean_local_minima": 7.043478260869565
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 1.3626373626373627,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 54,
+      "num_steps": 84,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.0951860850654442,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 84,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5119165880494991,
+          "mean_second_h0": 0.48588748712058677,
+          "mean_gamma": 1.0951860850654442,
+          "max_gamma": 2.5258182549881547,
+          "mean_persistent_valleys": 1.0952380952380953,
+          "mean_local_minima": 6.988095238095238
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 96.0,
+          "mean_jump": 1.1566265060240963,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 55,
+      "num_steps": 107,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 15.0,
+      "mean_gamma": 2.064601890662347,
+      "mean_width": 109.64485981308411,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 121,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 107,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.46784109667953755,
+          "mean_second_h0": 0.37635801223245435,
+          "mean_gamma": 2.064601890662347,
+          "max_gamma": 8.043222921349734,
+          "mean_persistent_valleys": 0.9626168224299065,
+          "mean_local_minima": 7.158878504672897
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 130.0,
+          "mean_jump": 1.2264150943396226,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 56,
+      "num_steps": 131,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 103.0,
+      "mean_gamma": 1.3229898773943947,
+      "mean_width": 123.1526717557252,
+      "temporal_rul_coverage": 0.9236641221374046,
+      "true_tau_estimate": 233,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.9236641221374046,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 131,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.43217769002459316,
+          "mean_second_h0": 0.36478943872043906,
+          "mean_gamma": 1.3229898773943947,
+          "max_gamma": 3.2196258382712983,
+          "mean_persistent_valleys": 0.7786259541984732,
+          "mean_local_minima": 6.931297709923665
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 135.0,
+          "mean_jump": 1.0384615384615385,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 57,
+      "num_steps": 147,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 37.0,
+      "mean_gamma": 1.1689682052384007,
+      "mean_width": 124.96598639455782,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 183,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 147,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.43775888855676565,
+          "mean_second_h0": 0.39053439655837285,
+          "mean_gamma": 1.1689682052384007,
+          "max_gamma": 2.731525509580803,
+          "mean_persistent_valleys": 0.7006802721088435,
+          "mean_local_minima": 6.877551020408164
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 178.0,
+          "mean_jump": 1.2191780821917808,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 58,
+      "num_steps": 65,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 114.0,
+      "mean_gamma": 1.2142927111565895,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 178,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 65,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5468684037434499,
+          "mean_second_h0": 0.49021051386420106,
+          "mean_gamma": 1.2142927111565895,
+          "max_gamma": 3.763767158441929,
+          "mean_persistent_valleys": 1.1538461538461537,
+          "mean_local_minima": 7.230769230769231
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 1.9375,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 59,
+      "num_steps": 118,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 100.0,
+      "mean_gamma": 1.2544381572949495,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 217,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 118,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.45849449131346154,
+          "mean_second_h0": 0.40058074007441546,
+          "mean_gamma": 1.2544381572949495,
+          "max_gamma": 3.1035332675994955,
+          "mean_persistent_valleys": 0.8728813559322034,
+          "mean_local_minima": 6.889830508474576
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 143.0,
+          "mean_jump": 1.2222222222222223,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 60,
+      "num_steps": 130,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 21.0,
+      "mean_gamma": 1.28188858969048,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 150,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 130,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5440135216355677,
+          "mean_second_h0": 0.4515881682873478,
+          "mean_gamma": 1.28188858969048,
+          "max_gamma": 2.6712700853878113,
+          "mean_persistent_valleys": 1.0461538461538462,
+          "mean_local_minima": 7.030769230769231
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 42,
+          "total_variation_l1": 207.0,
+          "mean_jump": 1.6046511627906976,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 61,
+      "num_steps": 203,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 54.0,
+      "mean_gamma": 2.9998558214668676,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 256,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 203,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4283220089216995,
+          "mean_second_h0": 0.31530377634201706,
+          "mean_gamma": 2.9998558214668676,
+          "max_gamma": 20.26664680888624,
+          "mean_persistent_valleys": 0.6748768472906403,
+          "mean_local_minima": 7.098522167487685
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 187.0,
+          "mean_jump": 0.9257425742574258,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 62,
+      "num_steps": 126,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 72.0,
+      "mean_gamma": 1.3952956564034773,
+      "mean_width": 119.33333333333333,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 197,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 126,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4200202857702016,
+          "mean_second_h0": 0.3528959263571187,
+          "mean_gamma": 1.3952956564034773,
+          "max_gamma": 4.182122260668573,
+          "mean_persistent_valleys": 0.8095238095238095,
+          "mean_local_minima": 6.896825396825397
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 141.0,
+          "mean_jump": 1.128,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 63,
+      "num_steps": 139,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 28.0,
+      "mean_gamma": 1.1953439000855288,
+      "mean_width": 124.29496402877697,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 166,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 139,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.43723882673404896,
+          "mean_second_h0": 0.3858802060952988,
+          "mean_gamma": 1.1953439000855288,
+          "max_gamma": 2.597549849437325,
+          "mean_persistent_valleys": 0.7338129496402878,
+          "mean_local_minima": 6.762589928057554
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 132.0,
+          "mean_jump": 0.9565217391304348,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 64,
+      "num_steps": 42,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.2872873389852586,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 42,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5399702682318531,
+          "mean_second_h0": 0.49321596867175155,
+          "mean_gamma": 1.2872873389852586,
+          "max_gamma": 7.457346476409494,
+          "mean_persistent_valleys": 1.1904761904761905,
+          "mean_local_minima": 7.404761904761905
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 3.024390243902439,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 65,
+      "num_steps": 118,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 14.0,
+      "mean_gamma": 1.4963933415933264,
+      "mean_width": 115.23728813559322,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 131,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 118,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.43186995548288454,
+          "mean_second_h0": 0.3610059975551398,
+          "mean_gamma": 1.4963933415933264,
+          "max_gamma": 5.034064052274529,
+          "mean_persistent_valleys": 0.8559322033898306,
+          "mean_local_minima": 6.203389830508475
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 183.0,
+          "mean_jump": 1.564102564102564,
+          "p90_jump": 3.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 66,
+      "num_steps": 42,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 77.0,
+      "mean_gamma": 1.11105069009692,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 118,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 42,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5134841453306689,
+          "mean_second_h0": 0.4914585820087787,
+          "mean_gamma": 1.11105069009692,
+          "max_gamma": 2.536134073356114,
+          "mean_persistent_valleys": 1.1428571428571428,
+          "mean_local_minima": 6.928571428571429
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 48.0,
+          "mean_jump": 1.170731707317073,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 67,
+      "num_steps": 158,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 8.0,
+      "mean_gamma": 1.163797182238746,
+      "mean_width": 122.22784810126582,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 165,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 158,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.41735736993456063,
+          "mean_second_h0": 0.3730957055188373,
+          "mean_gamma": 1.163797182238746,
+          "max_gamma": 2.569585195992713,
+          "mean_persistent_valleys": 0.6518987341772152,
+          "mean_local_minima": 6.651898734177215
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 136.0,
+          "mean_jump": 0.8662420382165605,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 68,
+      "num_steps": 25,
+      "first_alert_step": -1,
+      "final_r_star": 42,
+      "final_true_rul": 121.0,
+      "mean_gamma": 1.1457729483589105,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 145,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 25,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4872397206219711,
+          "mean_second_h0": 0.464204949476655,
+          "mean_gamma": 1.1457729483589105,
+          "max_gamma": 2.775700554039089,
+          "mean_persistent_valleys": 1.04,
+          "mean_local_minima": 6.84
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 42,
+          "total_variation_l1": 42.0,
+          "mean_jump": 1.75,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 69,
+      "num_steps": 123,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 94.0,
+      "mean_gamma": 1.228627845896919,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 216,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 123,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4571280683413393,
+          "mean_second_h0": 0.40061982095807347,
+          "mean_gamma": 1.228627845896919,
+          "max_gamma": 2.8717424460183536,
+          "mean_persistent_valleys": 0.8292682926829268,
+          "mean_local_minima": 6.943089430894309
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 145.0,
+          "mean_jump": 1.1885245901639345,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 70,
+      "num_steps": 39,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 118.0,
+      "mean_gamma": 1.1732099244365515,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 156,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 39,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5535532523900366,
+          "mean_second_h0": 0.5185340320810595,
+          "mean_gamma": 1.1732099244365515,
+          "max_gamma": 3.319202550975428,
+          "mean_persistent_valleys": 1.2307692307692308,
+          "mean_local_minima": 6.897435897435898
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 142.0,
+          "mean_jump": 3.736842105263158,
+          "p90_jump": 20.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 71,
+      "num_steps": 102,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 50.0,
+      "mean_gamma": 1.1901707835929671,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 151,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 102,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5320480118188545,
+          "mean_second_h0": 0.4735541188925403,
+          "mean_gamma": 1.1901707835929671,
+          "max_gamma": 3.382805554720752,
+          "mean_persistent_valleys": 1.0098039215686274,
+          "mean_local_minima": 7.068627450980392
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 180.0,
+          "mean_jump": 1.7821782178217822,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 72,
+      "num_steps": 83,
+      "first_alert_step": -1,
+      "final_r_star": 103,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.2064381186563558,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 83,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5716135353491972,
+          "mean_second_h0": 0.5039100009459314,
+          "mean_gamma": 1.2064381186563558,
+          "max_gamma": 2.4614568447096117,
+          "mean_persistent_valleys": 1.2048192771084338,
+          "mean_local_minima": 7.168674698795181
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 103,
+          "total_variation_l1": 146.0,
+          "mean_jump": 1.7804878048780488,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 73,
+      "num_steps": 108,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.2824060494234688,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 108,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4790905634146593,
+          "mean_second_h0": 0.41496663077354207,
+          "mean_gamma": 1.2824060494234688,
+          "max_gamma": 3.1032365408029063,
+          "mean_persistent_valleys": 0.9537037037037037,
+          "mean_local_minima": 6.944444444444445
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 149.0,
+          "mean_jump": 1.3925233644859814,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 74,
+      "num_steps": 59,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 113.0,
+      "mean_gamma": 1.0864369012877264,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 171,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 59,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5234704699837261,
+          "mean_second_h0": 0.5044906830228141,
+          "mean_gamma": 1.0864369012877264,
+          "max_gamma": 2.5106743261755766,
+          "mean_persistent_valleys": 1.1864406779661016,
+          "mean_local_minima": 6.966101694915254
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 88.0,
+          "mean_jump": 1.5172413793103448,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 75,
+      "num_steps": 176,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 10.0,
+      "mean_gamma": 1.2709806432729136,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 185,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 176,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4926882056642818,
+          "mean_second_h0": 0.40901094171944313,
+          "mean_gamma": 1.2709806432729136,
+          "max_gamma": 2.5003177957510747,
+          "mean_persistent_valleys": 0.7784090909090909,
+          "mean_local_minima": 6.880681818181818
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 228.0,
+          "mean_jump": 1.302857142857143,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 76,
+      "num_steps": 133,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 34.0,
+      "mean_gamma": 1.1787891022686203,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 166,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 133,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.454512634243272,
+          "mean_second_h0": 0.4039630699009499,
+          "mean_gamma": 1.1787891022686203,
+          "max_gamma": 2.572824064250261,
+          "mean_persistent_valleys": 0.7744360902255639,
+          "mean_local_minima": 6.93984962406015
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 194.0,
+          "mean_jump": 1.4696969696969697,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 77,
+      "num_steps": 43,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 107.0,
+      "mean_gamma": 1.6243537480610448,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 149,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 43,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5337297481191102,
+          "mean_second_h0": 0.48739355876013796,
+          "mean_gamma": 1.6243537480610448,
+          "max_gamma": 22.167249231760845,
+          "mean_persistent_valleys": 1.1627906976744187,
+          "mean_local_minima": 7.27906976744186
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 2.9523809523809526,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 78,
+      "num_steps": 72,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 63.0,
+      "mean_gamma": 1.095035719899717,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 134,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 72,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.518605218996484,
+          "mean_second_h0": 0.49438644669268783,
+          "mean_gamma": 1.095035719899717,
+          "max_gamma": 2.5316937961112105,
+          "mean_persistent_valleys": 1.1527777777777777,
+          "mean_local_minima": 6.944444444444445
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 68.0,
+          "mean_jump": 0.9577464788732394,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 79,
+      "num_steps": 104,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 90.0,
+      "mean_gamma": 1.2490411367230234,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 193,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 104,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.49838932180853346,
+          "mean_second_h0": 0.43260728471831594,
+          "mean_gamma": 1.2490411367230234,
+          "max_gamma": 2.6226612374092486,
+          "mean_persistent_valleys": 0.9807692307692307,
+          "mean_local_minima": 6.9423076923076925
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 132.0,
+          "mean_jump": 1.2815533980582525,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 80,
+      "num_steps": 184,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 8.0,
+      "mean_gamma": 1.1337502450821892,
+      "mean_width": 120.47282608695652,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 191,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 184,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4028461339501436,
+          "mean_second_h0": 0.3646124438932046,
+          "mean_gamma": 1.1337502450821892,
+          "max_gamma": 2.899412578239845,
+          "mean_persistent_valleys": 0.5652173913043478,
+          "mean_local_minima": 6.641304347826087
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 1,
+          "total_variation_l1": 160.0,
+          "mean_jump": 0.8743169398907104,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 81,
+      "num_steps": 133,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 9.0,
+      "mean_gamma": 1.1825318291076379,
+      "mean_width": 124.32330827067669,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 141,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 133,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4504133853182208,
+          "mean_second_h0": 0.39943604336777605,
+          "mean_gamma": 1.1825318291076379,
+          "max_gamma": 2.4625797738651687,
+          "mean_persistent_valleys": 0.7744360902255639,
+          "mean_local_minima": 6.864661654135339
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 126.0,
+          "mean_jump": 0.9545454545454546,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 82,
+      "num_steps": 44,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.1088903356489082,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 44,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5040642913949319,
+          "mean_second_h0": 0.4820009541410975,
+          "mean_gamma": 1.1088903356489082,
+          "max_gamma": 2.5731339079107776,
+          "mean_persistent_valleys": 1.0909090909090908,
+          "mean_local_minima": 6.886363636363637
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 48.0,
+          "mean_jump": 1.1162790697674418,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 83,
+      "num_steps": 143,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 58.0,
+      "mean_gamma": 1.2278341904423016,
+      "mean_width": 122.32867132867133,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 200,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 143,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4163388380095954,
+          "mean_second_h0": 0.36448578447002805,
+          "mean_gamma": 1.2278341904423016,
+          "max_gamma": 3.0435886912599073,
+          "mean_persistent_valleys": 0.7202797202797203,
+          "mean_local_minima": 6.7972027972027975
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 152.0,
+          "mean_jump": 1.0704225352112675,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 84,
+      "num_steps": 5,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 118.0,
+      "mean_gamma": 1.0027319742576644,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 122,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 5,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.34531056866763804,
+          "mean_second_h0": 0.3442071370514573,
+          "mean_gamma": 1.0027319742576644,
+          "max_gamma": 1.0040596490935834,
+          "mean_persistent_valleys": 0.4,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 21.0,
+          "mean_jump": 5.25,
+          "p90_jump": 14.700000000000003
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 85,
+      "num_steps": 81,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 89.0,
+      "mean_gamma": 1.0818459472263342,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 169,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 81,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.502249100407093,
+          "mean_second_h0": 0.48176864494540544,
+          "mean_gamma": 1.0818459472263342,
+          "max_gamma": 2.6925956457637383,
+          "mean_persistent_valleys": 1.1358024691358024,
+          "mean_local_minima": 6.962962962962963
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 95.0,
+          "mean_jump": 1.1875,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 86,
+      "num_steps": 27,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 116.0,
+      "mean_gamma": 1.2107514970101148,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 142,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 27,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5382947062557247,
+          "mean_second_h0": 0.48883713377196486,
+          "mean_gamma": 1.2107514970101148,
+          "max_gamma": 2.640873929911453,
+          "mean_persistent_valleys": 1.1851851851851851,
+          "mean_local_minima": 6.851851851851852
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 4.769230769230769,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 87,
+      "num_steps": 39,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 115.0,
+      "mean_gamma": 1.0304261530894383,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 153,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 39,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5090862667282315,
+          "mean_second_h0": 0.5005776229241843,
+          "mean_gamma": 1.0304261530894383,
+          "max_gamma": 1.4186923485076932,
+          "mean_persistent_valleys": 1.205128205128205,
+          "mean_local_minima": 7.0
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 21,
+          "total_variation_l1": 63.0,
+          "mean_jump": 1.6578947368421053,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 88,
+      "num_steps": 148,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.235918134814589,
+      "mean_width": 123.4391891891892,
+      "temporal_rul_coverage": 0.9054054054054054,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 148,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4106954391556881,
+          "mean_second_h0": 0.35790069924023876,
+          "mean_gamma": 1.235918134814589,
+          "max_gamma": 2.997451784420162,
+          "mean_persistent_valleys": 0.6891891891891891,
+          "mean_local_minima": 6.966216216216216
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 143.0,
+          "mean_jump": 0.9727891156462585,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 89,
+      "num_steps": 117,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 28.0,
+      "mean_gamma": 1.2575725217719034,
+      "mean_width": 123.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 144,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 117,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4563340269222807,
+          "mean_second_h0": 0.3971222891183777,
+          "mean_gamma": 1.2575725217719034,
+          "max_gamma": 2.9359390430170134,
+          "mean_persistent_valleys": 0.8803418803418803,
+          "mean_local_minima": 6.760683760683761
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 143.0,
+          "mean_jump": 1.2327586206896552,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 90,
+      "num_steps": 205,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 38.0,
+      "mean_gamma": 3.326368235170921,
+      "mean_width": 69.52682926829269,
+      "temporal_rul_coverage": 0.2780487804878049,
+      "true_tau_estimate": 242,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.2780487804878049,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 205,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.26599246696442264,
+          "mean_second_h0": 0.1996635588722287,
+          "mean_gamma": 3.326368235170921,
+          "max_gamma": 30.604820905217426,
+          "mean_persistent_valleys": 0.5024390243902439,
+          "mean_local_minima": 6.058536585365854
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 134.0,
+          "mean_jump": 0.6568627450980392,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 91,
+      "num_steps": 121,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 20.0,
+      "mean_gamma": 3.0352635627141034,
+      "mean_width": 107.69421487603306,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 140,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 121,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4217757526997155,
+          "mean_second_h0": 0.3274387388235931,
+          "mean_gamma": 3.0352635627141034,
+          "max_gamma": 19.27016839827261,
+          "mean_persistent_valleys": 0.8512396694214877,
+          "mean_local_minima": 6.950413223140496
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 155.0,
+          "mean_jump": 1.2916666666666667,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 92,
+      "num_steps": 215,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 85.0,
+      "mean_gamma": 4.5356426119293,
+      "mean_width": 68.15813953488372,
+      "temporal_rul_coverage": 0.2837209302325581,
+      "true_tau_estimate": 299,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 0.2837209302325581,
+      "tau_anytime_violation": true,
+      "marginal_evidence_topology": {
+        "n_steps": 215,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.23397945734813314,
+          "mean_second_h0": 0.18384199339798304,
+          "mean_gamma": 4.5356426119293,
+          "max_gamma": 123.40876858567299,
+          "mean_persistent_valleys": 0.4790697674418605,
+          "mean_local_minima": 4.4186046511627906
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 112.0,
+          "mean_jump": 0.5233644859813084,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 93,
+      "num_steps": 104,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 55.0,
+      "mean_gamma": 1.9831939328639157,
+      "mean_width": 117.78846153846153,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 158,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 104,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.4691460962024826,
+          "mean_second_h0": 0.38178083991301415,
+          "mean_gamma": 1.9831939328639157,
+          "max_gamma": 9.306234343936442,
+          "mean_persistent_valleys": 0.9807692307692307,
+          "mean_local_minima": 6.519230769230769
+        },
+        "ridge": {
+          "r_star_start": 42,
+          "r_star_end": 1,
+          "total_variation_l1": 129.0,
+          "mean_jump": 1.2524271844660195,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 94,
+      "num_steps": 60,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.0894357674622104,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 60,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5276011706212664,
+          "mean_second_h0": 0.5091349212200829,
+          "mean_gamma": 1.0894357674622104,
+          "max_gamma": 2.865472937931701,
+          "mean_persistent_valleys": 1.1666666666666667,
+          "mean_local_minima": 6.983333333333333
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 21,
+          "total_variation_l1": 62.0,
+          "mean_jump": 1.0508474576271187,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 95,
+      "num_steps": 68,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 125.0,
+      "mean_gamma": 1.204078651861609,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": null,
+      "tau_diagnostics_available": false,
+      "temporal_tau_coverage": null,
+      "tau_anytime_violation": null,
+      "marginal_evidence_topology": {
+        "n_steps": 68,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5495132252460253,
+          "mean_second_h0": 0.49402931496712577,
+          "mean_gamma": 1.204078651861609,
+          "max_gamma": 3.4245436892930603,
+          "mean_persistent_valleys": 1.1911764705882353,
+          "mean_local_minima": 7.220588235294118
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 1.8507462686567164,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 96,
+      "num_steps": 105,
+      "first_alert_step": -1,
+      "final_r_star": 62,
+      "final_true_rul": 82.0,
+      "mean_gamma": 1.183135398107722,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 186,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 105,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.573693859567579,
+          "mean_second_h0": 0.5086708117931916,
+          "mean_gamma": 1.183135398107722,
+          "max_gamma": 2.8530216960775143,
+          "mean_persistent_valleys": 1.2476190476190476,
+          "mean_local_minima": 7.038095238095238
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 62,
+          "total_variation_l1": 929.0,
+          "mean_jump": 8.932692307692308,
+          "p90_jump": 14.000000000000057
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 97,
+      "num_steps": 92,
+      "first_alert_step": -1,
+      "final_r_star": 1,
+      "final_true_rul": 59.0,
+      "mean_gamma": 1.1960451317354672,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 150,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 92,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5033203923184707,
+          "mean_second_h0": 0.45200247403241195,
+          "mean_gamma": 1.1960451317354672,
+          "max_gamma": 2.747310802785636,
+          "mean_persistent_valleys": 1.0543478260869565,
+          "mean_local_minima": 6.967391304347826
+        },
+        "ridge": {
+          "r_star_start": 21,
+          "r_star_end": 1,
+          "total_variation_l1": 132.0,
+          "mean_jump": 1.4505494505494505,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 98,
+      "num_steps": 68,
+      "first_alert_step": -1,
+      "final_r_star": 125,
+      "final_true_rul": 117.0,
+      "mean_gamma": 1.4330107063932367,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 184,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 68,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.5436498985205576,
+          "mean_second_h0": 0.49352599749086357,
+          "mean_gamma": 1.4330107063932367,
+          "max_gamma": 20.466807442846523,
+          "mean_persistent_valleys": 1.1911764705882353,
+          "mean_local_minima": 7.220588235294118
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 125,
+          "total_variation_l1": 124.0,
+          "mean_jump": 1.8507462686567164,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    },
+    {
+      "run_index": 99,
+      "num_steps": 169,
+      "first_alert_step": -1,
+      "final_r_star": 21,
+      "final_true_rul": 20.0,
+      "mean_gamma": 1.3056756425220224,
+      "mean_width": 125.0,
+      "temporal_rul_coverage": 1.0,
+      "true_tau_estimate": 188,
+      "tau_diagnostics_available": true,
+      "temporal_tau_coverage": 1.0,
+      "tau_anytime_violation": false,
+      "marginal_evidence_topology": {
+        "n_steps": 169,
+        "r_max": 125,
+        "curve_backend": "lite_precomputed_top2",
+        "curve": {
+          "mean_max_h0": 0.531907733140624,
+          "mean_second_h0": 0.42877472575072434,
+          "mean_gamma": 1.3056756425220224,
+          "max_gamma": 3.0589211559851504,
+          "mean_persistent_valleys": 0.8875739644970414,
+          "mean_local_minima": 7.011834319526627
+        },
+        "ridge": {
+          "r_star_start": 1,
+          "r_star_end": 21,
+          "total_variation_l1": 228.0,
+          "mean_jump": 1.3571428571428572,
+          "p90_jump": 0.0
+        },
+        "surface": {
+          "backend": "skipped"
+        }
+      },
+      "surface_topology": {
+        "backend": "skipped"
+      }
+    }
+  ]
+}
