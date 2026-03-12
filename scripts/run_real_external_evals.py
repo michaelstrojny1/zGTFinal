@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
 import sys
 import traceback
 import zlib
@@ -98,6 +99,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--out-root", type=str, default="outputs/external_real_eval")
     p.add_argument("--out-json", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--out-md", type=str, default="outputs/external_performance_report.md")
+    p.add_argument(
+        "--reuse-artifacts-root",
+        type=str,
+        default="",
+        help=(
+            "Optional root containing pre-trained per-dataset artifacts "
+            "(checkpoint + calibration_bundle). If provided, training is skipped "
+            "and policy is replayed with the loaded model/calibration."
+        ),
+    )
     return p.parse_args()
 
 
@@ -358,36 +369,74 @@ def _evaluate_one_dataset(
         prefetch_factor=int(args.prefetch_factor),
     )
 
-    model = FastRULNet(
-        in_channels=int(train_x.shape[1]),
-        hidden=int(hidden),
-        depth=int(depth),
-        dropout=float(dropout),
-    )
+    ckpt_path = ds_dir / f"model_fd{int(args.fd):03d}.pt"
+    cal_bundle_path = ds_dir / f"calibration_bundle_fd{int(args.fd):03d}.npz"
+    train_metrics_path = ds_dir / f"train_metrics_fd{int(args.fd):03d}.json"
+    tem_metrics_path = ds_dir / f"tem_metrics_fd{int(args.fd):03d}.json"
+
+    reuse_root_raw = str(getattr(args, "reuse_artifacts_root", "")).strip()
+    reuse_mode = bool(reuse_root_raw)
     compile_requested = bool(use_compile)
     compile_used = bool(use_compile)
     compile_fallback_reason = ""
-    try:
-        result = train_model(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            device=device,
-            epochs=int(epochs),
-            lr=float(lr),
-            weight_decay=float(weight_decay),
-            amp=use_amp,
-            compile_model=compile_used,
-            low_rul_loss_weight=float(loss_weight_used),
-            low_rul_threshold=float(low_rul_threshold),
-            low_rul_weight_power=float(low_rul_weight_power),
+    training_seconds = 0.0
+    history: list[dict[str, Any]] = []
+
+    if reuse_mode:
+        source_root = Path(reuse_root_raw).resolve()
+        source_dir = source_root / f"{key}_fd{int(args.fd):03d}"
+        source_ckpt = source_dir / f"model_fd{int(args.fd):03d}.pt"
+        source_cal = source_dir / f"calibration_bundle_fd{int(args.fd):03d}.npz"
+        if not source_ckpt.exists():
+            raise FileNotFoundError(f"{key}: reuse checkpoint missing at {source_ckpt}")
+        if not source_cal.exists():
+            raise FileNotFoundError(f"{key}: reuse calibration bundle missing at {source_cal}")
+
+        payload = torch.load(source_ckpt, map_location=device, weights_only=False)
+        if not isinstance(payload, dict):
+            raise RuntimeError(f"{key}: unexpected checkpoint payload type: {type(payload).__name__}")
+        state_dict = payload.get("state_dict")
+        if not isinstance(state_dict, dict):
+            raise RuntimeError(f"{key}: checkpoint missing state_dict in {source_ckpt}")
+        in_channels = int(payload.get("in_channels", int(train_x.shape[1])))
+        hidden = int(payload.get("hidden", int(hidden)))
+        depth = int(payload.get("depth", int(depth)))
+        dropout = float(payload.get("dropout", float(dropout)))
+        cal_mode_used = str(payload.get("calibration_source", cal_mode_used))
+        leakage_check_passed = bool(payload.get("leakage_check_passed", True))
+
+        model = FastRULNet(
+            in_channels=in_channels,
+            hidden=int(hidden),
+            depth=int(depth),
+            dropout=float(dropout),
         )
-    except Exception as err:
-        if compile_requested and _is_triton_missing(err):
-            compile_used = False
-            compile_fallback_reason = (
-                "compile disabled after TritonMissing; reran training with eager mode (no torch.compile)."
-            )
+        model.load_state_dict(state_dict)
+        model.to(device)
+        compile_requested = False
+        compile_used = False
+        compile_fallback_reason = ""
+        epochs = 0
+        lr = float("nan")
+        weight_decay = float("nan")
+        loss_weight_used = float("nan")
+        train_run_indices = []
+        cal_run_indices = []
+
+        # Snapshot reuse inputs into the output directory for fully-contained artifacts.
+        shutil.copy2(source_ckpt, ckpt_path)
+        shutil.copy2(source_cal, cal_bundle_path)
+        cal_loaded = np.load(source_cal)
+        cal_residuals = np.asarray(cal_loaded["residuals"], dtype=np.float32)
+        cal_true_rul = np.asarray(cal_loaded["true_rul"], dtype=np.float32)
+    else:
+        model = FastRULNet(
+            in_channels=int(train_x.shape[1]),
+            hidden=int(hidden),
+            depth=int(depth),
+            dropout=float(dropout),
+        )
+        try:
             result = train_model(
                 model=model,
                 train_loader=train_loader,
@@ -397,15 +446,54 @@ def _evaluate_one_dataset(
                 lr=float(lr),
                 weight_decay=float(weight_decay),
                 amp=use_amp,
-                compile_model=False,
+                compile_model=compile_used,
                 low_rul_loss_weight=float(loss_weight_used),
                 low_rul_threshold=float(low_rul_threshold),
                 low_rul_weight_power=float(low_rul_weight_power),
             )
-        else:
-            raise
-    model.load_state_dict(result.best_state_dict)
-    model.to(device)
+        except Exception as err:
+            if compile_requested and _is_triton_missing(err):
+                compile_used = False
+                compile_fallback_reason = (
+                    "compile disabled after TritonMissing; reran training with eager mode (no torch.compile)."
+                )
+                result = train_model(
+                    model=model,
+                    train_loader=train_loader,
+                    val_loader=val_loader,
+                    device=device,
+                    epochs=int(epochs),
+                    lr=float(lr),
+                    weight_decay=float(weight_decay),
+                    amp=use_amp,
+                    compile_model=False,
+                    low_rul_loss_weight=float(loss_weight_used),
+                    low_rul_threshold=float(low_rul_threshold),
+                    low_rul_weight_power=float(low_rul_weight_power),
+                )
+            else:
+                raise
+        model.load_state_dict(result.best_state_dict)
+        model.to(device)
+        training_seconds = float(result.total_seconds)
+        history = result.history
+        torch.save(
+            {
+                "dataset": key,
+                "fd": int(args.fd),
+                "window_size": int(window_size),
+                "max_rul": int(args.max_rul),
+                "calibration_source": cal_mode_used,
+                "calibration_fraction": float(args.calibration_fraction),
+                "in_channels": int(train_x.shape[1]),
+                "hidden": int(hidden),
+                "depth": int(depth),
+                "dropout": float(dropout),
+                "leakage_check_passed": bool(leakage_check_passed),
+                "state_dict": model.state_dict(),
+            },
+            ckpt_path,
+        )
 
     val_rmse = evaluate(model, val_loader, device=device, amp=use_amp)
     test_rmse_last_raw = evaluate(model, test_loader, device=device, amp=use_amp)
@@ -414,24 +502,32 @@ def _evaluate_one_dataset(
     test_rmse_last = float(np.sqrt(np.mean((test_pred_last - test_last_y) ** 2)))
     test_mae_last = float(np.mean(np.abs(test_pred_last - test_last_y)))
 
-    cal_pred_runs_raw = predict_runs(
-        model,
-        cal_runs_x,
-        device=device,
-        batch_size=int(args.batch_size),
-        amp=use_amp,
-        flatten_batch_runs=True,
-    )
-    cal_pred_runs = [_clip_rul(np.asarray(x, dtype=np.float64), max_rul=int(args.max_rul)).astype(np.float32) for x in cal_pred_runs_raw]
-    cal_bundle = build_calibration_bundle(
-        pred_runs=cal_pred_runs,
-        true_runs=cal_runs_y,
-        healthy_rul_floor=1.0,
-    )
-    cal_residuals = np.asarray(cal_bundle["residuals"], dtype=np.float32)
-    cal_true_rul = np.asarray(cal_bundle["true_rul"], dtype=np.float32)
-    if cal_residuals.size == 0:
-        raise RuntimeError(f"{key}: empty calibration residuals.")
+    if not reuse_mode:
+        cal_pred_runs_raw = predict_runs(
+            model,
+            cal_runs_x,
+            device=device,
+            batch_size=int(args.batch_size),
+            amp=use_amp,
+            flatten_batch_runs=True,
+        )
+        cal_pred_runs = [
+            _clip_rul(np.asarray(x, dtype=np.float64), max_rul=int(args.max_rul)).astype(np.float32)
+            for x in cal_pred_runs_raw
+        ]
+        cal_bundle = build_calibration_bundle(
+            pred_runs=cal_pred_runs,
+            true_runs=cal_runs_y,
+            healthy_rul_floor=1.0,
+        )
+        cal_residuals = np.asarray(cal_bundle["residuals"], dtype=np.float32)
+        cal_true_rul = np.asarray(cal_bundle["true_rul"], dtype=np.float32)
+        if cal_residuals.size == 0:
+            raise RuntimeError(f"{key}: empty calibration residuals.")
+        np.savez_compressed(cal_bundle_path, residuals=cal_residuals, true_rul=cal_true_rul)
+    else:
+        if cal_residuals.size == 0:
+            raise RuntimeError(f"{key}: loaded empty calibration residuals from reuse artifacts.")
 
     calibrator = ConditionalResidualCalibrator.from_arrays(
         residuals=cal_residuals,
@@ -524,43 +620,19 @@ def _evaluate_one_dataset(
     num_tau = int(fleet.get("num_tau_diagnostics_engines", 0))
     tau_ident_ratio = float(num_tau / num_eng) if num_eng > 0 else float("nan")
 
-    ckpt_path = ds_dir / f"model_fd{int(args.fd):03d}.pt"
-    cal_bundle_path = ds_dir / f"calibration_bundle_fd{int(args.fd):03d}.npz"
-    train_metrics_path = ds_dir / f"train_metrics_fd{int(args.fd):03d}.json"
-    tem_metrics_path = ds_dir / f"tem_metrics_fd{int(args.fd):03d}.json"
-
-    torch.save(
-        {
-            "dataset": key,
-            "fd": int(args.fd),
-            "window_size": int(window_size),
-            "max_rul": int(args.max_rul),
-            "calibration_source": cal_mode_used,
-            "calibration_fraction": float(args.calibration_fraction),
-            "in_channels": int(train_x.shape[1]),
-            "hidden": int(args.hidden),
-            "depth": int(args.depth),
-            "dropout": float(args.dropout),
-            "leakage_check_passed": bool(leakage_check_passed),
-            "state_dict": model.state_dict(),
-        },
-        ckpt_path,
-    )
-    np.savez_compressed(cal_bundle_path, residuals=cal_residuals, true_rul=cal_true_rul)
-
     train_metrics = {
         "dataset": key,
         "fd": int(args.fd),
         "device": str(device),
         "epochs": int(epochs),
-        "best_val_rmse": float(result.best_val_rmse),
+        "best_val_rmse": float(result.best_val_rmse) if not reuse_mode else float(val_rmse),
         "final_val_rmse": float(val_rmse),
         "test_last_rmse_raw": float(test_rmse_last_raw),
         "test_last_rmse": float(test_rmse_last),
         "test_last_mae": float(test_mae_last),
         "test_seq_rmse": float(test_rmse_seq),
         "test_seq_mae": float(test_mae_seq),
-        "training_seconds": float(result.total_seconds),
+        "training_seconds": float(training_seconds),
         "num_train_samples": int(train_x.shape[0]),
         "num_val_samples": int(val_x.shape[0]),
         "num_test_samples": int(test_last_x.shape[0]),
@@ -581,6 +653,8 @@ def _evaluate_one_dataset(
         "compile_requested": bool(compile_requested),
         "compile_used": bool(compile_used),
         "compile_fallback_reason": compile_fallback_reason,
+        "reuse_mode": bool(reuse_mode),
+        "reuse_artifacts_root": str(Path(reuse_root_raw).resolve()) if reuse_mode else "",
         "amp_enabled": bool(use_amp),
         "low_rul_loss_weight_requested": float(low_rul_loss_weight),
         "low_rul_loss_weight_used": float(loss_weight_used),
@@ -590,7 +664,7 @@ def _evaluate_one_dataset(
         "pvalue_safety_margin": float(args.pvalue_safety_margin),
         "calibration_bins": int(args.calibration_bins),
         "calibration_min_bin_size": int(args.calibration_min_bin_size),
-        "history": result.history,
+        "history": history,
     }
     tem_metrics = {
         "dataset": key,
@@ -662,6 +736,8 @@ def _evaluate_one_dataset(
         row["notes"] = [cal_fallback_reason]
     if compile_fallback_reason:
         row.setdefault("notes", []).append(compile_fallback_reason)
+    if reuse_mode:
+        row.setdefault("notes", []).append("Policy replay mode: loaded checkpoint and calibration bundle from reuse_artifacts_root.")
     if apply_low_rul_weight:
         row.setdefault("notes", []).append(
             (
@@ -747,6 +823,7 @@ def main() -> None:
             "low_rul_weight_datasets": [d.strip() for d in str(args.low_rul_weight_datasets).split(",") if d.strip()],
             "dataset_overrides_json": str(args.dataset_overrides_json),
             "dataset_overrides": dataset_overrides or {},
+            "reuse_artifacts_root": str(args.reuse_artifacts_root),
             "alpha": float(args.alpha),
             "lambda_bet": float(args.lambda_bet),
             "calibration_source": str(args.calibration_source),

@@ -33,7 +33,7 @@ Key summaries:
 - \(\pi_t\): largest persistence lifetime (deepest valley)
 - \(\pi_t^{(2)}\): second-largest persistence
 - \(\gamma_t=\pi_t/\pi_t^{(2)}\): persistence-gap ratio
-- \(r_t^\*=\arg\min_r V_t(r)\): most-evidenced RUL
+- \(r_t^{\ast}=\arg\min_r V_t(r)\): most-evidenced RUL
 - \(W_t^\alpha=|C_t^\alpha|\): confidence width
 
 Decision policy:
@@ -129,7 +129,7 @@ At each monitoring step:
 1. Predict \(\hat R_t\)
 2. Compute \(p_t(r)\) for all \(r\in[1,R_{max}]\)
 3. Update \(K_t(r)\), obtain \(V_t(r)\)
-4. Compute persistence summaries \((\pi_t,\pi_t^{(2)},\gamma_t)\), \(r_t^\*\), \(W_t^\alpha\)
+4. Compute persistence summaries \((\pi_t,\pi_t^{(2)},\gamma_t)\), \(r_t^{\ast}\), \(W_t^\alpha\)
 5. Trigger policy based on \((\gamma_t,W_t^\alpha)\)
 
 Complexity per step:

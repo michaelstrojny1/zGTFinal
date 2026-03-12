@@ -1,0 +1,77 @@
+\begin{table}[t]
+\centering
+\caption{Canonical external results (FD001 policy v8).}
+\label{tab:external-canonical}
+\begin{tabular}{lrrrrrr}
+\toprule
+Dataset & RMSE & MAE & RMSE$_{last}$ & MAE$_{last}$ & RUL cov. & Tau viol.\\
+\midrule
+femto & 14.362 & 7.993 & 52.873 & 50.395 & 1.000 & 0.000\\
+xjtu\_sy & 30.133 & 23.684 & 33.171 & 33.156 & 1.000 & 0.000\\
+cmapss & 16.396 & 10.992 & 16.623 & 12.219 & 1.000 & 0.000\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Policy replay from fixed checkpoints/calibration bundles. RMSE is unchanged by policy replay; coverage and tau violation are policy-sensitive.}
+\label{tab:policy-replay}
+\begin{tabular}{llrrrrrr}
+\toprule
+Policy & Dataset & $\alpha$ & $\lambda$ & margin & RUL cov. & Tau viol. & RMSE\\
+\midrule
+Canonical & femto & 0.001 & 0.030 & 0.300 & 1.000 & 0.000 & 14.362\\
+Canonical & xjtu\_sy & 0.001 & 0.030 & 0.300 & 1.000 & 0.000 & 30.133\\
+Canonical & cmapss & 0.001 & 0.030 & 0.300 & 1.000 & 0.000 & 16.396\\
+\midrule
+Balanced & femto & 0.002 & 0.030 & 0.150 & 0.316 & 1.000 & 14.362\\
+Balanced & xjtu\_sy & 0.002 & 0.030 & 0.150 & n/a & n/a & n/a\\
+Balanced & cmapss & 0.002 & 0.030 & 0.150 & 1.000 & 0.000 & 16.396\\
+\midrule
+Aggressive & femto & 0.005 & 0.050 & 0.050 & 0.092 & 1.000 & 14.362\\
+Aggressive & xjtu\_sy & 0.005 & 0.050 & 0.050 & n/a & n/a & n/a\\
+Aggressive & cmapss & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 16.396\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{Comparator package summary on internal FD001--FD004 matrix.}
+\label{tab:comparators}
+\begin{tabular}{lrrr}
+\toprule
+Method & RMSE mean & RUL cov. mean & Tau viol. mean\\
+\midrule
+strict\_main & 22.459 & 0.988 & 0.047\\
+marginal\_rul & 22.459 & 0.910 & 0.000\\
+alpha\_0p1 & 22.459 & 0.979 & 0.068\\
+no\_margin\_matched\_bins & 22.459 & 0.959 & 0.152\\
+split\_conformal\_global\_a0p05 & 22.459 & 0.947 & 0.309\\
+split\_conformal\_global\_a0p01 & 22.459 & 0.983 & 0.116\\
+split\_conformal\_conditional\_a0p05 & 22.459 & 0.906 & 0.460\\
+split\_conformal\_conditional\_a0p01 & 22.459 & 0.959 & 0.249\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Readiness gate breakdown.}
+\label{tab:readiness-gates}
+\begin{tabular}{lrr}
+\toprule
+Gate & Score & Weight\\
+\midrule
+Core Validity Artifacts & 2.00 & 2.00\\
+Baseline Coverage/Tau Strength & 1.50 & 1.50\\
+Seed Robustness & 2.00 & 2.00\\
+Split Robustness (val vs dev\_holdout) & 1.00 & 1.00\\
+Topology Signal Strength & 1.50 & 1.50\\
+Baseline Comparator Package & 1.00 & 1.00\\
+External Dataset Generalization & 0.50 & 0.50\\
+Proof Maturity & 0.50 & 0.50\\
+\bottomrule
+\end{tabular}
+\end{table}

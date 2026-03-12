@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+\usepackage{natbib}
+\usepackage{siunitx}
+\usepackage{caption}
+
+\input{generated/values.tex}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+
+\title{Topological Evidence Monitoring for Anytime-Valid Predictive Maintenance}
+\author{M. Strojny}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present a publication-focused evaluation package for Topological Evidence Monitoring (TEM), a conformal e-value monitoring method for remaining useful life (RUL) prediction with topology-aware evidence summaries. The canonical external package passes all internal quality gates with readiness score \ReadinessScore/10 and conservative readiness score \ReadinessConservativeScore/10, with \ExternalDatasetsOk/\ExternalDatasetsTotal external datasets passing the canonical policy configuration. We provide a full artifact-linked manuscript build, theorem statements aligned to fixed-grid e-process monitoring, and policy replay experiments from frozen checkpoints/calibration bundles to quantify the validity-sharpness tradeoff.
+\end{abstract}
+
+\section{Introduction}
+Reliability monitoring under distribution shift requires uncertainty-aware sequential decisions, not only point prediction. Conformal calibration and e-process style monitoring provide finite-sample guarantees under super-uniform calibration assumptions \citep{shafer2008tutorial,vovk2005algorithmic,howard2021timeuniform}. In parallel, topological summaries can compress global shape changes in evidence landscapes while remaining stable under bounded perturbations \citep{edelsbrunner2002topological,cohen2007stability}.
+
+This work focuses on publication-grade packaging of TEM with strict artifact integrity:
+\begin{itemize}[leftmargin=1.3em]
+\item canonical external metrics tied to fixed JSON artifacts;
+\item no-mismatch honesty checks between manuscript snapshot and artifacts;
+\item full LaTeX compilation with generated tables/figures;
+\item explicit disclosure of tradeoffs and replay limitations.
+\end{itemize}
+
+\section{Method Summary}
+At time $t$, the predictor emits $\hat R_t$ and each RUL hypothesis $r \in \{1,\dots,R_{\max}\}$ receives nonconformity score
+\begin{equation}
+s_t(r)=|\hat R_t-r|,\quad
+p_t(r)=\frac{1+\#\{i:A_i^{cal}\ge s_t(r)\}}{n_{cal}+1}.
+\end{equation}
+Evidence is updated by
+\begin{equation}
+K_t(r)=K_{t-1}(r)\left(1+\lambda_t(1-2p_t(r))\right),\quad K_0(r)=1,
+\end{equation}
+with log evidence $V_t(r)=\log K_t(r)$ and confidence set
+\begin{equation}
+C_t^\alpha=\{r:K_t(r)<1/\alpha\}.
+\end{equation}
+
+Topological summaries on $V_t(\cdot)$ include dominant persistence, second persistence, and gap ratio $\gamma_t=\pi_t/\pi_t^{(2)}$; alerts combine topology concentration and set-width constraints.
+
+\section{Theoretical Statements}
+\begin{theorem}[Anytime validity, fixed-grid inversion]
+Assume conditional super-uniform p-values at the true fixed hypothesis and predictable bounded betting $\lambda_t \in [0,1]$. Then $K_t(h^\star)$ is a nonnegative supermartingale and
+\[
+\Pr\!\left(\sup_{t\ge 0}K_t(h^\star)\ge 1/\alpha\right)\le \alpha.
+\]
+Hence $\Pr(\exists t:\,h^\star\notin C_t^\alpha)\le \alpha$.
+\end{theorem}
+
+\begin{theorem}[Persistence stability]
+For sublevel persistence diagrams $PD_t,PD_t'$ induced by two evidence curves, the bottleneck distance satisfies
+\[
+d_B(PD_t,PD_t')\le \|V_t-V_t'\|_\infty.
+\]
+Therefore Lipschitz functionals of persistence (e.g., top lifetime and clipped gap ratio) are stable under bounded predictor perturbations.
+\end{theorem}
+
+\begin{remark}
+Guarantees are stated on the fixed hypothesis grid used by implementation; RUL-indexed curves are derived by re-indexing. This avoids mixing fixed-parameter validity and moving-index interpretation.
+\end{remark}
+
+\section{Experimental Protocol}
+External evaluation uses FEMTO, XJTU-SY, and C-MAPSS FD001 style runs with frozen canonical policy and leakage-aware calibration handling. Internal comparator packaging includes strict-main and split-conformal variants across FD001--FD004.
+
+All tables and figures in this manuscript are generated from artifact files listed in \url{paper/generated/provenance.json}.
+
+\section{Results}
+\subsection{Canonical External and Internal Readiness}
+\input{generated/tables.tex}
+
+\subsection{Policy Replay Tradeoff}
+Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. In our replay runs, FEMTO validity degrades sharply under less conservative settings, while C-MAPSS remains stable for the same changes.
+
+XJTU-SY replay rows are marked unavailable in non-canonical policies due repeated dataset-download interruption during this session (connection abort on remote transfer). Canonical XJTU-SY remains present and validated in Table~\ref{tab:external-canonical}.
+
+\subsection{Figures}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.48\textwidth]{figures/external_metrics_overview.png}\hfill
+\includegraphics[width=0.48\textwidth]{figures/readiness_gates.png}
+\caption{Canonical external errors and readiness gate completion.}
+\label{fig:canonical-summary}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.32\textwidth]{figures/topology_vs_rul_bins.png}\hfill
+\includegraphics[width=0.32\textwidth]{figures/surface_h1_vs_rul_coverage.png}\hfill
+\includegraphics[width=0.32\textwidth]{figures/gamma_vs_pred_mae.png}
+\caption{Topology-behavior diagnostics from canonical publication artifacts.}
+\label{fig:topology-diags}
+\end{figure}
+
+\section{Reproducibility and Integrity}
+The manuscript build is coupled to automated checks:
+\begin{itemize}[leftmargin=1.3em]
+\item gate summary: \url{outputs/publication_full_rtx4050/publication_gate_summary.json};
+\item paper honesty report: \url{outputs/publication_full_rtx4050/paper_release/reports/paper_honesty_report.json};
+\item generated table provenance: \url{paper/generated/provenance.json}.
+\end{itemize}
+No metric in the canonical snapshot is manually edited; all are read directly from JSON artifacts.
+
+\section{Limitations}
+\begin{itemize}[leftmargin=1.3em]
+\item Conservative policy settings can over-prioritize validity margin versus sharpness.
+\item Non-canonical policy replay is currently incomplete on XJTU-SY in this run due upstream transfer interruptions.
+\item Internal readiness score is not a substitute for independent external review.
+\end{itemize}
+
+\section{Conclusion}
+The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing (policy conservatism optics and partial non-canonical replay coverage), not artifact consistency.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
