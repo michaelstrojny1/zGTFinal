@@ -87,8 +87,26 @@ All tables and figures in this manuscript are generated from artifact files list
 
 \subsection{Policy Replay Tradeoff}
 Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. In our replay runs, FEMTO validity degrades sharply under less conservative settings, while XJTU-SY and C-MAPSS remain stable for the same parameter changes.
+To tighten this analysis beyond three hand-picked points, we run replay-only sweeps from frozen artifacts and include the strongest cross-dataset validity-preserving candidate as a robust replay row.
+In the all-dataset sweep, settings with margin $0.30$ satisfy the coverage/tau targets, while reducing margin to $0.25$ causes immediate FEMTO validity failures.
+Paired run-level comparator tests are reported with Holm correction, and we include a policy-level sharpness table to make conservatism-vs-validity tradeoffs explicit.
+We also include a true retrain robustness block (no checkpoint reuse) to validate that conclusions are not purely replay artifacts.
 
 \subsection{Figures}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\textwidth]{figures/policy_replay_frontier.png}
+\caption{External replay frontier over policy settings. Vertical and horizontal dashed lines denote coverage and tau targets; star marks selected robust point.}
+\label{fig:policy-frontier}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.62\textwidth]{figures/policy_sharpness_frontier.png}
+\caption{Policy sharpness-validity frontier (mean set width vs mean coverage; legend includes tau max).}
+\label{fig:policy-sharpness-frontier}
+\end{figure}
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.48\textwidth]{figures/external_metrics_overview.png}\hfill
@@ -118,12 +136,13 @@ No metric in the canonical snapshot is manually edited; all are read directly fr
 \section{Limitations}
 \begin{itemize}[leftmargin=1.3em]
 \item Conservative policy settings can over-prioritize validity margin versus sharpness.
-\item Policy replay evidence is currently limited to a small set of operating points rather than a dense frontier.
+\item Replay frontier granularity is still moderate; a denser grid could map the Pareto boundary more precisely.
+\item True retrain robustness currently covers only a limited external subset; broad retrain coverage remains future work.
 \item Internal readiness score is not a substitute for independent external review.
 \end{itemize}
 
 \section{Conclusion}
-The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing (policy conservatism optics and partial non-canonical replay coverage), not artifact consistency.
+The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing (policy conservatism optics and replay-grid granularity), not artifact consistency.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

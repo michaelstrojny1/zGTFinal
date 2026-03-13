@@ -3,7 +3,7 @@
 - Matrix report: `C:\Users\micha\zGTFinal\outputs\publication_full_rtx4050_report.json`
 - Main method: `strict_main`
 - Number of FDs: 4
-- Comparator mix: external=4, internal=3
+- Comparator mix: external=8, internal=3
 
 ## Aggregate
 - strict_main (main): rmse=22.459, rul_cov=0.988, tau_v=0.047
@@ -14,6 +14,10 @@
 - split_conformal_global_a0p01 (external): rmse=22.459, rul_cov=0.983, tau_v=0.116
 - split_conformal_conditional_a0p05 (external): rmse=22.459, rul_cov=0.906, tau_v=0.460
 - split_conformal_conditional_a0p01 (external): rmse=22.459, rul_cov=0.959, tau_v=0.249
+- deep_ensemble_gaussian_95 (external): rmse=19.532, rul_cov=0.381, tau_v=0.988
+- deep_ensemble_gaussian_99 (external): rmse=19.532, rul_cov=0.471, tau_v=0.972
+- deep_ensemble_conformalized_a0p05 (external): rmse=19.532, rul_cov=0.972, tau_v=0.165
+- deep_ensemble_conformalized_a0p01 (external): rmse=19.532, rul_cov=0.993, tau_v=0.057
 
 ## Paired Run-Level Stats
 - marginal_rul vs strict_main:
@@ -38,6 +42,22 @@
   tau-violation diff: N/A (comparator lacks tau diagnostics)
   note: No complete per-run TEM artifacts across all FD for this comparator.
 - split_conformal_conditional_a0p01 vs strict_main:
+  coverage diff: N/A (comparator lacks per-run TEM artifacts)
+  tau-violation diff: N/A (comparator lacks tau diagnostics)
+  note: No complete per-run TEM artifacts across all FD for this comparator.
+- deep_ensemble_gaussian_95 vs strict_main:
+  coverage diff: N/A (comparator lacks per-run TEM artifacts)
+  tau-violation diff: N/A (comparator lacks tau diagnostics)
+  note: No complete per-run TEM artifacts across all FD for this comparator.
+- deep_ensemble_gaussian_99 vs strict_main:
+  coverage diff: N/A (comparator lacks per-run TEM artifacts)
+  tau-violation diff: N/A (comparator lacks tau diagnostics)
+  note: No complete per-run TEM artifacts across all FD for this comparator.
+- deep_ensemble_conformalized_a0p05 vs strict_main:
+  coverage diff: N/A (comparator lacks per-run TEM artifacts)
+  tau-violation diff: N/A (comparator lacks tau diagnostics)
+  note: No complete per-run TEM artifacts across all FD for this comparator.
+- deep_ensemble_conformalized_a0p01 vs strict_main:
   coverage diff: N/A (comparator lacks per-run TEM artifacts)
   tau-violation diff: N/A (comparator lacks tau diagnostics)
   note: No complete per-run TEM artifacts across all FD for this comparator.

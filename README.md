@@ -291,6 +291,114 @@ python scripts/build_external_baselines_from_strict.py ^
   --out-md outputs/external_baselines_generated.md
 ```
 
+Replay-only policy frontier sweep (frozen checkpoints/calibration bundles, no retraining):
+
+```bash
+python scripts/sweep_external_policy_replay.py ^
+  --data-root C:\Users\micha\.rul-datasets ^
+  --datasets femto,xjtu_sy,cmapss ^
+  --reuse-artifacts-root outputs/external_real_eval_final_policy_v8 ^
+  --alpha-grid 0.001,0.0015,0.002,0.003 ^
+  --lambda-grid 0.03,0.04 ^
+  --margin-grid 0.25,0.30 ^
+  --out-root outputs/external_policy_replay_sweep_all_v1 ^
+  --out-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
+  --out-md outputs/external_policy_replay_sweep_all_v1/summary.md
+```
+
+Plot the replay frontier:
+
+```bash
+python scripts/plot_policy_replay_frontier.py ^
+  --summary-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
+  --out-png outputs/external_policy_replay_sweep_all_v1/frontier_cov_tau.png
+```
+
+Run selected robust replay point (example from sweep summary):
+
+```bash
+python scripts/run_real_external_evals.py ^
+  --data-root C:\Users\micha\.rul-datasets ^
+  --datasets femto,xjtu_sy,cmapss ^
+  --fd 1 ^
+  --num-workers 0 ^
+  --epochs 0 ^
+  --no-compile ^
+  --reuse-artifacts-root outputs/external_real_eval_final_policy_v8 ^
+  --alpha 0.003 ^
+  --lambda-bet 0.04 ^
+  --pvalue-safety-margin 0.30 ^
+  --out-root outputs/external_real_eval_policy_replay_robust_v1 ^
+  --out-json outputs/external_performance_report_policy_replay_robust_v1.json ^
+  --out-md outputs/external_performance_report_policy_replay_robust_v1.md
+```
+
+Generate seed-ensemble interval baselines and merge with conformal baselines:
+
+```bash
+python scripts/build_seed_ensemble_baselines.py ^
+  --matrix-report outputs/publication_full_rtx4050_report.json ^
+  --out-json outputs/external_seed_ensemble_baselines.json ^
+  --out-md outputs/external_seed_ensemble_baselines.md
+
+python scripts/merge_external_baseline_packages.py ^
+  --inputs outputs/external_baselines_generated.json,outputs/external_seed_ensemble_baselines.json ^
+  --out-json outputs/external_baselines_merged.json ^
+  --out-md outputs/external_baselines_merged.md
+
+python scripts/build_baseline_comparison.py ^
+  --matrix-report outputs/publication_full_rtx4050_report.json ^
+  --external-baselines-json outputs/external_baselines_merged.json ^
+  --out-json outputs/baseline_comparison.json ^
+  --out-md outputs/baseline_comparison.md
+```
+
+Build claim-level significance and sharpness reports:
+
+```bash
+python scripts/build_claim_significance_report.py ^
+  --baseline-json outputs/baseline_comparison.json ^
+  --policy-sweep-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
+  --out-json outputs/publication_full_rtx4050/claim_significance_report.json ^
+  --out-md outputs/publication_full_rtx4050/claim_significance_report.md
+
+python scripts/build_policy_sharpness_report.py ^
+  --canonical outputs/external_performance_report.json ^
+  --balanced outputs/external_performance_report_policy_replay_balanced_v2.json ^
+  --aggressive outputs/external_performance_report_policy_replay_aggressive_v1.json ^
+  --robust outputs/external_performance_report_policy_replay_robust_v1.json ^
+  --out-json outputs/publication_full_rtx4050/policy_sharpness_report.json ^
+  --out-md outputs/publication_full_rtx4050/policy_sharpness_report.md ^
+  --out-fig outputs/publication_full_rtx4050/policy_sharpness_frontier.png
+```
+
+Optional true-retrain robustness block (no reuse):
+
+```bash
+python scripts/run_real_external_evals.py ^
+  --data-root C:\Users\micha\.rul-datasets ^
+  --datasets femto ^
+  --fd 1 ^
+  --epochs 8 ^
+  --batch-size 128 ^
+  --num-workers 0 ^
+  --seed 123 ^
+  --no-compile ^
+  --alpha 0.003 ^
+  --lambda-bet 0.04 ^
+  --pvalue-safety-margin 0.30 ^
+  --out-root outputs/external_real_eval_retrain_robustness_v1 ^
+  --out-json outputs/external_performance_report_retrain_robustness_v1.json ^
+  --out-md outputs/external_performance_report_retrain_robustness_v1.md
+```
+
+Freeze submission artifact checksums:
+
+```bash
+python scripts/build_submission_freeze_manifest.py ^
+  --out-json outputs/publication_full_rtx4050/submission_freeze_manifest.json
+```
+
 ## 10i. Cross-Artifact Consistency Check
 
 ```bash

@@ -32,9 +32,26 @@ Balanced & cmapss & 0.002 & 0.030 & 0.150 & 1.000 & 0.000 & 16.396\\
 Aggressive & femto & 0.005 & 0.050 & 0.050 & 0.092 & 1.000 & 14.362\\
 Aggressive & xjtu\_sy & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 30.133\\
 Aggressive & cmapss & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 16.396\\
+\midrule
+Robust & femto & 0.003 & 0.040 & 0.300 & 1.000 & 0.000 & 14.362\\
+Robust & xjtu\_sy & 0.003 & 0.040 & 0.300 & 1.000 & 0.000 & 30.133\\
+Robust & cmapss & 0.003 & 0.040 & 0.300 & 1.000 & 0.000 & 16.396\\
 \bottomrule
 \end{tabular}
 \end{table*}
+
+\begin{table}[t]
+\centering
+\caption{True retrain robustness check (no checkpoint reuse).}
+\label{tab:retrain-robustness}
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & RMSE & RUL cov. & Tau viol. & Runs\\
+\midrule
+femto & 15.243 & 1.000 & 0.000 & 4\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table}[t]
 \centering
@@ -52,6 +69,43 @@ split\_conformal\_global\_a0p05 & 22.459 & 0.947 & 0.309\\
 split\_conformal\_global\_a0p01 & 22.459 & 0.983 & 0.116\\
 split\_conformal\_conditional\_a0p05 & 22.459 & 0.906 & 0.460\\
 split\_conformal\_conditional\_a0p01 & 22.459 & 0.959 & 0.249\\
+deep\_ensemble\_gaussian\_95 & 19.532 & 0.381 & 0.988\\
+deep\_ensemble\_gaussian\_99 & 19.532 & 0.471 & 0.972\\
+deep\_ensemble\_conformalized\_a0p05 & 19.532 & 0.972 & 0.165\\
+deep\_ensemble\_conformalized\_a0p01 & 19.532 & 0.993 & 0.057\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Paired run-level significance summary (Holm-adjusted).}
+\label{tab:significance}
+\begin{tabular}{llrrrr}
+\toprule
+Comparator & Metric & Effect (main-comp) & Win rate & $p$ & $p_{Holm}$\\
+\midrule
+marginal\_rul & coverage & 0.0692 & 0.369 & 0.0000 & 0.0000\\
+no\_margin\_matched\_bins & coverage & 0.0307 & 0.129 & 0.0000 & 0.0000\\
+no\_margin\_matched\_bins & tau\_violation & -0.1095 & 0.110 & 0.0000 & 0.0000\\
+alpha\_0p1 & coverage & 0.0082 & 0.057 & 0.0000 & 0.0000\\
+alpha\_0p1 & tau\_violation & -0.0251 & 0.025 & 0.0001 & 0.0001\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{Policy-level sharpness/validity summary.}
+\label{tab:policy-sharpness}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Cov. mean & Tau max & Width mean & Pareto\\
+\midrule
+canonical & 1.000 & 0.000 & 125.000 & yes\\
+balanced & 0.772 & 1.000 & 95.802 & yes\\
+aggressive & 0.697 & 1.000 & 87.115 & yes\\
+robust & 1.000 & 0.000 & 125.000 & yes\\
 \bottomrule
 \end{tabular}
 \end{table}

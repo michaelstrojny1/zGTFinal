@@ -1,0 +1,149 @@
+{
+  "settings": {
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
+    "datasets": [
+      "femto",
+      "xjtu_sy",
+      "cmapss"
+    ],
+    "fd": 1,
+    "seed": 42,
+    "seed_mode": "dataset_adler32_mod_10000",
+    "max_rul": 125,
+    "batch_size": 256,
+    "num_workers": 0,
+    "prefetch_factor": 4,
+    "epochs": 0,
+    "lr": 0.003,
+    "weight_decay": 0.0001,
+    "hidden": 128,
+    "depth": 4,
+    "dropout": 0.05,
+    "low_rul_loss_weight": 1.0,
+    "low_rul_threshold": 30.0,
+    "low_rul_weight_power": 1.0,
+    "low_rul_weight_datasets": [],
+    "dataset_overrides_json": "",
+    "dataset_overrides": {},
+    "reuse_artifacts_root": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8",
+    "alpha": 0.002,
+    "lambda_bet": 0.04,
+    "calibration_source": "val",
+    "calibration_fraction": 0.2,
+    "calibration_bins": 8,
+    "calibration_min_bin_size": 128,
+    "pvalue_safety_margin": 0.25,
+    "amp_enabled": true,
+    "compile_requested": false
+  },
+  "datasets": [
+    {
+      "dataset": "femto",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 4,
+      "metrics": {
+        "rmse": 14.362340764708255,
+        "mae": 7.9930289020702485,
+        "rmse_last": 52.873386800339176,
+        "mae_last": 50.39453125,
+        "rul_cov": 0.8169367348533039,
+        "tau_v": 0.5,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 0,
+        "lr": null,
+        "weight_decay": null,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": null,
+        "low_rul_threshold": 30.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\femto_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\femto_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\femto_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\femto_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\femto_fd001\\tem_metrics_fd001.json"
+      },
+      "notes": [
+        "Policy replay mode: loaded checkpoint and calibration bundle from reuse_artifacts_root."
+      ]
+    },
+    {
+      "dataset": "xjtu_sy",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 2,
+      "metrics": {
+        "rmse": 30.132575039658928,
+        "mae": 23.68440193965517,
+        "rmse_last": 33.171326685294034,
+        "mae_last": 33.15625,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 0,
+        "lr": null,
+        "weight_decay": null,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": null,
+        "low_rul_threshold": 30.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\xjtu_sy_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\xjtu_sy_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\xjtu_sy_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\xjtu_sy_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\xjtu_sy_fd001\\tem_metrics_fd001.json"
+      },
+      "notes": [
+        "Policy replay mode: loaded checkpoint and calibration bundle from reuse_artifacts_root."
+      ]
+    },
+    {
+      "dataset": "cmapss",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 100,
+      "metrics": {
+        "rmse": 16.395882779406683,
+        "mae": 10.992469856438799,
+        "rmse_last": 16.62348723677968,
+        "mae_last": 12.2186328125,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 0.89
+      },
+      "effective_settings": {
+        "epochs": 0,
+        "lr": null,
+        "weight_decay": null,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": null,
+        "low_rul_threshold": 30.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\cmapss_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\cmapss_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\cmapss_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\cmapss_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_policy_replay_sweep_all_v1\\runs\\a0p0020_l0p0400_m0p2500\\cmapss_fd001\\tem_metrics_fd001.json"
+      },
+      "notes": [
+        "Policy replay mode: loaded checkpoint and calibration bundle from reuse_artifacts_root."
+      ]
+    }
+  ]
+}

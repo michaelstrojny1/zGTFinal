@@ -11,6 +11,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--canonical", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--balanced", type=str, default="outputs/external_performance_report_policy_replay_balanced_v2.json")
     p.add_argument("--aggressive", type=str, default="outputs/external_performance_report_policy_replay_aggressive_v1.json")
+    p.add_argument(
+        "--robust",
+        type=str,
+        default="",
+        help="Optional robust policy replay report JSON path.",
+    )
     p.add_argument("--out-json", type=str, default="outputs/publication_full_rtx4050/policy_replay_summary.json")
     p.add_argument("--out-md", type=str, default="outputs/publication_full_rtx4050/policy_replay_summary.md")
     return p.parse_args()
@@ -39,11 +45,17 @@ def main() -> None:
     canonical = _load(Path(args.canonical).resolve())
     balanced = _load(Path(args.balanced).resolve())
     aggressive = _load(Path(args.aggressive).resolve())
+    robust = _load(Path(args.robust).resolve()) if str(args.robust).strip() and Path(args.robust).exists() else None
 
     can = _rows(canonical)
     bal = _rows(balanced)
     agg = _rows(aggressive)
-    datasets = ["femto", "xjtu_sy", "cmapss"]
+    all_sets = set(can.keys()) | set(bal.keys()) | set(agg.keys())
+    if robust is not None:
+        all_sets |= set(_rows(robust).keys())
+    preferred = ["femto", "xjtu_sy", "cmapss"]
+    datasets = [d for d in preferred if d in all_sets] + sorted(d for d in all_sets if d not in preferred)
+    rob = _rows(robust) if robust is not None else {}
 
     summary_rows: list[dict[str, Any]] = []
     for ds in datasets:
@@ -60,6 +72,18 @@ def main() -> None:
                 "rul_cov": float(m.get("rul_cov", float("nan"))),
                 "tau_v": float(m.get("tau_v", float("nan"))),
             }
+        if robust is not None:
+            row = rob.get(ds)
+            if not row or str(row.get("status", "")).lower() != "ok":
+                entry["robust"] = {"status": "missing"}
+            else:
+                m = row.get("metrics", {})
+                entry["robust"] = {
+                    "status": "ok",
+                    "rmse": float(m.get("rmse", float("nan"))),
+                    "rul_cov": float(m.get("rul_cov", float("nan"))),
+                    "tau_v": float(m.get("tau_v", float("nan"))),
+                }
         summary_rows.append(entry)
 
     out = {
@@ -70,6 +94,8 @@ def main() -> None:
         },
         "rows": summary_rows,
     }
+    if robust is not None:
+        out["reports"]["robust"] = str(Path(args.robust).resolve())
 
     out_json = Path(args.out_json).resolve()
     out_json.parent.mkdir(parents=True, exist_ok=True)
@@ -81,9 +107,10 @@ def main() -> None:
         "| Dataset | Policy | RMSE | RUL cov | Tau v |",
         "|---|---|---:|---:|---:|",
     ]
+    policies = ["canonical", "balanced", "aggressive"] + (["robust"] if robust is not None else [])
     for r in summary_rows:
         ds = r["dataset"]
-        for policy in ("canonical", "balanced", "aggressive"):
+        for policy in policies:
             pr = r[policy]
             if pr.get("status") != "ok":
                 lines.append(f"| {ds} | {policy} | n/a | n/a | n/a |")
@@ -92,7 +119,7 @@ def main() -> None:
                     f"| {ds} | {policy} | {_fmt(pr.get('rmse'))} | {_fmt(pr.get('rul_cov'))} | {_fmt(pr.get('tau_v'))} |"
                 )
     any_missing = any(
-        r[policy].get("status") != "ok" for r in summary_rows for policy in ("canonical", "balanced", "aggressive")
+        r[policy].get("status") != "ok" for r in summary_rows for policy in policies
     )
     lines += [
         "",
@@ -101,6 +128,8 @@ def main() -> None:
     ]
     if any_missing:
         lines.append("- Missing rows indicate unavailable replay artifacts in this run.")
+    if robust is not None:
+        lines.append("- Robust row is an additional replay point selected from policy sweep criteria.")
     lines.append("")
     out_md = Path(args.out_md).resolve()
     out_md.write_text("\n".join(lines), encoding="utf-8")

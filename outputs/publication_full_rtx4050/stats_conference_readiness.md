@@ -12,7 +12,7 @@
 - [PASS] Seed Robustness (2.00/2.00): all FD require n>=3, tau_v_max<=0.12, rul_cov_std<=0.02; failing_fds=none
 - [PASS] Split Robustness (val vs dev_holdout) (1.00/1.00): require |delta_cov|<=0.03 and |delta_tau|<=0.05 per FD
 - [PASS] Topology Signal Strength (1.50/1.50): raw_hits=3, unique_families=2 (required>=2), families=['persistent_valleys', 'surface_h1']
-- [PASS] Baseline Comparator Package (1.00/1.00): artifact=C:\Users\micha\zGTFinal\outputs\baseline_comparison.json; external_baselines=4; required>=2
+- [PASS] Baseline Comparator Package (1.00/1.00): artifact=C:\Users\micha\zGTFinal\outputs\baseline_comparison.json; external_baselines=8; required>=2
 - [PASS] External Dataset Generalization (0.50/0.50): artifact=C:\Users\micha\zGTFinal\outputs\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=3; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3
 - [PASS] Proof Maturity (0.50/0.50): paper should not rely on sketch-only theorem statements
 

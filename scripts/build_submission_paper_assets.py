@@ -12,9 +12,45 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--canonical-report", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--balanced-report", type=str, default="outputs/external_performance_report_policy_replay_balanced_v2.json")
     p.add_argument("--aggressive-report", type=str, default="outputs/external_performance_report_policy_replay_aggressive_v1.json")
+    p.add_argument(
+        "--retrain-robustness-report",
+        type=str,
+        default="outputs/external_performance_report_retrain_robustness_v1.json",
+        help="Optional true retrain robustness report JSON.",
+    )
+    p.add_argument(
+        "--robust-report",
+        type=str,
+        default="",
+        help="Optional robust replay report JSON to append in the policy table.",
+    )
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
     p.add_argument("--readiness-json", type=str, default="outputs/publication_full_rtx4050/stats_conference_readiness.json")
+    p.add_argument(
+        "--claim-significance-json",
+        type=str,
+        default="outputs/publication_full_rtx4050/claim_significance_report.json",
+        help="Optional claim-level significance report JSON.",
+    )
+    p.add_argument(
+        "--policy-sharpness-json",
+        type=str,
+        default="outputs/publication_full_rtx4050/policy_sharpness_report.json",
+        help="Optional policy sharpness report JSON.",
+    )
     p.add_argument("--fig-src", type=str, default="outputs/publication_full_rtx4050/paper_release/figures")
+    p.add_argument(
+        "--policy-frontier-fig",
+        type=str,
+        default="",
+        help="Optional policy replay frontier PNG to include in paper/figures.",
+    )
+    p.add_argument(
+        "--policy-sharpness-fig",
+        type=str,
+        default="",
+        help="Optional policy sharpness frontier PNG to include in paper/figures.",
+    )
     p.add_argument("--paper-dir", type=str, default="paper")
     return p.parse_args()
 
@@ -92,11 +128,20 @@ def _build_external_table(canonical: dict[str, Any]) -> list[str]:
     return lines
 
 
-def _build_policy_table(canonical: dict[str, Any], balanced: dict[str, Any], aggressive: dict[str, Any]) -> list[str]:
+def _build_policy_table(
+    canonical: dict[str, Any],
+    balanced: dict[str, Any],
+    aggressive: dict[str, Any],
+    robust: dict[str, Any] | None = None,
+) -> list[str]:
     can_rows = _dataset_rows(canonical)
     bal_rows = _dataset_rows(balanced)
     agg_rows = _dataset_rows(aggressive)
-    datasets = ["femto", "xjtu_sy", "cmapss"]
+    rob_rows = _dataset_rows(robust) if robust is not None else {}
+
+    all_sets = set(can_rows.keys()) | set(bal_rows.keys()) | set(agg_rows.keys()) | set(rob_rows.keys())
+    preferred = ["femto", "xjtu_sy", "cmapss"]
+    datasets = [d for d in preferred if d in all_sets] + sorted(d for d in all_sets if d not in preferred)
 
     def row_for(policy: str, report: dict[str, Any], rows: dict[str, dict[str, Any]], ds: str) -> str:
         settings = report.get("settings", {})
@@ -129,12 +174,41 @@ def _build_policy_table(canonical: dict[str, Any], balanced: dict[str, Any], agg
     lines.append("\\midrule")
     for ds in datasets:
         lines.append(row_for("Aggressive", aggressive, agg_rows, ds))
+    if robust is not None:
+        lines.append("\\midrule")
+        for ds in datasets:
+            lines.append(row_for("Robust", robust, rob_rows, ds))
     lines += [
         "\\bottomrule",
         "\\end{tabular}",
         "\\end{table*}",
         "",
     ]
+    return lines
+
+
+def _build_retrain_table(retrain: dict[str, Any]) -> list[str]:
+    rows = [r for r in list(retrain.get("datasets", [])) if str(r.get("status", "")).lower() == "ok"]
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\caption{True retrain robustness check (no checkpoint reuse).}",
+        "\\label{tab:retrain-robustness}",
+        "\\begin{tabular}{lrrrr}",
+        "\\toprule",
+        "Dataset & RMSE & RUL cov. & Tau viol. & Runs\\\\",
+        "\\midrule",
+    ]
+    if not rows:
+        lines.append("n/a & n/a & n/a & n/a & n/a\\\\")
+    else:
+        for row in rows:
+            m = row.get("metrics", {})
+            lines.append(
+                f"{_escape_tex(str(row.get('dataset','unknown')))} & {_fmt(m.get('rmse'))} & "
+                f"{_fmt(m.get('rul_cov'))} & {_fmt(m.get('tau_v'))} & {int(row.get('num_runs', 0))}\\\\"
+            )
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}", ""]
     return lines
 
 
@@ -179,7 +253,65 @@ def _build_gate_table(readiness: dict[str, Any]) -> list[str]:
     return lines
 
 
-def _copy_figures(fig_src: Path, fig_dst: Path) -> list[str]:
+def _build_significance_table(sig: dict[str, Any]) -> list[str]:
+    tests = sorted(
+        list(sig.get("paired_tests", [])),
+        key=lambda r: (float(r.get("p_holm", 1.0)), str(r.get("comparator", "")), str(r.get("metric", ""))),
+    )
+    lines = [
+        "\\begin{table*}[t]",
+        "\\centering",
+        "\\caption{Paired run-level significance summary (Holm-adjusted).}",
+        "\\label{tab:significance}",
+        "\\begin{tabular}{llrrrr}",
+        "\\toprule",
+        "Comparator & Metric & Effect (main-comp) & Win rate & $p$ & $p_{Holm}$\\\\",
+        "\\midrule",
+    ]
+    if not tests:
+        lines.append("n/a & n/a & n/a & n/a & n/a & n/a\\\\")
+    else:
+        for t in tests:
+            lines.append(
+                f"{_escape_tex(str(t.get('comparator', 'unknown')))} & {_escape_tex(str(t.get('metric', 'n/a')))} & "
+                f"{_fmt(t.get('effect_mean_diff'), 4)} & {_fmt(t.get('win_rate_main_better'), 3)} & "
+                f"{_fmt(t.get('p_raw'), 4)} & {_fmt(t.get('p_holm'), 4)}\\\\"
+            )
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table*}", ""]
+    return lines
+
+
+def _build_sharpness_table(sharp: dict[str, Any]) -> list[str]:
+    rows = list(sharp.get("policy_summary", []))
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\caption{Policy-level sharpness/validity summary.}",
+        "\\label{tab:policy-sharpness}",
+        "\\begin{tabular}{lrrrr}",
+        "\\toprule",
+        "Policy & Cov. mean & Tau max & Width mean & Pareto\\\\",
+        "\\midrule",
+    ]
+    if not rows:
+        lines.append("n/a & n/a & n/a & n/a & n/a\\\\")
+    else:
+        for r in rows:
+            pareto = "yes" if bool(r.get("pareto_non_dominated", False)) else "no"
+            lines.append(
+                f"{_escape_tex(str(r.get('policy', 'unknown')))} & {_fmt(r.get('coverage_mean'))} & "
+                f"{_fmt(r.get('tau_max'))} & {_fmt(r.get('width_mean'))} & {pareto}\\\\"
+            )
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}", ""]
+    return lines
+
+
+def _copy_figures(
+    fig_src: Path,
+    fig_dst: Path,
+    extra_frontier_fig: Path | None = None,
+    extra_sharpness_fig: Path | None = None,
+) -> list[str]:
     wanted = [
         "external_metrics_overview.png",
         "readiness_gates.png",
@@ -194,6 +326,14 @@ def _copy_figures(fig_src: Path, fig_dst: Path) -> list[str]:
         if src.exists():
             shutil.copy2(src, fig_dst / name)
             copied.append(name)
+    if extra_frontier_fig is not None and extra_frontier_fig.exists():
+        dst_name = "policy_replay_frontier.png"
+        shutil.copy2(extra_frontier_fig, fig_dst / dst_name)
+        copied.append(dst_name)
+    if extra_sharpness_fig is not None and extra_sharpness_fig.exists():
+        dst_name = "policy_sharpness_frontier.png"
+        shutil.copy2(extra_sharpness_fig, fig_dst / dst_name)
+        copied.append(dst_name)
     return copied
 
 
@@ -206,26 +346,41 @@ def main() -> None:
     canonical = _load_json(Path(args.canonical_report).resolve())
     balanced = _load_json(Path(args.balanced_report).resolve()) if Path(args.balanced_report).exists() else {"datasets": [], "settings": {}}
     aggressive = _load_json(Path(args.aggressive_report).resolve()) if Path(args.aggressive_report).exists() else {"datasets": [], "settings": {}}
+    retrain = _load_json(Path(args.retrain_robustness_report).resolve()) if Path(args.retrain_robustness_report).exists() else {"datasets": [], "settings": {}}
+    robust = _load_json(Path(args.robust_report).resolve()) if str(args.robust_report).strip() and Path(args.robust_report).exists() else None
     baseline = _load_json(Path(args.baseline_json).resolve())
     readiness = _load_json(Path(args.readiness_json).resolve())
+    sig = _load_json(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else {}
+    sharp = _load_json(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else {}
 
     tables: list[str] = []
     tables.extend(_build_external_table(canonical))
-    tables.extend(_build_policy_table(canonical, balanced, aggressive))
+    tables.extend(_build_policy_table(canonical, balanced, aggressive, robust=robust))
+    tables.extend(_build_retrain_table(retrain))
     tables.extend(_build_baseline_table(baseline))
+    tables.extend(_build_significance_table(sig))
+    tables.extend(_build_sharpness_table(sharp))
     tables.extend(_build_gate_table(readiness))
 
     generated.mkdir(parents=True, exist_ok=True)
     (generated / "tables.tex").write_text("\n".join(tables), encoding="utf-8")
     _write_values_tex(generated / "values.tex", readiness=readiness, canonical=canonical)
 
-    copied = _copy_figures(Path(args.fig_src).resolve(), figures)
+    extra_frontier = Path(args.policy_frontier_fig).resolve() if str(args.policy_frontier_fig).strip() else None
+    extra_sharp = Path(args.policy_sharpness_fig).resolve() if str(args.policy_sharpness_fig).strip() else None
+    copied = _copy_figures(Path(args.fig_src).resolve(), figures, extra_frontier_fig=extra_frontier, extra_sharpness_fig=extra_sharp)
     provenance = {
         "canonical_report": str(Path(args.canonical_report).resolve()),
         "balanced_report": str(Path(args.balanced_report).resolve()),
         "aggressive_report": str(Path(args.aggressive_report).resolve()),
+        "retrain_robustness_report": str(Path(args.retrain_robustness_report).resolve()) if Path(args.retrain_robustness_report).exists() else "",
+        "robust_report": str(Path(args.robust_report).resolve()) if robust is not None else "",
         "baseline_json": str(Path(args.baseline_json).resolve()),
         "readiness_json": str(Path(args.readiness_json).resolve()),
+        "claim_significance_json": str(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else "",
+        "policy_sharpness_json": str(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else "",
+        "policy_frontier_fig": str(extra_frontier) if extra_frontier is not None else "",
+        "policy_sharpness_fig": str(extra_sharp) if extra_sharp is not None else "",
         "figures_copied": copied,
     }
     (generated / "provenance.json").write_text(json.dumps(provenance, indent=2, allow_nan=False), encoding="utf-8")
@@ -238,4 +393,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
