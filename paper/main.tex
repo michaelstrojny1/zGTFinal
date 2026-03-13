@@ -86,9 +86,7 @@ All tables and figures in this manuscript are generated from artifact files list
 \input{generated/tables.tex}
 
 \subsection{Policy Replay Tradeoff}
-Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. In our replay runs, FEMTO validity degrades sharply under less conservative settings, while C-MAPSS remains stable for the same changes.
-
-XJTU-SY replay rows are marked unavailable in non-canonical policies due repeated dataset-download interruption during this session (connection abort on remote transfer). Canonical XJTU-SY remains present and validated in Table~\ref{tab:external-canonical}.
+Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. In our replay runs, FEMTO validity degrades sharply under less conservative settings, while XJTU-SY and C-MAPSS remain stable for the same parameter changes.
 
 \subsection{Figures}
 \begin{figure}[t]
@@ -120,7 +118,7 @@ No metric in the canonical snapshot is manually edited; all are read directly fr
 \section{Limitations}
 \begin{itemize}[leftmargin=1.3em]
 \item Conservative policy settings can over-prioritize validity margin versus sharpness.
-\item Non-canonical policy replay is currently incomplete on XJTU-SY in this run due upstream transfer interruptions.
+\item Policy replay evidence is currently limited to a small set of operating points rather than a dense frontier.
 \item Internal readiness score is not a substitute for independent external review.
 \end{itemize}
 

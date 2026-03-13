@@ -91,13 +91,17 @@ def main() -> None:
                 lines.append(
                     f"| {ds} | {policy} | {_fmt(pr.get('rmse'))} | {_fmt(pr.get('rul_cov'))} | {_fmt(pr.get('tau_v'))} |"
                 )
+    any_missing = any(
+        r[policy].get("status") != "ok" for r in summary_rows for policy in ("canonical", "balanced", "aggressive")
+    )
     lines += [
         "",
         "Notes:",
         "- Balanced/aggressive rows are replayed from fixed canonical checkpoints/calibration bundles.",
-        "- Missing rows indicate unavailable replay artifacts in this run (e.g., interrupted external download).",
-        "",
     ]
+    if any_missing:
+        lines.append("- Missing rows indicate unavailable replay artifacts in this run.")
+    lines.append("")
     out_md = Path(args.out_md).resolve()
     out_md.write_text("\n".join(lines), encoding="utf-8")
 
@@ -107,4 +111,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
