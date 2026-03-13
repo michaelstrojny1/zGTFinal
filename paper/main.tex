@@ -90,7 +90,7 @@ Policy replay keeps model weights and calibration bundles fixed and only changes
 To tighten this analysis beyond three hand-picked points, we run replay-only sweeps from frozen artifacts and include the strongest cross-dataset validity-preserving candidate as a robust replay row.
 In the all-dataset sweep, settings with margin $0.30$ satisfy the coverage/tau targets, while reducing margin to $0.25$ causes immediate FEMTO validity failures.
 Paired run-level comparator tests are reported with Holm correction, and we include a policy-level sharpness table to make conservatism-vs-validity tradeoffs explicit.
-We also include a true retrain robustness block (no checkpoint reuse) to validate that conclusions are not purely replay artifacts, while explicitly flagging that the current canonical external point still saturates the maximum width budget on all three datasets.
+We also include a true retrain robustness block (no checkpoint reuse) across FEMTO, XJTU-SY, and C-MAPSS to validate that conclusions are not purely replay artifacts. A fresh replay sweep on those retrained artifacts still leaves mean width saturated at the \num{125}-step budget, indicating that the external overconservatism is not just a frozen-checkpoint artifact.
 
 \subsection{Figures}
 \begin{figure}[t]
@@ -138,13 +138,13 @@ No metric in the canonical snapshot is manually edited; all are read directly fr
 \begin{itemize}[leftmargin=1.3em]
 \item Conservative policy settings can over-prioritize validity margin versus sharpness; in the current canonical external package the mean set width saturates the \num{125}-step budget on FEMTO, XJTU-SY, and C-MAPSS.
 \item Replay frontier granularity is still moderate; a denser grid could map the Pareto boundary more precisely.
-\item True retrain robustness currently covers only a limited external subset (currently FEMTO only); broad retrain coverage remains future work.
+\item Broader true retrain coverage now reaches FEMTO, XJTU-SY, and C-MAPSS, but external sample size remains intrinsically small on FEMTO/XJTU-SY and the retrained replay sweep still does not recover sharper valid intervals.
 \item External sample size is limited on the smallest datasets, with only 4 FEMTO test runs and 2 XJTU-SY test runs in the current artifact-locked package.
 \item Internal readiness score is not a substitute for independent external review.
 \end{itemize}
 
 \section{Conclusion}
-The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing: conservative external widths, limited external run counts on FEMTO/XJTU-SY, and replay-grid granularity rather than artifact inconsistency.
+The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing: conservative external widths that persist even after broader true retraining, limited external run counts on FEMTO/XJTU-SY, and replay-grid granularity rather than artifact inconsistency.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

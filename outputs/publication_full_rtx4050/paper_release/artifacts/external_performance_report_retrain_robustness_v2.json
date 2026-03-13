@@ -1,0 +1,167 @@
+{
+  "settings": {
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
+    "datasets": [
+      "femto",
+      "xjtu_sy",
+      "cmapss"
+    ],
+    "fd": 1,
+    "seed": 123,
+    "seed_mode": "dataset_adler32_mod_10000",
+    "max_rul": 125,
+    "batch_size": 128,
+    "num_workers": 0,
+    "prefetch_factor": 4,
+    "epochs": 15,
+    "lr": 0.003,
+    "weight_decay": 0.0001,
+    "hidden": 128,
+    "depth": 4,
+    "dropout": 0.05,
+    "low_rul_loss_weight": 1.0,
+    "low_rul_threshold": 30.0,
+    "low_rul_weight_power": 1.0,
+    "low_rul_weight_datasets": [],
+    "dataset_overrides_json": "outputs\\external_dataset_overrides.json",
+    "dataset_overrides": {
+      "femto": {
+        "epochs": 15,
+        "lr": 0.003,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 4.0,
+        "low_rul_threshold": 25,
+        "low_rul_weight_power": 1.0
+      },
+      "xjtu_sy": {
+        "epochs": 15,
+        "lr": 0.003,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 2.0,
+        "low_rul_threshold": 20,
+        "low_rul_weight_power": 1.5
+      }
+    },
+    "reuse_artifacts_root": "",
+    "alpha": 0.003,
+    "lambda_bet": 0.04,
+    "calibration_source": "val",
+    "calibration_fraction": 0.2,
+    "calibration_bins": 8,
+    "calibration_min_bin_size": 128,
+    "pvalue_safety_margin": 0.3,
+    "amp_enabled": true,
+    "compile_requested": false
+  },
+  "datasets": [
+    {
+      "dataset": "femto",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 4,
+      "metrics": {
+        "rmse": 15.114770283139741,
+        "mae": 3.600779250988602,
+        "rmse_last": 93.48235754341565,
+        "mae_last": 91.34375,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 15,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 4.0,
+        "low_rul_threshold": 25.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\femto_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\femto_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\femto_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\femto_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\femto_fd001\\tem_metrics_fd001.json"
+      },
+      "notes": [
+        "Applied low-RUL weighted training: weight=4.000, threshold=25.000, power=1.000."
+      ]
+    },
+    {
+      "dataset": "xjtu_sy",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 2,
+      "metrics": {
+        "rmse": 29.11658330311506,
+        "mae": 23.34460308908046,
+        "rmse_last": 34.58151742847977,
+        "mae_last": 34.578125,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 1.0
+      },
+      "effective_settings": {
+        "epochs": 15,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 2.0,
+        "low_rul_threshold": 20.0,
+        "low_rul_weight_power": 1.5
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\xjtu_sy_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\xjtu_sy_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\xjtu_sy_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\xjtu_sy_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\xjtu_sy_fd001\\tem_metrics_fd001.json"
+      },
+      "notes": [
+        "Applied low-RUL weighted training: weight=2.000, threshold=20.000, power=1.500."
+      ]
+    },
+    {
+      "dataset": "cmapss",
+      "status": "ok",
+      "fd": 1,
+      "num_runs": 100,
+      "metrics": {
+        "rmse": 18.352673163175382,
+        "mae": 13.415135990829738,
+        "rmse_last": 16.18856123225618,
+        "mae_last": 12.268046875,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "tau_identifiability_ratio": 0.89
+      },
+      "effective_settings": {
+        "epochs": 15,
+        "lr": 0.003,
+        "weight_decay": 0.0001,
+        "hidden": 128,
+        "depth": 4,
+        "dropout": 0.05,
+        "low_rul_loss_weight": 1.0,
+        "low_rul_threshold": 30.0,
+        "low_rul_weight_power": 1.0
+      },
+      "artifacts": {
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\cmapss_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\cmapss_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\cmapss_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\cmapss_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_retrain_robustness_v2\\cmapss_fd001\\tem_metrics_fd001.json"
+      }
+    }
+  ]
+}

@@ -197,6 +197,7 @@ Interpretation caveat:
 - External coverage/tau metrics are near-perfect under conservative calibration settings; this improves validity margin but can reduce sharpness/decision aggressiveness.
 - In the current canonical external package, mean confidence width saturates the full `max_rul=125` budget on FEMTO, XJTU-SY, and C-MAPSS.
 - Checkpoint-level external policy sweeps (alpha/lambda/margin) did not find an alert-free setting that preserved acceptable quality simultaneously, so the conservative external configuration is retained.
+- A broader true-retrain robustness block now covers FEMTO, XJTU-SY, and C-MAPSS. A fresh 36-point replay sweep on those retrained artifacts still leaves valid points width-saturated (`width_mean=125`), so the external conservatism is not only a stale-checkpoint effect.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled `audit_*.json` and `audit_cache_*.npz` diagnostics from the saved external checkpoints.
 - Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.

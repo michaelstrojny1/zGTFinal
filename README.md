@@ -377,19 +377,40 @@ Optional true-retrain robustness block (no reuse):
 ```bash
 python scripts/run_real_external_evals.py ^
   --data-root C:\Users\micha\.rul-datasets ^
-  --datasets femto ^
+  --datasets femto,xjtu_sy,cmapss ^
   --fd 1 ^
-  --epochs 8 ^
+  --epochs 15 ^
   --batch-size 128 ^
   --num-workers 0 ^
   --seed 123 ^
   --no-compile ^
+  --dataset-overrides-json outputs/external_dataset_overrides.json ^
   --alpha 0.003 ^
   --lambda-bet 0.04 ^
   --pvalue-safety-margin 0.30 ^
-  --out-root outputs/external_real_eval_retrain_robustness_v1 ^
-  --out-json outputs/external_performance_report_retrain_robustness_v1.json ^
-  --out-md outputs/external_performance_report_retrain_robustness_v1.md
+  --out-root outputs/external_real_eval_retrain_robustness_v2 ^
+  --out-json outputs/external_performance_report_retrain_robustness_v2.json ^
+  --out-md outputs/external_performance_report_retrain_robustness_v2.md
+```
+
+Width-aware replay sweep on the fresh retrained external artifacts:
+
+```bash
+python scripts/sweep_external_policy_replay.py ^
+  --data-root C:\Users\micha\.rul-datasets ^
+  --datasets femto,xjtu_sy,cmapss ^
+  --fd 1 ^
+  --batch-size 128 ^
+  --num-workers 0 ^
+  --reuse-artifacts-root outputs/external_real_eval_retrain_robustness_v2 ^
+  --alpha-grid 0.001,0.002,0.003,0.005 ^
+  --lambda-grid 0.03,0.04,0.05 ^
+  --margin-grid 0.20,0.25,0.30 ^
+  --cov-target 0.95 ^
+  --tau-target 0.05 ^
+  --out-root outputs/external_policy_replay_sweep_retrain_v2 ^
+  --out-json outputs/external_policy_replay_sweep_retrain_v2/summary.json ^
+  --out-md outputs/external_policy_replay_sweep_retrain_v2/summary.md
 ```
 
 Freeze submission artifact checksums:

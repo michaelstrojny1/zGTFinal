@@ -123,7 +123,32 @@ def _run_one(
     return _load_json(report_json)
 
 
-def _metrics_from_report(report: dict[str, Any]) -> tuple[float, float, float, list[str]]:
+def _width_mean_from_report(report: dict[str, Any]) -> float:
+    widths: list[float] = []
+    for row in list(report.get("datasets", [])):
+        if str(row.get("status", "")).lower() != "ok":
+            continue
+        tem_path = Path(str(row.get("artifacts", {}).get("tem_metrics", "")))
+        if not tem_path.exists():
+            continue
+        try:
+            tem = _load_json(tem_path)
+        except Exception:
+            continue
+        for run in list(tem.get("per_run", [])):
+            mean_width = run.get("mean_width")
+            if mean_width is None:
+                continue
+            try:
+                widths.append(float(mean_width))
+            except Exception:
+                continue
+    if not widths:
+        return float("nan")
+    return float(sum(widths) / float(len(widths)))
+
+
+def _metrics_from_report(report: dict[str, Any]) -> tuple[float, float, float, float, list[str]]:
     ok_rows = [r for r in list(report.get("datasets", [])) if str(r.get("status", "")).lower() == "ok"]
     missing = [
         str(r.get("dataset", "unknown"))
@@ -131,15 +156,16 @@ def _metrics_from_report(report: dict[str, Any]) -> tuple[float, float, float, l
         if str(r.get("status", "")).lower() != "ok"
     ]
     if not ok_rows:
-        return float("nan"), float("nan"), float("nan"), missing
+        return float("nan"), float("nan"), float("nan"), float("nan"), missing
 
     cov_vals = [float(r.get("metrics", {}).get("rul_cov", float("nan"))) for r in ok_rows]
     tau_vals = [float(r.get("metrics", {}).get("tau_v", float("nan"))) for r in ok_rows]
     rmse_vals = [float(r.get("metrics", {}).get("rmse", float("nan"))) for r in ok_rows]
+    width_mean = _width_mean_from_report(report)
     cov_min = min(cov_vals)
     tau_max = max(tau_vals)
     rmse_mean = sum(rmse_vals) / float(len(rmse_vals))
-    return cov_min, tau_max, rmse_mean, missing
+    return cov_min, tau_max, rmse_mean, width_mean, missing
 
 
 def main() -> None:
@@ -179,7 +205,7 @@ def main() -> None:
                     )
                     ran = True
 
-                cov_min, tau_max, rmse_mean, missing = _metrics_from_report(report)
+                cov_min, tau_max, rmse_mean, width_mean, missing = _metrics_from_report(report)
                 cov_shortfall = max(0.0, float(args.cov_target) - cov_min)
                 tau_excess = max(0.0, tau_max - float(args.tau_target))
                 validity_ok = bool((cov_shortfall <= 0.0) and (tau_excess <= 0.0) and (not missing))
@@ -196,6 +222,7 @@ def main() -> None:
                         "cov_min": float(cov_min),
                         "tau_max": float(tau_max),
                         "rmse_mean": float(rmse_mean),
+                        "width_mean": float(width_mean),
                         "cov_shortfall": float(cov_shortfall),
                         "tau_excess": float(tau_excess),
                         "validity_ok": validity_ok,
@@ -211,12 +238,24 @@ def main() -> None:
     if valid_rows:
         best = sorted(
             valid_rows,
-            key=lambda r: (float(r["aggressiveness"]), -float(r["cov_min"]), -float(r["tau_max"])),
+            key=lambda r: (
+                -float(r["width_mean"]),
+                float(r["aggressiveness"]),
+                -float(r["cov_min"]),
+                -float(r["tau_max"]),
+            ),
             reverse=True,
         )[0]
-        selection_mode = "best_valid_by_aggressiveness"
+        selection_mode = "best_valid_by_width_then_aggressiveness"
     else:
-        best = sorted(rows, key=lambda r: (float(r["selection_penalty"]), -float(r["aggressiveness"])))[0]
+        best = sorted(
+            rows,
+            key=lambda r: (
+                float(r["selection_penalty"]),
+                float(r["width_mean"]),
+                -float(r["aggressiveness"]),
+            ),
+        )[0]
         selection_mode = "no_valid_point_best_penalty"
 
     summary = {
@@ -235,11 +274,16 @@ def main() -> None:
         "selection_mode": selection_mode,
         "best_policy": best,
         "num_valid_points": len(valid_rows),
+        "valid_width_range": {
+            "min": min(float(r["width_mean"]) for r in valid_rows) if valid_rows else None,
+            "max": max(float(r["width_mean"]) for r in valid_rows) if valid_rows else None,
+        },
         "rows_sorted": sorted(
             rows,
             key=lambda r: (
                 int(bool(r["validity_ok"])),
                 -float(r["selection_penalty"]),
+                -float(r["width_mean"]),
                 float(r["aggressiveness"]),
             ),
             reverse=True,
@@ -259,6 +303,10 @@ def main() -> None:
     lines.append(f"- tau target: {float(args.tau_target):.3f}")
     lines.append(f"- valid points: {len(valid_rows)}")
     lines.append(f"- selection mode: `{selection_mode}`")
+    lines.append(
+        f"- valid width range: {_fmt(summary['valid_width_range']['min'])} to "
+        f"{_fmt(summary['valid_width_range']['max'])}"
+    )
     lines.append("")
     lines.append("## Selected Policy")
     lines.append(
@@ -267,18 +315,19 @@ def main() -> None:
     )
     lines.append(
         f"- cov_min={_fmt(best.get('cov_min'))}, tau_max={_fmt(best.get('tau_max'))}, "
-        f"rmse_mean={_fmt(best.get('rmse_mean'))}, validity_ok={bool(best.get('validity_ok'))}"
+        f"width_mean={_fmt(best.get('width_mean'))}, rmse_mean={_fmt(best.get('rmse_mean'))}, "
+        f"validity_ok={bool(best.get('validity_ok'))}"
     )
     lines.append("")
     lines.append("## Top Policies")
     lines.append("")
-    lines.append("| tag | alpha | lambda | margin | cov_min | tau_max | valid |")
-    lines.append("|---|---:|---:|---:|---:|---:|---:|")
+    lines.append("| tag | alpha | lambda | margin | cov_min | tau_max | width_mean | valid |")
+    lines.append("|---|---:|---:|---:|---:|---:|---:|---:|")
     for row in summary["rows_sorted"][:15]:
         lines.append(
             f"| {row['tag']} | {_fmt(row['alpha'],4)} | {_fmt(row['lambda_bet'],4)} | "
             f"{_fmt(row['pvalue_safety_margin'],4)} | {_fmt(row['cov_min'])} | {_fmt(row['tau_max'])} | "
-            f"{'yes' if row['validity_ok'] else 'no'} |"
+            f"{_fmt(row['width_mean'])} | {'yes' if row['validity_ok'] else 'no'} |"
         )
     lines.append("")
 

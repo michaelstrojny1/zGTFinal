@@ -19,6 +19,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--paper-generated-dir", type=str, default="paper/generated")
     p.add_argument("--paper-fig-dir", type=str, default="paper/figures")
     p.add_argument("--external-report", type=str, default="outputs/external_performance_report.json")
+    p.add_argument("--retrain-robustness-json", type=str, default="outputs/external_performance_report_retrain_robustness_v2.json")
+    p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v2/summary.json")
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
     p.add_argument("--claim-significance-json", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.json")
     p.add_argument("--policy-sharpness-json", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.json")
@@ -212,19 +214,21 @@ def _copy_if_exists(src: Path, dst: Path) -> bool:
     return True
 
 
-def _copy_with_sidecars(src: Path, dst_dir: Path) -> list[str]:
+def _copy_with_sidecars(src: Path, dst_dir: Path, dst_stem: str | None = None) -> list[str]:
     copied: list[str] = []
     if not src.exists():
         return copied
     dst_dir.mkdir(parents=True, exist_ok=True)
-    dst = dst_dir / src.name
+    dst_name = src.name if not dst_stem else f"{dst_stem}{src.suffix}"
+    dst = dst_dir / dst_name
     shutil.copy2(src, dst)
     copied.append(dst.name)
     if src.suffix.lower() == ".json":
         md = src.with_suffix(".md")
         if md.exists():
-            shutil.copy2(md, dst_dir / md.name)
-            copied.append(md.name)
+            md_name = md.name if not dst_stem else f"{dst_stem}{md.suffix}"
+            shutil.copy2(md, dst_dir / md_name)
+            copied.append(md_name)
     return copied
 
 
@@ -252,6 +256,8 @@ def main() -> None:
     paper_generated_dir = Path(args.paper_generated_dir).resolve()
     paper_fig_dir = Path(args.paper_fig_dir).resolve()
     ext_path = Path(args.external_report).resolve()
+    retrain_path = Path(args.retrain_robustness_json).resolve()
+    retrain_sweep_path = Path(args.retrain_policy_sweep_json).resolve()
     baseline_path = Path(args.baseline_json).resolve()
     claim_sig_path = Path(args.claim_significance_json).resolve()
     policy_sharpness_path = Path(args.policy_sharpness_json).resolve()
@@ -274,6 +280,10 @@ def main() -> None:
     paper_dir = out_dir / "paper"
     for d in (figures_dir, reports_dir, artifacts_dir, paper_dir):
         d.mkdir(parents=True, exist_ok=True)
+    for stale_name in ("summary.json", "summary.md"):
+        stale_path = artifacts_dir / stale_name
+        if stale_path.exists():
+            stale_path.unlink()
 
     # Honesty check.
     honesty = _honesty_check(paper_text, external, readiness)
@@ -295,6 +305,7 @@ def main() -> None:
     copied_artifacts: list[str] = []
     for src in (
         ext_path,
+        retrain_path,
         baseline_path,
         claim_sig_path,
         policy_sharpness_path,
@@ -311,6 +322,14 @@ def main() -> None:
         paper_path,
     ):
         copied_artifacts.extend(_copy_with_sidecars(src, artifacts_dir))
+    if retrain_sweep_path.exists():
+        copied_artifacts.extend(
+            _copy_with_sidecars(
+                retrain_sweep_path,
+                artifacts_dir,
+                dst_stem=f"{retrain_sweep_path.parent.name}_summary",
+            )
+        )
 
     if paper_pdf_path.exists():
         _copy_if_exists(paper_pdf_path, paper_dir / paper_pdf_path.name)
@@ -349,6 +368,37 @@ def main() -> None:
         annex.append("")
     if (figures_dir / "gamma_vs_pred_mae.png").exists():
         annex.append("![Gamma vs Prediction MAE](../figures/gamma_vs_pred_mae.png)")
+    annex.append("")
+    if retrain_path.exists():
+        retrain = _load_json(retrain_path)
+        retrain_rows = [d for d in list(retrain.get("datasets", [])) if str(d.get("status", "")).lower() == "ok"]
+        if retrain_rows:
+            annex.append("### True Retrain Robustness")
+            annex.append("")
+            annex.append("| Dataset | RMSE | RUL_cov | Tau_v | Runs |")
+            annex.append("|---|---:|---:|---:|---:|")
+            for d in retrain_rows:
+                m = d.get("metrics", {}) if isinstance(d.get("metrics", {}), dict) else {}
+                annex.append(
+                    f"| {d.get('dataset')} | {_fmt3(m.get('rmse', np.nan))} | {_fmt3(m.get('rul_cov', np.nan))} | "
+                    f"{_fmt3(m.get('tau_v', np.nan))} | {int(d.get('num_runs', 0))} |"
+                )
+            annex.append("")
+    if retrain_sweep_path.exists():
+        retrain_sweep = _load_json(retrain_sweep_path)
+        best = retrain_sweep.get("best_policy", {}) if isinstance(retrain_sweep.get("best_policy", {}), dict) else {}
+        annex.append("### Retrain Replay Sweep")
+        annex.append("")
+        annex.append(
+            f"- selection_mode={retrain_sweep.get('selection_mode', 'n/a')}, "
+            f"valid_points={int(retrain_sweep.get('num_valid_points', 0))}"
+        )
+        annex.append(
+            f"- best_policy: alpha={_fmt3(best.get('alpha', np.nan))}, lambda={_fmt3(best.get('lambda_bet', np.nan))}, "
+            f"margin={_fmt3(best.get('pvalue_safety_margin', np.nan))}, "
+            f"width_mean={_fmt3(best.get('width_mean', np.nan))}, cov_min={_fmt3(best.get('cov_min', np.nan))}, "
+            f"tau_max={_fmt3(best.get('tau_max', np.nan))}"
+        )
         annex.append("")
     if suspicious:
         summ = suspicious.get("summary", {}) if isinstance(suspicious.get("summary", {}), dict) else {}

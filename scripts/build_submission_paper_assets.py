@@ -16,8 +16,14 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--retrain-robustness-report",
         type=str,
-        default="outputs/external_performance_report_retrain_robustness_v1.json",
+        default="outputs/external_performance_report_retrain_robustness_v2.json",
         help="Optional true retrain robustness report JSON.",
+    )
+    p.add_argument(
+        "--retrain-policy-sweep-json",
+        type=str,
+        default="outputs/external_policy_replay_sweep_retrain_v2/summary.json",
+        help="Optional replay sweep summary from fresh retrained external artifacts.",
     )
     p.add_argument(
         "--robust-report",
@@ -377,6 +383,7 @@ def main() -> None:
     gate_summary = _load_json(Path(args.gate_summary_json).resolve()) if Path(args.gate_summary_json).exists() else {}
     sig = _load_json(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else {}
     sharp = _load_json(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else {}
+    retrain_sweep = _load_json(Path(args.retrain_policy_sweep_json).resolve()) if Path(args.retrain_policy_sweep_json).exists() else {}
 
     tables: list[str] = []
     tables.extend(_build_external_table(canonical))
@@ -410,6 +417,7 @@ def main() -> None:
         "gate_summary_json": str(Path(args.gate_summary_json).resolve()) if Path(args.gate_summary_json).exists() else "",
         "claim_significance_json": str(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else "",
         "policy_sharpness_json": str(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else "",
+        "retrain_policy_sweep_json": str(Path(args.retrain_policy_sweep_json).resolve()) if retrain_sweep else "",
         "policy_frontier_fig": str(extra_frontier) if extra_frontier is not None else "",
         "policy_sharpness_fig": str(extra_sharp) if extra_sharp is not None else "",
         "figures_copied": copied,

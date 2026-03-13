@@ -172,6 +172,7 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 - External coverage/tau metrics are near-perfect under conservative calibration settings; this improves validity margin but can reduce sharpness/decision aggressiveness.
 - In the current canonical external package, mean confidence width saturates the full <code>max_rul=125</code> budget on FEMTO, XJTU-SY, and C-MAPSS.
 - Checkpoint-level external policy sweeps (alpha/lambda/margin) did not find an alert-free setting that preserved acceptable quality simultaneously, so the conservative external configuration is retained.
+- A broader true-retrain robustness block now covers FEMTO, XJTU-SY, and C-MAPSS. A fresh 36-point replay sweep on those retrained artifacts still leaves valid points width-saturated (<code>width_mean=125</code>), so the external conservatism is not only a stale-checkpoint effect.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled <code>audit_*.json</code> and <code>audit_cache_*.npz</code> diagnostics from the saved external checkpoints.
 - Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.
@@ -227,6 +228,46 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 <p><img alt="Topology vs RUL Bins" src="../figures/topology_vs_rul_bins.png" /></p>
 <p><img alt="Surface H1 vs RUL Coverage" src="../figures/surface_h1_vs_rul_coverage.png" /></p>
 <p><img alt="Gamma vs Prediction MAE" src="../figures/gamma_vs_pred_mae.png" /></p>
+<h3 id="true-retrain-robustness">True Retrain Robustness</h3>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th style="text-align: right;">RMSE</th>
+<th style="text-align: right;">RUL_cov</th>
+<th style="text-align: right;">Tau_v</th>
+<th style="text-align: right;">Runs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>femto</td>
+<td style="text-align: right;">15.115</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr>
+<td>xjtu_sy</td>
+<td style="text-align: right;">29.117</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr>
+<td>cmapss</td>
+<td style="text-align: right;">18.353</td>
+<td style="text-align: right;">1.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
+<h3 id="retrain-replay-sweep">Retrain Replay Sweep</h3>
+<ul>
+<li>selection_mode=best_valid_by_width_then_aggressiveness, valid_points=36</li>
+<li>best_policy: alpha=0.005, lambda=0.050, margin=0.200, width_mean=125.000, cov_min=1.000, tau_max=0.000</li>
+</ul>
 <h3 id="suspicious-values-audit">Suspicious-Values Audit</h3>
 <ul>
 <li>findings=7, high=0, medium=7</li>
