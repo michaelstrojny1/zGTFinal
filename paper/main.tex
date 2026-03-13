@@ -18,13 +18,13 @@
 
 \title{Topological Evidence Monitoring for Anytime-Valid Predictive Maintenance}
 \author{M. Strojny}
-\date{\today}
+\date{Artifact snapshot \ArtifactSnapshotDate}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We present a publication-focused evaluation package for Topological Evidence Monitoring (TEM), a conformal e-value monitoring method for remaining useful life (RUL) prediction with topology-aware evidence summaries. The canonical external package passes all internal quality gates with readiness score \ReadinessScore/10 and conservative readiness score \ReadinessConservativeScore/10, with \ExternalDatasetsOk/\ExternalDatasetsTotal external datasets passing the canonical policy configuration. We provide a full artifact-linked manuscript build, theorem statements aligned to fixed-grid e-process monitoring, and policy replay experiments from frozen checkpoints/calibration bundles to quantify the validity-sharpness tradeoff.
+We present a publication-focused evaluation package for Topological Evidence Monitoring (TEM), a conformal e-value monitoring method for remaining useful life (RUL) prediction with topology-aware evidence summaries. The canonical external package passes all internal quality gates with readiness score \ReadinessScore/10 and conservative readiness score \ReadinessConservativeScore/10, with \ExternalDatasetsOk/\ExternalDatasetsTotal external datasets passing the canonical policy configuration. We provide a full artifact-linked manuscript build, theorem statements aligned to fixed-grid e-process monitoring, and policy replay experiments from frozen checkpoints/calibration bundles to quantify the validity-sharpness tradeoff. Remaining publication risk is disclosed explicitly: the current canonical external policy is conservative, and the smallest external splits remain data-limited.
 \end{abstract}
 
 \section{Introduction}
@@ -90,7 +90,7 @@ Policy replay keeps model weights and calibration bundles fixed and only changes
 To tighten this analysis beyond three hand-picked points, we run replay-only sweeps from frozen artifacts and include the strongest cross-dataset validity-preserving candidate as a robust replay row.
 In the all-dataset sweep, settings with margin $0.30$ satisfy the coverage/tau targets, while reducing margin to $0.25$ causes immediate FEMTO validity failures.
 Paired run-level comparator tests are reported with Holm correction, and we include a policy-level sharpness table to make conservatism-vs-validity tradeoffs explicit.
-We also include a true retrain robustness block (no checkpoint reuse) to validate that conclusions are not purely replay artifacts.
+We also include a true retrain robustness block (no checkpoint reuse) to validate that conclusions are not purely replay artifacts, while explicitly flagging that the current canonical external point still saturates the maximum width budget on all three datasets.
 
 \subsection{Figures}
 \begin{figure}[t]
@@ -129,20 +129,22 @@ The manuscript build is coupled to automated checks:
 \begin{itemize}[leftmargin=1.3em]
 \item gate summary: \url{outputs/publication_full_rtx4050/publication_gate_summary.json};
 \item paper honesty report: \url{outputs/publication_full_rtx4050/paper_release/reports/paper_honesty_report.json};
+\item suspicious-values audit: \url{outputs/publication_full_rtx4050/phd_suspicious_values_audit.json};
 \item generated table provenance: \url{paper/generated/provenance.json}.
 \end{itemize}
 No metric in the canonical snapshot is manually edited; all are read directly from JSON artifacts.
 
 \section{Limitations}
 \begin{itemize}[leftmargin=1.3em]
-\item Conservative policy settings can over-prioritize validity margin versus sharpness.
+\item Conservative policy settings can over-prioritize validity margin versus sharpness; in the current canonical external package the mean set width saturates the \num{125}-step budget on FEMTO, XJTU-SY, and C-MAPSS.
 \item Replay frontier granularity is still moderate; a denser grid could map the Pareto boundary more precisely.
-\item True retrain robustness currently covers only a limited external subset; broad retrain coverage remains future work.
+\item True retrain robustness currently covers only a limited external subset (currently FEMTO only); broad retrain coverage remains future work.
+\item External sample size is limited on the smallest datasets, with only 4 FEMTO test runs and 2 XJTU-SY test runs in the current artifact-locked package.
 \item Internal readiness score is not a substitute for independent external review.
 \end{itemize}
 
 \section{Conclusion}
-The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing (policy conservatism optics and replay-grid granularity), not artifact consistency.
+The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing: conservative external widths, limited external run counts on FEMTO/XJTU-SY, and replay-grid granularity rather than artifact inconsistency.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

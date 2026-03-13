@@ -15,7 +15,14 @@ from markdown import markdown
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Build organized paper release package with honesty checks and figures.")
     p.add_argument("--paper-md", type=str, default="paper/topological_evidence_curves.md")
+    p.add_argument("--paper-pdf", type=str, default="paper/main.pdf")
+    p.add_argument("--paper-generated-dir", type=str, default="paper/generated")
+    p.add_argument("--paper-fig-dir", type=str, default="paper/figures")
     p.add_argument("--external-report", type=str, default="outputs/external_performance_report.json")
+    p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
+    p.add_argument("--claim-significance-json", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.json")
+    p.add_argument("--policy-sharpness-json", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.json")
+    p.add_argument("--suspicious-audit-json", type=str, default="outputs/publication_full_rtx4050/phd_suspicious_values_audit.json")
     p.add_argument("--readiness-json", type=str, default="outputs/publication_full_rtx4050/stats_conference_readiness.json")
     p.add_argument("--gate-summary-json", type=str, default="outputs/publication_full_rtx4050/publication_gate_summary.json")
     p.add_argument("--topology-fig-dir", type=str, default="outputs/publication_full_rtx4050/topology_rul_figs")
@@ -205,6 +212,22 @@ def _copy_if_exists(src: Path, dst: Path) -> bool:
     return True
 
 
+def _copy_with_sidecars(src: Path, dst_dir: Path) -> list[str]:
+    copied: list[str] = []
+    if not src.exists():
+        return copied
+    dst_dir.mkdir(parents=True, exist_ok=True)
+    dst = dst_dir / src.name
+    shutil.copy2(src, dst)
+    copied.append(dst.name)
+    if src.suffix.lower() == ".json":
+        md = src.with_suffix(".md")
+        if md.exists():
+            shutil.copy2(md, dst_dir / md.name)
+            copied.append(md.name)
+    return copied
+
+
 def _build_html_from_md(md_text: str, out_html: Path, title: str) -> None:
     html_body = markdown(md_text, extensions=["fenced_code", "tables", "toc"])
     html = (
@@ -225,7 +248,14 @@ def _build_html_from_md(md_text: str, out_html: Path, title: str) -> None:
 def main() -> None:
     args = parse_args()
     paper_path = Path(args.paper_md).resolve()
+    paper_pdf_path = Path(args.paper_pdf).resolve()
+    paper_generated_dir = Path(args.paper_generated_dir).resolve()
+    paper_fig_dir = Path(args.paper_fig_dir).resolve()
     ext_path = Path(args.external_report).resolve()
+    baseline_path = Path(args.baseline_json).resolve()
+    claim_sig_path = Path(args.claim_significance_json).resolve()
+    policy_sharpness_path = Path(args.policy_sharpness_json).resolve()
+    suspicious_audit_path = Path(args.suspicious_audit_json).resolve()
     readiness_path = Path(args.readiness_json).resolve()
     gate_path = Path(args.gate_summary_json).resolve()
     topo_fig_dir = Path(args.topology_fig_dir).resolve()
@@ -235,6 +265,7 @@ def main() -> None:
     external = _load_json(ext_path)
     readiness = _load_json(readiness_path)
     gate = _load_json(gate_path) if gate_path.exists() else {}
+    suspicious = _load_json(suspicious_audit_path) if suspicious_audit_path.exists() else {}
 
     # Release layout.
     figures_dir = out_dir / "figures"
@@ -257,10 +288,17 @@ def main() -> None:
     _plot_readiness_gates(readiness, figures_dir / "readiness_gates.png")
     for name in ("gamma_vs_pred_mae.png", "surface_h1_vs_rul_coverage.png", "topology_vs_rul_bins.png"):
         _copy_if_exists(topo_fig_dir / name, figures_dir / name)
+    for name in ("policy_replay_frontier.png", "policy_sharpness_frontier.png"):
+        _copy_if_exists(paper_fig_dir / name, figures_dir / name)
 
     # Copy key artifacts.
+    copied_artifacts: list[str] = []
     for src in (
         ext_path,
+        baseline_path,
+        claim_sig_path,
+        policy_sharpness_path,
+        suspicious_audit_path,
         Path("outputs/external_dataset_summary.json").resolve(),
         readiness_path,
         Path("outputs/artifact_consistency_report.json").resolve(),
@@ -269,10 +307,13 @@ def main() -> None:
         Path("outputs/publication_full_rtx4050/deep_check_regimes_stricter_strict_main.json").resolve(),
         Path("outputs/publication_full_rtx4050/deep_check_regimes_external_v8.json").resolve(),
         Path("outputs/publication_full_rtx4050/publication_gate_summary.json").resolve(),
+        paper_generated_dir / "provenance.json",
         paper_path,
     ):
-        if src.exists():
-            _copy_if_exists(src, artifacts_dir / src.name)
+        copied_artifacts.extend(_copy_with_sidecars(src, artifacts_dir))
+
+    if paper_pdf_path.exists():
+        _copy_if_exists(paper_pdf_path, paper_dir / paper_pdf_path.name)
 
     # Build compiled paper markdown with auto annex.
     ext_rows = [d for d in list(external.get("datasets", [])) if str(d.get("status", "")).lower() == "ok"]
@@ -309,6 +350,17 @@ def main() -> None:
     if (figures_dir / "gamma_vs_pred_mae.png").exists():
         annex.append("![Gamma vs Prediction MAE](../figures/gamma_vs_pred_mae.png)")
         annex.append("")
+    if suspicious:
+        summ = suspicious.get("summary", {}) if isinstance(suspicious.get("summary", {}), dict) else {}
+        annex.append("### Suspicious-Values Audit")
+        annex.append("")
+        annex.append(
+            f"- findings={int(summ.get('num_findings', 0))}, high={int(summ.get('num_high', 0))}, "
+            f"medium={int(summ.get('num_medium', 0))}"
+        )
+        for item in list(suspicious.get("findings", []))[:10]:
+            annex.append(f"- [{item.get('severity', 'n/a')}] {item.get('type', 'unknown')}: {item.get('message', '')}")
+        annex.append("")
 
     compiled_md = paper_text + "\n" + "\n".join(annex).strip() + "\n"
     md_out = paper_dir / "topological_evidence_curves.compiled.md"
@@ -320,11 +372,17 @@ def main() -> None:
         "compiled_outputs": {
             "markdown": str(md_out),
             "html": str(paper_dir / "topological_evidence_curves.compiled.html"),
+            "latex_pdf": str(paper_dir / paper_pdf_path.name) if paper_pdf_path.exists() else "",
         },
         "honesty_passed": bool(honesty["passed"]),
         "gate_overall_pass": bool(gate.get("overall_pass", False)),
+        "suspicious_values_findings": {
+            "num_findings": int(suspicious.get("summary", {}).get("num_findings", 0)) if suspicious else 0,
+            "num_high": int(suspicious.get("summary", {}).get("num_high", 0)) if suspicious else 0,
+            "num_medium": int(suspicious.get("summary", {}).get("num_medium", 0)) if suspicious else 0,
+        },
         "figures": sorted([p.name for p in figures_dir.glob("*.png")]),
-        "artifacts": sorted([p.name for p in artifacts_dir.glob("*") if p.is_file()]),
+        "artifacts": sorted(set(copied_artifacts)),
     }
     (out_dir / "manifest.json").write_text(json.dumps(manifest, indent=2, allow_nan=False), encoding="utf-8")
 
@@ -335,4 +393,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

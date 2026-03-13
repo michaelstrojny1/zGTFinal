@@ -149,7 +149,7 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 </ul>
 <h2 id="8-reproducibility">8. Reproducibility</h2>
 <p>Set seeds, save checkpoints + calibration arrays, and archive all JSON metrics and PNG figures in <code>outputs/</code>.</p>
-<h2 id="9-canonical-result-snapshot-2026-03-10">9. Canonical Result Snapshot (2026-03-10)</h2>
+<h2 id="9-canonical-result-snapshot-2026-03-13">9. Canonical Result Snapshot (2026-03-13)</h2>
 <p>This section pins the paper to the current canonical artifacts:
 - <code>outputs/external_performance_report.json</code>
 - <code>outputs/external_dataset_summary.json</code>
@@ -170,9 +170,12 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 - Strict regime deep check is clean across FD001-FD004 under the stricter finite-sample setting (<code>num_findings_total=0</code>).</p>
 <p>Interpretation caveat:
 - External coverage/tau metrics are near-perfect under conservative calibration settings; this improves validity margin but can reduce sharpness/decision aggressiveness.
+- In the current canonical external package, mean confidence width saturates the full <code>max_rul=125</code> budget on FEMTO, XJTU-SY, and C-MAPSS.
 - Checkpoint-level external policy sweeps (alpha/lambda/margin) did not find an alert-free setting that preserved acceptable quality simultaneously, so the conservative external configuration is retained.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
-- External FEMTO/XJTU/C-MAPSS artifacts now include backfilled <code>audit_*.json</code> and <code>audit_cache_*.npz</code> diagnostics from the saved external checkpoints.</p>
+- External FEMTO/XJTU/C-MAPSS artifacts now include backfilled <code>audit_*.json</code> and <code>audit_cache_*.npz</code> diagnostics from the saved external checkpoints.
+- Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.
+- The scripted suspicious-values audit is recorded in <code>outputs/publication_full_rtx4050/phd_suspicious_values_audit.json</code>.</p>
 <h2 id="10-auto-compiled-figures-canonical-build">10. Auto-Compiled Figures (Canonical Build)</h2>
 <p>This section is auto-generated from canonical artifacts and is intended for release packaging.</p>
 <h3 id="external-metrics-table">External Metrics Table</h3>
@@ -223,4 +226,15 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 <p><img alt="Readiness Gate Completion" src="../figures/readiness_gates.png" /></p>
 <p><img alt="Topology vs RUL Bins" src="../figures/topology_vs_rul_bins.png" /></p>
 <p><img alt="Surface H1 vs RUL Coverage" src="../figures/surface_h1_vs_rul_coverage.png" /></p>
-<p><img alt="Gamma vs Prediction MAE" src="../figures/gamma_vs_pred_mae.png" /></p></body></html>
+<p><img alt="Gamma vs Prediction MAE" src="../figures/gamma_vs_pred_mae.png" /></p>
+<h3 id="suspicious-values-audit">Suspicious-Values Audit</h3>
+<ul>
+<li>findings=7, high=0, medium=7</li>
+<li>[medium] tau_identifiability_borderline: FD002 tau_ident_ratio=0.780 is close to 0.750</li>
+<li>[medium] tau_identifiability_borderline: FD004 tau_ident_ratio=0.754 is close to 0.750</li>
+<li>[medium] small_external_sample: femto has only 4 test runs</li>
+<li>[medium] overconservative_external_policy: femto is near-perfect but mean_width=125.0/125</li>
+<li>[medium] small_external_sample: xjtu_sy has only 2 test runs</li>
+<li>[medium] overconservative_external_policy: xjtu_sy is near-perfect but mean_width=125.0/125</li>
+<li>[medium] overconservative_external_policy: cmapss is near-perfect but mean_width=125.0/125</li>
+</ul></body></html>

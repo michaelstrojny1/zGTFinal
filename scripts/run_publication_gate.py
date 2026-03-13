@@ -54,6 +54,8 @@ def _write_md(path: Path, rep: dict[str, Any]) -> None:
     lines.append(f"- readiness_penalties={snap['readiness_penalties']}")
     lines.append(f"- external_num_ok={snap['external_num_ok']}/{snap['external_num_total']}")
     lines.append(f"- external_datasets={','.join(snap['external_datasets'])}")
+    lines.append(f"- suspicious_values_high={snap.get('suspicious_values_high', 0)}")
+    lines.append(f"- suspicious_values_medium={snap.get('suspicious_values_medium', 0)}")
     lines.append("")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -80,6 +82,8 @@ def main() -> None:
     consistency_md = Path("outputs/artifact_consistency_report.md")
     inspect_json = pub_dir / "phd_deep_inspect_report_strict_plus_external.json"
     inspect_md = pub_dir / "phd_deep_inspect_report_strict_plus_external.md"
+    suspicious_json = pub_dir / "phd_suspicious_values_audit.json"
+    suspicious_md = pub_dir / "phd_suspicious_values_audit.md"
 
     # Build/refresh summaries.
     _run(
@@ -229,6 +233,20 @@ def main() -> None:
             str(inspect_md),
         ]
     )
+    _run(
+        [
+            py,
+            "scripts/audit_publication_suspicious_values.py",
+            "--strict-main-root",
+            str(strict_root),
+            "--external-report",
+            str(args.external_performance_report),
+            "--out-json",
+            str(suspicious_json),
+            "--out-md",
+            str(suspicious_md),
+        ]
+    )
 
     strict_deep = _load_json(strict_deep_json)
     ext_deep = _load_json(ext_deep_json)
@@ -239,6 +257,7 @@ def main() -> None:
     readiness = _load_json(readiness_json)
     consistency = _load_json(consistency_json)
     ext_summary = _load_json(ext_summary_json)
+    suspicious = _load_json(suspicious_json)
 
     checks = [
         {"name": "deep_check_strict_main", "pass": int(strict_deep.get("num_findings", 1)) == 0, "detail": f"findings={strict_deep.get('num_findings')}"},
@@ -257,6 +276,15 @@ def main() -> None:
             "pass": bool(consistency.get("passed", False)),
             "detail": f"passed={consistency.get('passed')}, mismatches={consistency.get('num_mismatches')}",
         },
+        {
+            "name": "suspicious_values_audit",
+            "pass": int(suspicious.get("summary", {}).get("num_high", 1)) == 0,
+            "detail": (
+                f"high={suspicious.get('summary', {}).get('num_high')}, "
+                f"medium={suspicious.get('summary', {}).get('num_medium')}, "
+                f"findings={suspicious.get('summary', {}).get('num_findings')}"
+            ),
+        },
     ]
 
     ext_perf = ext_summary.get("real_external_performance", {})
@@ -268,6 +296,8 @@ def main() -> None:
         "external_num_ok": int(ext_perf.get("num_ok", 0)),
         "external_num_total": int(ext_perf.get("num_total", 0)),
         "external_datasets": [str(r.get("dataset", "unknown")) for r in ext_rows],
+        "suspicious_values_high": int(suspicious.get("summary", {}).get("num_high", 0)),
+        "suspicious_values_medium": int(suspicious.get("summary", {}).get("num_medium", 0)),
     }
 
     report = {
@@ -281,6 +311,7 @@ def main() -> None:
             "strict_main_root": str(strict_root),
             "external_root": str(ext_root),
             "pub_dir": str(pub_dir),
+            "suspicious_audit_json": str(suspicious_json),
         },
         "checks": checks,
         "overall_pass": bool(all(bool(c["pass"]) for c in checks)),
@@ -300,4 +331,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

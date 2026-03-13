@@ -170,7 +170,7 @@ structure needed for theorem-aligned \(\tau\)-coverage diagnostics.
 ## 8. Reproducibility
 Set seeds, save checkpoints + calibration arrays, and archive all JSON metrics and PNG figures in `outputs/`.
 
-## 9. Canonical Result Snapshot (2026-03-10)
+## 9. Canonical Result Snapshot (2026-03-13)
 This section pins the paper to the current canonical artifacts:
 - `outputs/external_performance_report.json`
 - `outputs/external_dataset_summary.json`
@@ -195,9 +195,12 @@ Readiness gate summary:
 
 Interpretation caveat:
 - External coverage/tau metrics are near-perfect under conservative calibration settings; this improves validity margin but can reduce sharpness/decision aggressiveness.
+- In the current canonical external package, mean confidence width saturates the full `max_rul=125` budget on FEMTO, XJTU-SY, and C-MAPSS.
 - Checkpoint-level external policy sweeps (alpha/lambda/margin) did not find an alert-free setting that preserved acceptable quality simultaneously, so the conservative external configuration is retained.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled `audit_*.json` and `audit_cache_*.npz` diagnostics from the saved external checkpoints.
+- Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.
+- The scripted suspicious-values audit is recorded in `outputs/publication_full_rtx4050/phd_suspicious_values_audit.json`.
 
 
 ## 10. Auto-Compiled Figures (Canonical Build)
@@ -223,3 +226,14 @@ This section is auto-generated from canonical artifacts and is intended for rele
 ![Surface H1 vs RUL Coverage](../figures/surface_h1_vs_rul_coverage.png)
 
 ![Gamma vs Prediction MAE](../figures/gamma_vs_pred_mae.png)
+
+### Suspicious-Values Audit
+
+- findings=7, high=0, medium=7
+- [medium] tau_identifiability_borderline: FD002 tau_ident_ratio=0.780 is close to 0.750
+- [medium] tau_identifiability_borderline: FD004 tau_ident_ratio=0.754 is close to 0.750
+- [medium] small_external_sample: femto has only 4 test runs
+- [medium] overconservative_external_policy: femto is near-perfect but mean_width=125.0/125
+- [medium] small_external_sample: xjtu_sy has only 2 test runs
+- [medium] overconservative_external_policy: xjtu_sy is near-perfect but mean_width=125.0/125
+- [medium] overconservative_external_policy: cmapss is near-perfect but mean_width=125.0/125

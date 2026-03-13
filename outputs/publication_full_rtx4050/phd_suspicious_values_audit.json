@@ -1,0 +1,116 @@
+{
+  "summary": {
+    "generated_utc": "2026-03-13T19:42:18.608852+00:00",
+    "strict_main": [
+      {
+        "fd": 1,
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd001",
+        "rul_cov": 0.975919819807715,
+        "tau_v": 0.07865168539325842,
+        "tau_ident_ratio": 0.89,
+        "num_engines": 100,
+        "num_tau_diagnostics_engines": 89
+      },
+      {
+        "fd": 2,
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd002",
+        "rul_cov": 0.984854920815064,
+        "tau_v": 0.06930693069306931,
+        "tau_ident_ratio": 0.7799227799227799,
+        "num_engines": 259,
+        "num_tau_diagnostics_engines": 202
+      },
+      {
+        "fd": 3,
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd003",
+        "rul_cov": 0.9924556361411218,
+        "tau_v": 0.03529411764705882,
+        "tau_ident_ratio": 0.85,
+        "num_engines": 100,
+        "num_tau_diagnostics_engines": 85
+      },
+      {
+        "fd": 4,
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\publication_full_rtx4050\\strict_main\\fd004",
+        "rul_cov": 0.9999462365591398,
+        "tau_v": 0.0053475935828877,
+        "tau_ident_ratio": 0.7540322580645161,
+        "num_engines": 248,
+        "num_tau_diagnostics_engines": 187
+      }
+    ],
+    "external": [
+      {
+        "dataset": "femto",
+        "num_runs": 4,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 14.362340764708255,
+        "mean_width": 125.0,
+        "width_frac_of_rmax": 1.0,
+        "tem_metrics_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\femto_fd001\\tem_metrics_fd001.json"
+      },
+      {
+        "dataset": "xjtu_sy",
+        "num_runs": 2,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 30.132575039658928,
+        "mean_width": 125.0,
+        "width_frac_of_rmax": 1.0,
+        "tem_metrics_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\xjtu_sy_fd001\\tem_metrics_fd001.json"
+      },
+      {
+        "dataset": "cmapss",
+        "num_runs": 100,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 16.395882779406683,
+        "mean_width": 125.0,
+        "width_frac_of_rmax": 1.0,
+        "tem_metrics_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\cmapss_fd001\\tem_metrics_fd001.json"
+      }
+    ],
+    "num_findings": 7,
+    "num_high": 0,
+    "num_medium": 7,
+    "num_low": 0
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "type": "tau_identifiability_borderline",
+      "message": "FD002 tau_ident_ratio=0.780 is close to 0.750"
+    },
+    {
+      "severity": "medium",
+      "type": "tau_identifiability_borderline",
+      "message": "FD004 tau_ident_ratio=0.754 is close to 0.750"
+    },
+    {
+      "severity": "medium",
+      "type": "small_external_sample",
+      "message": "femto has only 4 test runs"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "femto is near-perfect but mean_width=125.0/125"
+    },
+    {
+      "severity": "medium",
+      "type": "small_external_sample",
+      "message": "xjtu_sy has only 2 test runs"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "xjtu_sy is near-perfect but mean_width=125.0/125"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "cmapss is near-perfect but mean_width=125.0/125"
+    }
+  ]
+}
