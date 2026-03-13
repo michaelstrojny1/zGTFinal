@@ -1,0 +1,104 @@
+{
+  "summary": {
+    "strict_main": [
+      {
+        "fd": 1,
+        "rul_cov": 0.975919819807715,
+        "tau_v": 0.07865168539325842,
+        "tau_ident_ratio": 0.89,
+        "num_engines": 100
+      },
+      {
+        "fd": 2,
+        "rul_cov": 0.984854920815064,
+        "tau_v": 0.06930693069306931,
+        "tau_ident_ratio": 0.7799227799227799,
+        "num_engines": 259
+      },
+      {
+        "fd": 3,
+        "rul_cov": 0.9924556361411218,
+        "tau_v": 0.03529411764705882,
+        "tau_ident_ratio": 0.85,
+        "num_engines": 100
+      },
+      {
+        "fd": 4,
+        "rul_cov": 0.9999462365591398,
+        "tau_v": 0.0053475935828877,
+        "tau_ident_ratio": 0.7540322580645161,
+        "num_engines": 248
+      }
+    ],
+    "external": [
+      {
+        "dataset": "femto",
+        "num_runs": 4,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 14.362340764708255,
+        "mean_width": 125.0,
+        "width_frac_of_rmax_125": 1.0
+      },
+      {
+        "dataset": "xjtu_sy",
+        "num_runs": 2,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 30.132575039658928,
+        "mean_width": 125.0,
+        "width_frac_of_rmax_125": 1.0
+      },
+      {
+        "dataset": "cmapss",
+        "num_runs": 100,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
+        "rmse": 16.395882779406683,
+        "mean_width": 125.0,
+        "width_frac_of_rmax_125": 1.0
+      }
+    ],
+    "num_findings": 7,
+    "num_high": 0,
+    "num_medium": 7,
+    "generated_local": "2026-03-13T15:17:18"
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "type": "tau_identifiability_borderline",
+      "message": "fd2 tau_ident_ratio=0.780 is close to threshold 0.75"
+    },
+    {
+      "severity": "medium",
+      "type": "tau_identifiability_borderline",
+      "message": "fd4 tau_ident_ratio=0.754 is close to threshold 0.75"
+    },
+    {
+      "severity": "medium",
+      "type": "small_external_sample",
+      "message": "femto has only 4 test runs"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "femto is near-perfect but mean_width=125.0/125"
+    },
+    {
+      "severity": "medium",
+      "type": "small_external_sample",
+      "message": "xjtu_sy has only 2 test runs"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "xjtu_sy is near-perfect but mean_width=125.0/125"
+    },
+    {
+      "severity": "medium",
+      "type": "overconservative_external_policy",
+      "message": "cmapss is near-perfect but mean_width=125.0/125"
+    }
+  ]
+}
