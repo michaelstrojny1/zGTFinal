@@ -11,11 +11,18 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--canonical", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--balanced", type=str, default="outputs/external_performance_report_policy_replay_balanced_v2.json")
     p.add_argument("--aggressive", type=str, default="outputs/external_performance_report_policy_replay_aggressive_v1.json")
+    p.add_argument("--best-valid", type=str, default="outputs/external_performance_report_policy_replay_best_valid_v1.json")
+    p.add_argument(
+        "--retrain-policy-sweep-json",
+        type=str,
+        default="outputs/external_policy_replay_sweep_retrain_v3/summary.json",
+        help="Optional replay sweep summary used to resolve a selected best-valid report path.",
+    )
     p.add_argument(
         "--robust",
         type=str,
         default="",
-        help="Optional robust policy replay report JSON path.",
+        help="Deprecated fallback robust policy replay report JSON path.",
     )
     p.add_argument("--out-json", type=str, default="outputs/publication_full_rtx4050/policy_replay_summary.json")
     p.add_argument("--out-md", type=str, default="outputs/publication_full_rtx4050/policy_replay_summary.md")
@@ -40,22 +47,65 @@ def _rows(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return out
 
 
+def _resolve_aux_policy(
+    *,
+    best_valid_path: str,
+    retrain_policy_sweep_json: str,
+    robust_path: str,
+) -> tuple[str | None, Path | None]:
+    candidates: list[tuple[str, Path]] = []
+    if str(best_valid_path).strip():
+        candidates.append(("best_valid", Path(best_valid_path).resolve()))
+
+    sweep_path = Path(retrain_policy_sweep_json).resolve()
+    if sweep_path.exists():
+        try:
+            sweep = _load(sweep_path)
+        except Exception:
+            sweep = {}
+        top_level = str(sweep.get("best_policy_report_json", "")).strip()
+        if top_level:
+            candidates.append(("best_valid", Path(top_level).resolve()))
+        nested = sweep.get("best_policy", {}) if isinstance(sweep.get("best_policy", {}), dict) else {}
+        nested_path = str(nested.get("report_json", "")).strip()
+        if nested_path:
+            candidates.append(("best_valid", Path(nested_path).resolve()))
+
+    if str(robust_path).strip():
+        candidates.append(("robust", Path(robust_path).resolve()))
+
+    seen: set[tuple[str, str]] = set()
+    for label, path in candidates:
+        key = (label, str(path))
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.exists():
+            return label, path
+    return None, None
+
+
 def main() -> None:
     args = parse_args()
     canonical = _load(Path(args.canonical).resolve())
     balanced = _load(Path(args.balanced).resolve())
     aggressive = _load(Path(args.aggressive).resolve())
-    robust = _load(Path(args.robust).resolve()) if str(args.robust).strip() and Path(args.robust).exists() else None
+    aux_label, aux_path = _resolve_aux_policy(
+        best_valid_path=args.best_valid,
+        retrain_policy_sweep_json=args.retrain_policy_sweep_json,
+        robust_path=args.robust,
+    )
+    aux_report = _load(aux_path) if aux_path is not None else None
 
     can = _rows(canonical)
     bal = _rows(balanced)
     agg = _rows(aggressive)
     all_sets = set(can.keys()) | set(bal.keys()) | set(agg.keys())
-    if robust is not None:
-        all_sets |= set(_rows(robust).keys())
+    if aux_report is not None:
+        all_sets |= set(_rows(aux_report).keys())
     preferred = ["femto", "xjtu_sy", "cmapss"]
     datasets = [d for d in preferred if d in all_sets] + sorted(d for d in all_sets if d not in preferred)
-    rob = _rows(robust) if robust is not None else {}
+    aux_rows = _rows(aux_report) if aux_report is not None else {}
 
     summary_rows: list[dict[str, Any]] = []
     for ds in datasets:
@@ -72,13 +122,13 @@ def main() -> None:
                 "rul_cov": float(m.get("rul_cov", float("nan"))),
                 "tau_v": float(m.get("tau_v", float("nan"))),
             }
-        if robust is not None:
-            row = rob.get(ds)
+        if aux_report is not None and aux_label is not None:
+            row = aux_rows.get(ds)
             if not row or str(row.get("status", "")).lower() != "ok":
-                entry["robust"] = {"status": "missing"}
+                entry[aux_label] = {"status": "missing"}
             else:
                 m = row.get("metrics", {})
-                entry["robust"] = {
+                entry[aux_label] = {
                     "status": "ok",
                     "rmse": float(m.get("rmse", float("nan"))),
                     "rul_cov": float(m.get("rul_cov", float("nan"))),
@@ -91,11 +141,12 @@ def main() -> None:
             "canonical": str(Path(args.canonical).resolve()),
             "balanced": str(Path(args.balanced).resolve()),
             "aggressive": str(Path(args.aggressive).resolve()),
+            "retrain_policy_sweep_json": str(Path(args.retrain_policy_sweep_json).resolve()) if Path(args.retrain_policy_sweep_json).exists() else "",
+            "aux_policy_label": aux_label or "",
+            "aux_policy_report": str(aux_path) if aux_path is not None else "",
         },
         "rows": summary_rows,
     }
-    if robust is not None:
-        out["reports"]["robust"] = str(Path(args.robust).resolve())
 
     out_json = Path(args.out_json).resolve()
     out_json.parent.mkdir(parents=True, exist_ok=True)
@@ -107,7 +158,7 @@ def main() -> None:
         "| Dataset | Policy | RMSE | RUL cov | Tau v |",
         "|---|---|---:|---:|---:|",
     ]
-    policies = ["canonical", "balanced", "aggressive"] + (["robust"] if robust is not None else [])
+    policies = ["canonical", "balanced", "aggressive"] + ([aux_label] if aux_label is not None and aux_report is not None else [])
     for r in summary_rows:
         ds = r["dataset"]
         for policy in policies:
@@ -128,8 +179,10 @@ def main() -> None:
     ]
     if any_missing:
         lines.append("- Missing rows indicate unavailable replay artifacts in this run.")
-    if robust is not None:
-        lines.append("- Robust row is an additional replay point selected from policy sweep criteria.")
+    if aux_report is not None and aux_label == "best_valid":
+        lines.append("- best_valid is the sweep-selected width-optimal point among target-valid replay settings.")
+    elif aux_report is not None and aux_label is not None:
+        lines.append(f"- {aux_label} is an additional replay point selected from policy sweep criteria.")
     lines.append("")
     out_md = Path(args.out_md).resolve()
     out_md.write_text("\n".join(lines), encoding="utf-8")

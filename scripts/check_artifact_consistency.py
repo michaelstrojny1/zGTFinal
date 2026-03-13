@@ -13,6 +13,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--external-performance-report", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--external-dataset-summary", type=str, default="outputs/external_dataset_summary.json")
     p.add_argument("--baseline-comparison", type=str, default="outputs/baseline_comparison.json")
+    p.add_argument("--paper-provenance", type=str, default="paper/generated/provenance.json")
+    p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
     p.add_argument("--out-json", type=str, default="outputs/artifact_consistency_report.json")
     p.add_argument("--out-md", type=str, default="outputs/artifact_consistency_report.md")
     p.add_argument("--fail-on-mismatch", action="store_true")
@@ -33,6 +35,19 @@ def _eq_num(a: Any, b: Any, atol: float) -> bool:
     if not math.isfinite(fa) or not math.isfinite(fb):
         return a == b
     return bool(abs(fa - fb) <= float(atol))
+
+
+def _add_mismatch(mismatches: list[dict[str, str]], *, severity: str, check: str, message: str) -> None:
+    mismatches.append({"severity": severity, "check": check, "message": message})
+
+
+def _resolve_maybe_relative(raw: str, *, base: Path) -> Path:
+    path = Path(raw)
+    if not path.is_absolute():
+        path = (base / path).resolve()
+    else:
+        path = path.resolve()
+    return path
 
 
 def _write_md(path: Path, rep: dict[str, Any]) -> None:
@@ -59,6 +74,8 @@ def main() -> None:
     ext_perf_path = Path(args.external_performance_report).resolve()
     ext_sum_path = Path(args.external_dataset_summary).resolve()
     comp_path = Path(args.baseline_comparison).resolve()
+    provenance_path = Path(args.paper_provenance).resolve()
+    retrain_sweep_path = Path(args.retrain_policy_sweep_json).resolve()
     atol = float(args.atol)
 
     mismatches: list[dict[str, str]] = []
@@ -74,12 +91,11 @@ def main() -> None:
         for ds_name, p_row in perf_rows.items():
             checks += 1
             if ds_name not in sum_rows:
-                mismatches.append(
-                    {
-                        "severity": "high",
-                        "check": "external_dataset_presence",
-                        "message": f"{ds_name} present in external_performance_report but missing in external_dataset_summary.",
-                    }
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="external_dataset_presence",
+                    message=f"{ds_name} present in external_performance_report but missing in external_dataset_summary.",
                 )
                 continue
 
@@ -88,12 +104,11 @@ def main() -> None:
             s_status = str(s_row.get("status", "unknown")).lower()
             checks += 1
             if p_status != s_status:
-                mismatches.append(
-                    {
-                        "severity": "high",
-                        "check": "external_status_match",
-                        "message": f"{ds_name} status mismatch: perf={p_status}, summary={s_status}.",
-                    }
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="external_status_match",
+                    message=f"{ds_name} status mismatch: perf={p_status}, summary={s_status}.",
                 )
 
             if p_status == "ok":
@@ -106,29 +121,26 @@ def main() -> None:
                     if pv is None and sv is None:
                         continue
                     if not _eq_num(pv, sv, atol=atol):
-                        mismatches.append(
-                            {
-                                "severity": "high",
-                                "check": "external_metric_match",
-                                "message": f"{ds_name} metric `{key}` mismatch: perf={pv}, summary={sv}.",
-                            }
+                        _add_mismatch(
+                            mismatches,
+                            severity="high",
+                            check="external_metric_match",
+                            message=f"{ds_name} metric `{key}` mismatch: perf={pv}, summary={sv}.",
                         )
     else:
         if not ext_perf_path.exists():
-            mismatches.append(
-                {
-                    "severity": "medium",
-                    "check": "external_report_exists",
-                    "message": f"missing file: {ext_perf_path}",
-                }
+            _add_mismatch(
+                mismatches,
+                severity="medium",
+                check="external_report_exists",
+                message=f"missing file: {ext_perf_path}",
             )
         if not ext_sum_path.exists():
-            mismatches.append(
-                {
-                    "severity": "medium",
-                    "check": "external_summary_exists",
-                    "message": f"missing file: {ext_sum_path}",
-                }
+            _add_mismatch(
+                mismatches,
+                severity="medium",
+                check="external_summary_exists",
+                message=f"missing file: {ext_sum_path}",
             )
 
     if comp_path.exists():
@@ -139,23 +151,164 @@ def main() -> None:
         num_external = int(csum.get("num_external", -1))
         checks += 1
         if num_external != ext_method_count:
-            mismatches.append(
-                {
-                    "severity": "medium",
-                    "check": "baseline_external_count",
-                    "message": (
-                        "baseline_comparison comparator_summary.num_external "
-                        f"({num_external}) != actual external methods ({ext_method_count})."
-                    ),
-                }
+            _add_mismatch(
+                mismatches,
+                severity="medium",
+                check="baseline_external_count",
+                message=(
+                    "baseline_comparison comparator_summary.num_external "
+                    f"({num_external}) != actual external methods ({ext_method_count})."
+                ),
             )
     else:
-        mismatches.append(
-            {
-                "severity": "medium",
-                "check": "baseline_comparison_exists",
-                "message": f"missing file: {comp_path}",
-            }
+        _add_mismatch(
+            mismatches,
+            severity="medium",
+            check="baseline_comparison_exists",
+            message=f"missing file: {comp_path}",
+        )
+
+    if provenance_path.exists():
+        provenance = _load(provenance_path)
+        required_path_keys = (
+            "canonical_report",
+            "balanced_report",
+            "aggressive_report",
+            "retrain_robustness_report",
+            "aux_policy_report",
+            "baseline_json",
+            "readiness_json",
+            "gate_summary_json",
+            "claim_significance_json",
+            "policy_sharpness_json",
+            "retrain_policy_sweep_json",
+            "policy_frontier_fig",
+            "policy_sharpness_fig",
+        )
+        for key in required_path_keys:
+            raw = str(provenance.get(key, "")).strip()
+            if not raw:
+                continue
+            checks += 1
+            ref_path = _resolve_maybe_relative(raw, base=provenance_path.parent)
+            if not ref_path.exists():
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="paper_provenance_ref_exists",
+                    message=f"provenance key `{key}` points to missing path: {ref_path}",
+                )
+        aux_label = str(provenance.get("aux_policy_label", "")).strip()
+        aux_report = str(provenance.get("aux_policy_report", "")).strip()
+        checks += 1
+        if aux_label and not aux_report:
+            _add_mismatch(
+                mismatches,
+                severity="high",
+                check="paper_provenance_aux_policy",
+                message=f"aux_policy_label `{aux_label}` is set but aux_policy_report is empty.",
+            )
+    else:
+        _add_mismatch(
+            mismatches,
+            severity="medium",
+            check="paper_provenance_exists",
+            message=f"missing file: {provenance_path}",
+        )
+
+    if retrain_sweep_path.exists():
+        sweep = _load(retrain_sweep_path)
+        rows = list(sweep.get("rows_sorted", []))
+        settings = sweep.get("settings", {}) if isinstance(sweep.get("settings", {}), dict) else {}
+        checks += 1
+        if int(settings.get("num_points", len(rows))) != len(rows):
+            _add_mismatch(
+                mismatches,
+                severity="high",
+                check="retrain_policy_sweep_num_points",
+                message=f"settings.num_points={settings.get('num_points')} != len(rows_sorted)={len(rows)}.",
+            )
+
+        valid_rows = [r for r in rows if bool(r.get("validity_ok", False))]
+        checks += 1
+        if int(sweep.get("num_valid_points", len(valid_rows))) != len(valid_rows):
+            _add_mismatch(
+                mismatches,
+                severity="high",
+                check="retrain_policy_sweep_num_valid_points",
+                message=f"num_valid_points={sweep.get('num_valid_points')} != counted valid rows={len(valid_rows)}.",
+            )
+
+        if valid_rows:
+            range_blob = sweep.get("valid_width_range", {}) if isinstance(sweep.get("valid_width_range", {}), dict) else {}
+            min_width = min(float(r.get("width_mean", math.inf)) for r in valid_rows)
+            max_width = max(float(r.get("width_mean", -math.inf)) for r in valid_rows)
+            checks += 1
+            if not _eq_num(range_blob.get("min"), min_width, atol=max(atol, 1e-6)):
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="retrain_policy_sweep_valid_width_min",
+                    message=f"valid_width_range.min={range_blob.get('min')} != actual valid min width={min_width}.",
+                )
+            checks += 1
+            if not _eq_num(range_blob.get("max"), max_width, atol=max(atol, 1e-6)):
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="retrain_policy_sweep_valid_width_max",
+                    message=f"valid_width_range.max={range_blob.get('max')} != actual valid max width={max_width}.",
+                )
+
+        best = sweep.get("best_policy", {}) if isinstance(sweep.get("best_policy", {}), dict) else {}
+        if best:
+            best_tag = str(best.get("tag", "")).strip()
+            checks += 1
+            if best_tag and not any(str(r.get("tag", "")).strip() == best_tag for r in rows):
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="retrain_policy_sweep_best_policy_tag",
+                    message=f"best_policy tag `{best_tag}` is missing from rows_sorted.",
+                )
+            if valid_rows and bool(best.get("validity_ok", False)):
+                min_width = min(float(r.get("width_mean", math.inf)) for r in valid_rows)
+                checks += 1
+                if not _eq_num(best.get("width_mean"), min_width, atol=max(atol, 1e-6)):
+                    _add_mismatch(
+                        mismatches,
+                        severity="high",
+                        check="retrain_policy_sweep_best_width",
+                        message=f"best_policy width_mean={best.get('width_mean')} != optimal valid width={min_width}.",
+                    )
+
+        report_refs: set[str] = set()
+        top_level_best_report = str(sweep.get("best_policy_report_json", "")).strip()
+        if top_level_best_report:
+            report_refs.add(top_level_best_report)
+        nested_best_report = str(best.get("report_json", "")).strip() if best else ""
+        if nested_best_report:
+            report_refs.add(nested_best_report)
+        for row in rows:
+            raw = str(row.get("report_json", "")).strip()
+            if raw:
+                report_refs.add(raw)
+        for raw in sorted(report_refs):
+            checks += 1
+            ref_path = _resolve_maybe_relative(raw, base=retrain_sweep_path.parent)
+            if not ref_path.exists():
+                _add_mismatch(
+                    mismatches,
+                    severity="high",
+                    check="retrain_policy_sweep_report_ref",
+                    message=f"sweep summary references missing report path: {ref_path}",
+                )
+    else:
+        _add_mismatch(
+            mismatches,
+            severity="medium",
+            check="retrain_policy_sweep_exists",
+            message=f"missing file: {retrain_sweep_path}",
         )
 
     passed = len(mismatches) == 0
@@ -164,6 +317,8 @@ def main() -> None:
             "external_performance_report": str(ext_perf_path),
             "external_dataset_summary": str(ext_sum_path),
             "baseline_comparison": str(comp_path),
+            "paper_provenance": str(provenance_path),
+            "retrain_policy_sweep_json": str(retrain_sweep_path),
         },
         "passed": bool(passed),
         "num_checks": int(checks),
@@ -186,4 +341,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

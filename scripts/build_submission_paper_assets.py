@@ -14,6 +14,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--balanced-report", type=str, default="outputs/external_performance_report_policy_replay_balanced_v2.json")
     p.add_argument("--aggressive-report", type=str, default="outputs/external_performance_report_policy_replay_aggressive_v1.json")
     p.add_argument(
+        "--best-valid-report",
+        type=str,
+        default="outputs/external_performance_report_policy_replay_best_valid_v1.json",
+        help="Optional sweep-selected target-valid replay report JSON.",
+    )
+    p.add_argument(
         "--retrain-robustness-report",
         type=str,
         default="outputs/external_performance_report_retrain_robustness_v2.json",
@@ -29,7 +35,7 @@ def parse_args() -> argparse.Namespace:
         "--robust-report",
         type=str,
         default="outputs/external_performance_report_policy_replay_robust_v1.json",
-        help="Optional robust replay report JSON to append in the policy table.",
+        help="Deprecated fallback replay report JSON if no best-valid artifact is available.",
     )
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
     p.add_argument("--readiness-json", type=str, default="outputs/publication_full_rtx4050/stats_conference_readiness.json")
@@ -101,6 +107,39 @@ def _dataset_rows(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return out
 
 
+def _resolve_aux_policy_report(
+    *,
+    best_valid_report: str,
+    robust_report: str,
+    retrain_sweep: dict[str, Any],
+) -> tuple[str | None, str, dict[str, Any] | None]:
+    candidates: list[tuple[str, Path]] = []
+    if str(best_valid_report).strip():
+        candidates.append(("Best-valid", Path(best_valid_report).resolve()))
+
+    top_level_best = str(retrain_sweep.get("best_policy_report_json", "")).strip()
+    if top_level_best:
+        candidates.append(("Best-valid", Path(top_level_best).resolve()))
+
+    nested_best = retrain_sweep.get("best_policy", {}) if isinstance(retrain_sweep.get("best_policy", {}), dict) else {}
+    nested_best_path = str(nested_best.get("report_json", "")).strip()
+    if nested_best_path:
+        candidates.append(("Best-valid", Path(nested_best_path).resolve()))
+
+    if str(robust_report).strip():
+        candidates.append(("Robust", Path(robust_report).resolve()))
+
+    seen: set[tuple[str, str]] = set()
+    for label, path in candidates:
+        key = (label, str(path))
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.exists():
+            return label, str(path), _load_json(path)
+    return None, "", None
+
+
 def _snapshot_date(gate_summary: dict[str, Any]) -> str:
     ts = str(gate_summary.get("timestamp_utc", "")).strip()
     if not ts:
@@ -162,14 +201,15 @@ def _build_policy_table(
     canonical: dict[str, Any],
     balanced: dict[str, Any],
     aggressive: dict[str, Any],
-    robust: dict[str, Any] | None = None,
+    aux_policy: dict[str, Any] | None = None,
+    aux_policy_label: str | None = None,
 ) -> list[str]:
     can_rows = _dataset_rows(canonical)
     bal_rows = _dataset_rows(balanced)
     agg_rows = _dataset_rows(aggressive)
-    rob_rows = _dataset_rows(robust) if robust is not None else {}
+    aux_rows = _dataset_rows(aux_policy) if aux_policy is not None else {}
 
-    all_sets = set(can_rows.keys()) | set(bal_rows.keys()) | set(agg_rows.keys()) | set(rob_rows.keys())
+    all_sets = set(can_rows.keys()) | set(bal_rows.keys()) | set(agg_rows.keys()) | set(aux_rows.keys())
     preferred = ["femto", "xjtu_sy", "cmapss"]
     datasets = [d for d in preferred if d in all_sets] + sorted(d for d in all_sets if d not in preferred)
 
@@ -186,10 +226,19 @@ def _build_policy_table(
             f"{_fmt(m.get('rul_cov'))} & {_fmt(m.get('tau_v'))} & {_fmt(m.get('rmse'))}\\\\"
         )
 
+    caption = (
+        "Policy replay from fixed checkpoints/calibration bundles. RMSE is unchanged by policy replay; "
+        "coverage and tau violation are policy-sensitive."
+    )
+    if aux_policy is not None and aux_policy_label == "Best-valid":
+        caption += " Best-valid is the sweep-selected width-optimal target-valid replay point."
+    elif aux_policy is not None and aux_policy_label:
+        caption += f" {aux_policy_label} is an additional replay reference point."
+
     lines = [
         "\\begin{table*}[t]",
         "\\centering",
-        "\\caption{Policy replay from fixed checkpoints/calibration bundles. RMSE is unchanged by policy replay; coverage and tau violation are policy-sensitive.}",
+        f"\\caption{{{caption}}}",
         "\\label{tab:policy-replay}",
         "\\begin{tabular}{llrrrrrr}",
         "\\toprule",
@@ -204,10 +253,10 @@ def _build_policy_table(
     lines.append("\\midrule")
     for ds in datasets:
         lines.append(row_for("Aggressive", aggressive, agg_rows, ds))
-    if robust is not None:
+    if aux_policy is not None:
         lines.append("\\midrule")
         for ds in datasets:
-            lines.append(row_for("Robust", robust, rob_rows, ds))
+            lines.append(row_for(aux_policy_label or "Aux", aux_policy, aux_rows, ds))
     lines += [
         "\\bottomrule",
         "\\end{tabular}",
@@ -376,18 +425,22 @@ def main() -> None:
     canonical = _load_json(Path(args.canonical_report).resolve())
     balanced = _load_json(Path(args.balanced_report).resolve()) if Path(args.balanced_report).exists() else {"datasets": [], "settings": {}}
     aggressive = _load_json(Path(args.aggressive_report).resolve()) if Path(args.aggressive_report).exists() else {"datasets": [], "settings": {}}
+    retrain_sweep = _load_json(Path(args.retrain_policy_sweep_json).resolve()) if Path(args.retrain_policy_sweep_json).exists() else {}
     retrain = _load_json(Path(args.retrain_robustness_report).resolve()) if Path(args.retrain_robustness_report).exists() else {"datasets": [], "settings": {}}
-    robust = _load_json(Path(args.robust_report).resolve()) if str(args.robust_report).strip() and Path(args.robust_report).exists() else None
+    aux_policy_label, aux_policy_path, aux_policy = _resolve_aux_policy_report(
+        best_valid_report=args.best_valid_report,
+        robust_report=args.robust_report,
+        retrain_sweep=retrain_sweep,
+    )
     baseline = _load_json(Path(args.baseline_json).resolve())
     readiness = _load_json(Path(args.readiness_json).resolve())
     gate_summary = _load_json(Path(args.gate_summary_json).resolve()) if Path(args.gate_summary_json).exists() else {}
     sig = _load_json(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else {}
     sharp = _load_json(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else {}
-    retrain_sweep = _load_json(Path(args.retrain_policy_sweep_json).resolve()) if Path(args.retrain_policy_sweep_json).exists() else {}
 
     tables: list[str] = []
     tables.extend(_build_external_table(canonical))
-    tables.extend(_build_policy_table(canonical, balanced, aggressive, robust=robust))
+    tables.extend(_build_policy_table(canonical, balanced, aggressive, aux_policy=aux_policy, aux_policy_label=aux_policy_label))
     tables.extend(_build_retrain_table(retrain))
     tables.extend(_build_baseline_table(baseline))
     tables.extend(_build_significance_table(sig))
@@ -411,7 +464,8 @@ def main() -> None:
         "balanced_report": str(Path(args.balanced_report).resolve()),
         "aggressive_report": str(Path(args.aggressive_report).resolve()),
         "retrain_robustness_report": str(Path(args.retrain_robustness_report).resolve()) if Path(args.retrain_robustness_report).exists() else "",
-        "robust_report": str(Path(args.robust_report).resolve()) if robust is not None else "",
+        "aux_policy_label": aux_policy_label or "",
+        "aux_policy_report": aux_policy_path,
         "baseline_json": str(Path(args.baseline_json).resolve()),
         "readiness_json": str(Path(args.readiness_json).resolve()),
         "gate_summary_json": str(Path(args.gate_summary_json).resolve()) if Path(args.gate_summary_json).exists() else "",

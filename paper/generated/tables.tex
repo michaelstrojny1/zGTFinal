@@ -15,7 +15,7 @@ cmapss & 18.353 & 13.415 & 16.189 & 12.268 & 1.000 & 0.000\\
 
 \begin{table*}[t]
 \centering
-\caption{Policy replay from fixed checkpoints/calibration bundles. RMSE is unchanged by policy replay; coverage and tau violation are policy-sensitive.}
+\caption{Policy replay from fixed checkpoints/calibration bundles. RMSE is unchanged by policy replay; coverage and tau violation are policy-sensitive. Best-valid is the sweep-selected width-optimal target-valid replay point.}
 \label{tab:policy-replay}
 \begin{tabular}{llrrrrrr}
 \toprule
@@ -33,9 +33,9 @@ Aggressive & femto & 0.010 & 0.100 & 0.080 & 0.994 & 0.250 & 15.115\\
 Aggressive & xjtu\_sy & 0.010 & 0.100 & 0.080 & 1.000 & 0.000 & 29.117\\
 Aggressive & cmapss & 0.010 & 0.100 & 0.080 & 0.987 & 0.056 & 18.353\\
 \midrule
-Robust & femto & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 15.115\\
-Robust & xjtu\_sy & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 29.117\\
-Robust & cmapss & 0.005 & 0.050 & 0.050 & 1.000 & 0.000 & 18.353\\
+Best-valid & femto & 0.010 & 0.100 & 0.100 & 1.000 & 0.000 & 15.115\\
+Best-valid & xjtu\_sy & 0.010 & 0.100 & 0.100 & 1.000 & 0.000 & 29.117\\
+Best-valid & cmapss & 0.010 & 0.100 & 0.100 & 0.991 & 0.045 & 18.353\\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -107,7 +107,7 @@ Policy & Cov. mean & Tau max & Width mean & Pareto\\
 canonical & 1.000 & 0.000 & 123.549 & yes\\
 balanced & 0.999 & 0.022 & 122.039 & yes\\
 aggressive & 0.994 & 0.250 & 119.457 & yes\\
-robust & 1.000 & 0.000 & 124.265 & no\\
+best\_valid & 0.997 & 0.045 & 120.437 & yes\\
 \bottomrule
 \end{tabular}
 \end{table}

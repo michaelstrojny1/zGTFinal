@@ -14,6 +14,13 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--canonical", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--balanced", type=str, default="outputs/external_performance_report_policy_replay_balanced_v2.json")
     p.add_argument("--aggressive", type=str, default="outputs/external_performance_report_policy_replay_aggressive_v1.json")
+    p.add_argument("--best-valid", type=str, default="outputs/external_performance_report_policy_replay_best_valid_v1.json")
+    p.add_argument(
+        "--retrain-policy-sweep-json",
+        type=str,
+        default="outputs/external_policy_replay_sweep_retrain_v3/summary.json",
+        help="Optional replay sweep summary used to resolve a selected best-valid report path.",
+    )
     p.add_argument("--robust", type=str, default="outputs/external_performance_report_policy_replay_robust_v1.json")
     p.add_argument("--out-json", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.json")
     p.add_argument("--out-md", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.md")
@@ -50,6 +57,44 @@ def _rows(report: dict[str, Any]) -> dict[str, dict[str, Any]]:
     for r in list(report.get("datasets", [])):
         out[str(r.get("dataset", "")).lower()] = r
     return out
+
+
+def _resolve_aux_policy(
+    *,
+    best_valid_path: str,
+    retrain_policy_sweep_json: str,
+    robust_path: str,
+) -> tuple[str | None, Path | None]:
+    candidates: list[tuple[str, Path]] = []
+    if str(best_valid_path).strip():
+        candidates.append(("best_valid", Path(best_valid_path).resolve()))
+
+    sweep_path = Path(retrain_policy_sweep_json).resolve()
+    if sweep_path.exists():
+        try:
+            sweep = _load(sweep_path)
+        except Exception:
+            sweep = {}
+        top_level = str(sweep.get("best_policy_report_json", "")).strip()
+        if top_level:
+            candidates.append(("best_valid", Path(top_level).resolve()))
+        nested = sweep.get("best_policy", {}) if isinstance(sweep.get("best_policy", {}), dict) else {}
+        nested_path = str(nested.get("report_json", "")).strip()
+        if nested_path:
+            candidates.append(("best_valid", Path(nested_path).resolve()))
+
+    if str(robust_path).strip():
+        candidates.append(("robust", Path(robust_path).resolve()))
+
+    seen: set[tuple[str, str]] = set()
+    for label, path in candidates:
+        key = (label, str(path))
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.exists():
+            return label, path
+    return None, None
 
 
 def _tem_stats(tem_path: Path) -> dict[str, float]:
@@ -186,8 +231,14 @@ def main() -> None:
         "canonical": _load(Path(args.canonical).resolve()),
         "balanced": _load(Path(args.balanced).resolve()),
         "aggressive": _load(Path(args.aggressive).resolve()),
-        "robust": _load(Path(args.robust).resolve()),
     }
+    aux_label, aux_path = _resolve_aux_policy(
+        best_valid_path=args.best_valid,
+        retrain_policy_sweep_json=args.retrain_policy_sweep_json,
+        robust_path=args.robust,
+    )
+    if aux_label is not None and aux_path is not None:
+        reports[aux_label] = _load(aux_path)
 
     per_dataset_rows: list[dict[str, Any]] = []
     policy_summary: list[dict[str, Any]] = []
@@ -205,7 +256,9 @@ def main() -> None:
             "canonical": str(Path(args.canonical).resolve()),
             "balanced": str(Path(args.balanced).resolve()),
             "aggressive": str(Path(args.aggressive).resolve()),
-            "robust": str(Path(args.robust).resolve()),
+            "retrain_policy_sweep_json": str(Path(args.retrain_policy_sweep_json).resolve()) if Path(args.retrain_policy_sweep_json).exists() else "",
+            "aux_policy_label": aux_label or "",
+            "aux_policy_report": str(aux_path) if aux_path is not None else "",
         },
         "per_dataset_rows": per_dataset_rows,
         "policy_summary": policy_summary,

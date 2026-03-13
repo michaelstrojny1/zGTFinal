@@ -11,9 +11,9 @@
 | aggressive | femto | 0.994 | 0.250 | 117.595 | 0.008451 |
 | aggressive | xjtu_sy | 1.000 | 0.000 | 124.422 | 0.008037 |
 | aggressive | cmapss | 0.987 | 0.056 | 116.353 | 0.008485 |
-| robust | femto | 1.000 | 0.000 | 122.961 | 0.008133 |
-| robust | xjtu_sy | 1.000 | 0.000 | 125.000 | 0.008000 |
-| robust | cmapss | 1.000 | 0.000 | 124.835 | 0.008011 |
+| best_valid | femto | 1.000 | 0.000 | 118.521 | 0.008437 |
+| best_valid | xjtu_sy | 1.000 | 0.000 | 124.943 | 0.008004 |
+| best_valid | cmapss | 0.991 | 0.045 | 117.846 | 0.008408 |
 
 ## Policy Summary
 | Policy | Cov mean | Tau max | Width mean | Pareto |
@@ -21,4 +21,4 @@
 | canonical | 1.000 | 0.000 | 123.549 | yes |
 | balanced | 0.999 | 0.022 | 122.039 | yes |
 | aggressive | 0.994 | 0.250 | 119.457 | yes |
-| robust | 1.000 | 0.000 | 124.265 | no |
+| best_valid | 0.997 | 0.045 | 120.437 | yes |

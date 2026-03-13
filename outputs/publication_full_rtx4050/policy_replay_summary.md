@@ -2,19 +2,19 @@
 
 | Dataset | Policy | RMSE | RUL cov | Tau v |
 |---|---|---:|---:|---:|
-| femto | canonical | 14.362 | 1.000 | 0.000 |
-| femto | balanced | 14.362 | 0.316 | 1.000 |
-| femto | aggressive | 14.362 | 0.092 | 1.000 |
-| femto | robust | 14.362 | 1.000 | 0.000 |
-| xjtu_sy | canonical | 30.133 | 1.000 | 0.000 |
-| xjtu_sy | balanced | 30.133 | 1.000 | 0.000 |
-| xjtu_sy | aggressive | 30.133 | 1.000 | 0.000 |
-| xjtu_sy | robust | 30.133 | 1.000 | 0.000 |
-| cmapss | canonical | 16.396 | 1.000 | 0.000 |
-| cmapss | balanced | 16.396 | 1.000 | 0.000 |
-| cmapss | aggressive | 16.396 | 1.000 | 0.000 |
-| cmapss | robust | 16.396 | 1.000 | 0.000 |
+| femto | canonical | 15.115 | 1.000 | 0.000 |
+| femto | balanced | 15.115 | 1.000 | 0.000 |
+| femto | aggressive | 15.115 | 0.994 | 0.250 |
+| femto | best_valid | 15.115 | 1.000 | 0.000 |
+| xjtu_sy | canonical | 29.117 | 1.000 | 0.000 |
+| xjtu_sy | balanced | 29.117 | 1.000 | 0.000 |
+| xjtu_sy | aggressive | 29.117 | 1.000 | 0.000 |
+| xjtu_sy | best_valid | 29.117 | 1.000 | 0.000 |
+| cmapss | canonical | 18.353 | 1.000 | 0.000 |
+| cmapss | balanced | 18.353 | 0.997 | 0.022 |
+| cmapss | aggressive | 18.353 | 0.987 | 0.056 |
+| cmapss | best_valid | 18.353 | 0.991 | 0.045 |
 
 Notes:
 - Balanced/aggressive rows are replayed from fixed canonical checkpoints/calibration bundles.
-- Robust row is an additional replay point selected from policy sweep criteria.
+- best_valid is the sweep-selected width-optimal point among target-valid replay settings.

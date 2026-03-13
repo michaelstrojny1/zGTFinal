@@ -74,6 +74,10 @@ def _tag(alpha: float, lam: float, margin: float) -> str:
     return f"a{enc(alpha)}_l{enc(lam)}_m{enc(margin)}"
 
 
+def _report_ref(path: Path) -> str:
+    return str(path) if path.exists() else ""
+
+
 def _run_one(
     *,
     args: argparse.Namespace,
@@ -230,7 +234,7 @@ def main() -> None:
                         "selection_penalty": float(penalty),
                         "missing_datasets": missing,
                         "ran": ran,
-                        "report_json": str(point_report_json),
+                        "report_json": _report_ref(point_report_json),
                     }
                 )
 
@@ -273,6 +277,11 @@ def main() -> None:
         },
         "selection_mode": selection_mode,
         "best_policy": best,
+        "best_policy_report_json": (
+            _report_ref(Path(str(best.get("report_json", "")).strip()))
+            if isinstance(best, dict) and str(best.get("report_json", "")).strip()
+            else ""
+        ),
         "num_valid_points": len(valid_rows),
         "valid_width_range": {
             "min": min(float(r["width_mean"]) for r in valid_rows) if valid_rows else None,

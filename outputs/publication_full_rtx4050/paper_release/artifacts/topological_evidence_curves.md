@@ -196,9 +196,11 @@ Readiness gate summary:
 
 Interpretation caveat:
 - The current canonical external package is the sharpest replay point we found that also clears the stricter external deep/regime gate, not the sharpest point on the replay frontier.
+- The generated policy tables now expose the sweep-selected best-valid replay point separately from the gate-clearing canonical point instead of reusing an older conservative replay reference.
 - Mean confidence width in the current canonical package is lower than the earlier fully saturated snapshot on FEMTO and C-MAPSS (`122.5` and `123.1` respectively), while XJTU-SY remains at full support (`125.0/125`).
 - A targeted 30-point replay sweep on the retrained artifacts found 18 target-valid points with valid-width range `118.005` to `124.976`; the sharpest target-valid point is `alpha=0.01`, `lambda_bet=0.1`, `pvalue_safety_margin=0.1`, but it fails the stricter external gate.
 - The gate-clearing canonical point is `alpha=0.01`, `lambda_bet=0.1`, `pvalue_safety_margin=0.19`; it keeps external coverage/tau perfect while retaining a smaller width gain than the frontier optimum.
+- Validity is not the same as end-of-life point accuracy: FEMTO still has `RMSE_last=93.482`, so the canonical external package remains scientifically conservative in uncertainty while still weak at final-step point prediction.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled `audit_*.json` and `audit_cache_*.npz` diagnostics from the saved external checkpoints.
 - Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.

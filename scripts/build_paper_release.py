@@ -19,6 +19,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--paper-generated-dir", type=str, default="paper/generated")
     p.add_argument("--paper-fig-dir", type=str, default="paper/figures")
     p.add_argument("--external-report", type=str, default="outputs/external_performance_report.json")
+    p.add_argument("--best-valid-report", type=str, default="outputs/external_performance_report_policy_replay_best_valid_v1.json")
     p.add_argument("--retrain-robustness-json", type=str, default="outputs/external_performance_report_retrain_robustness_v2.json")
     p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
@@ -256,6 +257,7 @@ def main() -> None:
     paper_generated_dir = Path(args.paper_generated_dir).resolve()
     paper_fig_dir = Path(args.paper_fig_dir).resolve()
     ext_path = Path(args.external_report).resolve()
+    best_valid_path = Path(args.best_valid_report).resolve()
     retrain_path = Path(args.retrain_robustness_json).resolve()
     retrain_sweep_path = Path(args.retrain_policy_sweep_json).resolve()
     baseline_path = Path(args.baseline_json).resolve()
@@ -272,6 +274,7 @@ def main() -> None:
     readiness = _load_json(readiness_path)
     gate = _load_json(gate_path) if gate_path.exists() else {}
     suspicious = _load_json(suspicious_audit_path) if suspicious_audit_path.exists() else {}
+    retrain_sweep_preview = _load_json(retrain_sweep_path) if retrain_sweep_path.exists() else {}
 
     # Release layout.
     figures_dir = out_dir / "figures"
@@ -305,6 +308,7 @@ def main() -> None:
     copied_artifacts: list[str] = []
     for src in (
         ext_path,
+        best_valid_path,
         retrain_path,
         baseline_path,
         claim_sig_path,
@@ -330,6 +334,15 @@ def main() -> None:
                 dst_stem=f"{retrain_sweep_path.parent.name}_summary",
             )
         )
+        best_sweep_report = str(retrain_sweep_preview.get("best_policy_report_json", "")).strip()
+        if best_sweep_report:
+            copied_artifacts.extend(
+                _copy_with_sidecars(
+                    Path(best_sweep_report).resolve(),
+                    artifacts_dir,
+                    dst_stem=f"{retrain_sweep_path.parent.name}_best_policy_report",
+                )
+            )
 
     if paper_pdf_path.exists():
         _copy_if_exists(paper_pdf_path, paper_dir / paper_pdf_path.name)
@@ -385,7 +398,7 @@ def main() -> None:
                 )
             annex.append("")
     if retrain_sweep_path.exists():
-        retrain_sweep = _load_json(retrain_sweep_path)
+        retrain_sweep = retrain_sweep_preview
         best = retrain_sweep.get("best_policy", {}) if isinstance(retrain_sweep.get("best_policy", {}), dict) else {}
         annex.append("### Retrain Replay Sweep")
         annex.append("")
