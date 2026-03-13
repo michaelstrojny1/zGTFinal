@@ -1,7 +1,7 @@
 # Claim Significance Report
 
 - baseline_json: `C:\Users\micha\zGTFinal\outputs\baseline_comparison.json`
-- policy_sweep_json: `C:\Users\micha\zGTFinal\outputs\external_policy_replay_sweep_all_v1\summary.json`
+- policy_sweep_json: `C:\Users\micha\zGTFinal\outputs\external_policy_replay_sweep_retrain_v3\summary.json`
 
 ## Paired Tests
 - marginal_rul [coverage]: p=0.0000, p_holm=0.0000, effect=0.0692, win_rate=0.3692, n=707
@@ -24,5 +24,8 @@
 - deep_ensemble_conformalized_a0p01: cov_diff=-0.0045 [-0.0165,0.0075], tau_diff=-0.0095 [-0.0678,0.0409]
 
 ## Policy Margin Summary
-- margin=0.250: valid_fraction=0.000, cov_min_mean=0.869, tau_max_mean=0.531
-- margin=0.300: valid_fraction=1.000, cov_min_mean=1.000, tau_max_mean=0.000
+- margin=0.000: valid_fraction=0.333, cov_min_mean=0.982, tau_max_mean=0.295
+- margin=0.020: valid_fraction=0.333, cov_min_mean=0.986, tau_max_mean=0.295
+- margin=0.050: valid_fraction=0.500, cov_min_mean=0.992, tau_max_mean=0.172
+- margin=0.080: valid_fraction=0.833, cov_min_mean=0.996, tau_max_mean=0.059
+- margin=0.100: valid_fraction=1.000, cov_min_mean=0.997, tau_max_mean=0.021

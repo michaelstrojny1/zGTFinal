@@ -1,14 +1,14 @@
 # Publication Gate Summary
 
-- Timestamp UTC: 2026-03-13T19:42:18.632555+00:00
+- Timestamp UTC: 2026-03-13T22:12:13.703811+00:00
 - Overall pass: YES
 
 ## Checks
 - [PASS] deep_check_strict_main: findings=0
-- [PASS] deep_check_external_v8: findings=0
+- [PASS] deep_check_external_canonical: findings=0
 - [PASS] deep_check_full_curated: findings=0
 - [PASS] regimes_strict_main: findings=0
-- [PASS] regimes_external_v8: findings=0
+- [PASS] regimes_external_canonical: findings=0
 - [PASS] regimes_strict_plus_external: findings=0
 - [PASS] readiness_scores: score=10.0, conservative=10.0, penalties=0
 - [PASS] artifact_consistency: passed=True, mismatches=0

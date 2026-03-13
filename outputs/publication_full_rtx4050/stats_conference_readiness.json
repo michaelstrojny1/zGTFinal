@@ -64,7 +64,7 @@
       "pass": true,
       "weight": 0.5,
       "score": 0.5,
-      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=3; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3"
+      "details": "artifact=C:\\Users\\micha\\zGTFinal\\outputs\\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=4; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3"
     },
     {
       "name": "Proof Maturity",
@@ -196,6 +196,11 @@
   "external_metric_alerts": [
     {
       "dataset": "femto",
+      "severity": "medium",
+      "message": "High terminal-window RMSE (93.482); inspect end-of-life calibration."
+    },
+    {
+      "dataset": "femto",
       "severity": "info",
       "message": "Near-perfect coverage/tau may indicate an overly conservative policy."
     },
@@ -218,20 +223,20 @@
     {
       "dataset": "femto",
       "fd": 1,
-      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\femto_fd001\\audit_fd001.json",
-      "pvalue_frac_le_0p5": 0.46801581763200745
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v9\\femto_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.19690625726913236
     },
     {
       "dataset": "xjtu_sy",
       "fd": 1,
-      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\xjtu_sy_fd001\\audit_fd001.json",
-      "pvalue_frac_le_0p5": 0.0
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v9\\xjtu_sy_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.09770114942528736
     },
     {
       "dataset": "cmapss",
       "fd": 1,
-      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v8\\cmapss_fd001\\audit_fd001.json",
-      "pvalue_frac_le_0p5": 0.19340918007061592
+      "audit_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v9\\cmapss_fd001\\audit_fd001.json",
+      "pvalue_frac_le_0p5": 0.29129070223617104
     }
   ],
   "topology_hits_raw": [
@@ -283,6 +288,7 @@
   },
   "risk_penalties": [],
   "priorities": [
+    "Investigate external terminal-window performance failures (high rmse_last) and report calibrated failure-onset diagnostics separately from sequence-average RMSE.",
     "Freeze this run as v1.0 artifact bundle and lock submission hash."
   ]
 }

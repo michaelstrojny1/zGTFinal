@@ -155,11 +155,12 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 - <code>outputs/external_dataset_summary.json</code>
 - <code>outputs/publication_full_rtx4050/stats_conference_readiness.json</code></p>
 <p>External datasets (FD001):
-- FEMTO: RMSE=14.362, MAE=7.993, RMSE_last=52.873, MAE_last=50.395, RUL coverage=1.000, tau violation=0.000
-- XJTU-SY: RMSE=30.133, MAE=23.684, RMSE_last=33.171, MAE_last=33.156, RUL coverage=1.000, tau violation=0.000
-- C-MAPSS: RMSE=16.396, MAE=10.992, RMSE_last=16.623, MAE_last=12.219, RUL coverage=1.000, tau violation=0.000</p>
+- FEMTO: RMSE=15.115, MAE=3.601, RMSE_last=93.482, MAE_last=91.344, RUL coverage=1.000, tau violation=0.000
+- XJTU-SY: RMSE=29.117, MAE=23.345, RMSE_last=34.582, MAE_last=34.578, RUL coverage=1.000, tau violation=0.000
+- C-MAPSS: RMSE=18.353, MAE=13.415, RMSE_last=16.189, MAE_last=12.268, RUL coverage=1.000, tau violation=0.000</p>
 <p>Canonical external run settings:
-- <code>alpha=0.001</code>, <code>lambda_bet=0.03</code>, <code>pvalue_safety_margin=0.3</code>
+- <code>alpha=0.01</code>, <code>lambda_bet=0.1</code>, <code>pvalue_safety_margin=0.19</code>
+- replay source: <code>outputs/external_real_eval_retrain_robustness_v2</code>
 - Dataset-specific training overrides:
 - FEMTO: <code>epochs=15</code>, <code>low_rul_loss_weight=4.0</code>, <code>low_rul_threshold=25</code>, <code>low_rul_weight_power=1.0</code>
 - XJTU-SY: <code>epochs=15</code>, <code>low_rul_loss_weight=2.0</code>, <code>low_rul_threshold=20</code>, <code>low_rul_weight_power=1.5</code>
@@ -169,10 +170,10 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 - FD004 tau-identifiability now passes strict per-FD threshold after the promoted <code>max_rul=130</code> run (<code>187/248 = 0.7540 &gt;= 0.75</code>), with pooled ratio <code>0.7963</code>.
 - Strict regime deep check is clean across FD001-FD004 under the stricter finite-sample setting (<code>num_findings_total=0</code>).</p>
 <p>Interpretation caveat:
-- External coverage/tau metrics are near-perfect under conservative calibration settings; this improves validity margin but can reduce sharpness/decision aggressiveness.
-- In the current canonical external package, mean confidence width saturates the full <code>max_rul=125</code> budget on FEMTO, XJTU-SY, and C-MAPSS.
-- Checkpoint-level external policy sweeps (alpha/lambda/margin) did not find an alert-free setting that preserved acceptable quality simultaneously, so the conservative external configuration is retained.
-- A broader true-retrain robustness block now covers FEMTO, XJTU-SY, and C-MAPSS. A fresh 36-point replay sweep on those retrained artifacts still leaves valid points width-saturated (<code>width_mean=125</code>), so the external conservatism is not only a stale-checkpoint effect.
+- The current canonical external package is the sharpest replay point we found that also clears the stricter external deep/regime gate, not the sharpest point on the replay frontier.
+- Mean confidence width in the current canonical package is lower than the earlier fully saturated snapshot on FEMTO and C-MAPSS (<code>122.5</code> and <code>123.1</code> respectively), while XJTU-SY remains at full support (<code>125.0/125</code>).
+- A targeted 30-point replay sweep on the retrained artifacts found 18 target-valid points with valid-width range <code>118.005</code> to <code>124.976</code>; the sharpest target-valid point is <code>alpha=0.01</code>, <code>lambda_bet=0.1</code>, <code>pvalue_safety_margin=0.1</code>, but it fails the stricter external gate.
+- The gate-clearing canonical point is <code>alpha=0.01</code>, <code>lambda_bet=0.1</code>, <code>pvalue_safety_margin=0.19</code>; it keeps external coverage/tau perfect while retaining a smaller width gain than the frontier optimum.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled <code>audit_*.json</code> and <code>audit_cache_*.npz</code> diagnostics from the saved external checkpoints.
 - Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.
@@ -195,28 +196,28 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 <tbody>
 <tr>
 <td>femto</td>
-<td style="text-align: right;">14.362</td>
-<td style="text-align: right;">7.993</td>
-<td style="text-align: right;">52.873</td>
-<td style="text-align: right;">50.395</td>
+<td style="text-align: right;">15.115</td>
+<td style="text-align: right;">3.601</td>
+<td style="text-align: right;">93.482</td>
+<td style="text-align: right;">91.344</td>
 <td style="text-align: right;">1.000</td>
 <td style="text-align: right;">0.000</td>
 </tr>
 <tr>
 <td>xjtu_sy</td>
-<td style="text-align: right;">30.133</td>
-<td style="text-align: right;">23.684</td>
-<td style="text-align: right;">33.171</td>
-<td style="text-align: right;">33.156</td>
+<td style="text-align: right;">29.117</td>
+<td style="text-align: right;">23.345</td>
+<td style="text-align: right;">34.582</td>
+<td style="text-align: right;">34.578</td>
 <td style="text-align: right;">1.000</td>
 <td style="text-align: right;">0.000</td>
 </tr>
 <tr>
 <td>cmapss</td>
-<td style="text-align: right;">16.396</td>
-<td style="text-align: right;">10.992</td>
-<td style="text-align: right;">16.623</td>
-<td style="text-align: right;">12.219</td>
+<td style="text-align: right;">18.353</td>
+<td style="text-align: right;">13.415</td>
+<td style="text-align: right;">16.189</td>
+<td style="text-align: right;">12.268</td>
 <td style="text-align: right;">1.000</td>
 <td style="text-align: right;">0.000</td>
 </tr>
@@ -265,8 +266,8 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 </table>
 <h3 id="retrain-replay-sweep">Retrain Replay Sweep</h3>
 <ul>
-<li>selection_mode=best_valid_by_width_then_aggressiveness, valid_points=36</li>
-<li>best_policy: alpha=0.005, lambda=0.050, margin=0.200, width_mean=125.000, cov_min=1.000, tau_max=0.000</li>
+<li>selection_mode=best_valid_by_width_then_aggressiveness, valid_points=18</li>
+<li>best_policy: alpha=0.010, lambda=0.100, margin=0.100, width_mean=118.005, cov_min=0.991, tau_max=0.045</li>
 </ul>
 <h3 id="suspicious-values-audit">Suspicious-Values Audit</h3>
 <ul>
@@ -274,8 +275,8 @@ structure needed for theorem-aligned (\tau)-coverage diagnostics.</p>
 <li>[medium] tau_identifiability_borderline: FD002 tau_ident_ratio=0.780 is close to 0.750</li>
 <li>[medium] tau_identifiability_borderline: FD004 tau_ident_ratio=0.754 is close to 0.750</li>
 <li>[medium] small_external_sample: femto has only 4 test runs</li>
-<li>[medium] overconservative_external_policy: femto is near-perfect but mean_width=125.0/125</li>
+<li>[medium] overconservative_external_policy: femto is near-perfect but mean_width=122.5/125</li>
 <li>[medium] small_external_sample: xjtu_sy has only 2 test runs</li>
 <li>[medium] overconservative_external_policy: xjtu_sy is near-perfect but mean_width=125.0/125</li>
-<li>[medium] overconservative_external_policy: cmapss is near-perfect but mean_width=125.0/125</li>
+<li>[medium] overconservative_external_policy: cmapss is near-perfect but mean_width=123.1/125</li>
 </ul></body></html>

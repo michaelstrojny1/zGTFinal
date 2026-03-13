@@ -297,24 +297,24 @@ Replay-only policy frontier sweep (frozen checkpoints/calibration bundles, no re
 python scripts/sweep_external_policy_replay.py ^
   --data-root C:\Users\micha\.rul-datasets ^
   --datasets femto,xjtu_sy,cmapss ^
-  --reuse-artifacts-root outputs/external_real_eval_final_policy_v8 ^
-  --alpha-grid 0.001,0.0015,0.002,0.003 ^
-  --lambda-grid 0.03,0.04 ^
-  --margin-grid 0.25,0.30 ^
-  --out-root outputs/external_policy_replay_sweep_all_v1 ^
-  --out-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
-  --out-md outputs/external_policy_replay_sweep_all_v1/summary.md
+  --reuse-artifacts-root outputs/external_real_eval_retrain_robustness_v2 ^
+  --alpha-grid 0.005,0.01 ^
+  --lambda-grid 0.05,0.08,0.10 ^
+  --margin-grid 0.00,0.02,0.05,0.08,0.10 ^
+  --out-root outputs/external_policy_replay_sweep_retrain_v3 ^
+  --out-json outputs/external_policy_replay_sweep_retrain_v3/summary.json ^
+  --out-md outputs/external_policy_replay_sweep_retrain_v3/summary.md
 ```
 
 Plot the replay frontier:
 
 ```bash
 python scripts/plot_policy_replay_frontier.py ^
-  --summary-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
-  --out-png outputs/external_policy_replay_sweep_all_v1/frontier_cov_tau.png
+  --summary-json outputs/external_policy_replay_sweep_retrain_v3/summary.json ^
+  --out-png outputs/external_policy_replay_sweep_retrain_v3/frontier_cov_tau.png
 ```
 
-Run selected robust replay point (example from sweep summary):
+Run gate-clearing canonical replay point:
 
 ```bash
 python scripts/run_real_external_evals.py ^
@@ -324,13 +324,13 @@ python scripts/run_real_external_evals.py ^
   --num-workers 0 ^
   --epochs 0 ^
   --no-compile ^
-  --reuse-artifacts-root outputs/external_real_eval_final_policy_v8 ^
-  --alpha 0.003 ^
-  --lambda-bet 0.04 ^
-  --pvalue-safety-margin 0.30 ^
-  --out-root outputs/external_real_eval_policy_replay_robust_v1 ^
-  --out-json outputs/external_performance_report_policy_replay_robust_v1.json ^
-  --out-md outputs/external_performance_report_policy_replay_robust_v1.md
+  --reuse-artifacts-root outputs/external_real_eval_retrain_robustness_v2 ^
+  --alpha 0.01 ^
+  --lambda-bet 0.10 ^
+  --pvalue-safety-margin 0.19 ^
+  --out-root outputs/external_real_eval_final_policy_v9 ^
+  --out-json outputs/external_performance_report.json ^
+  --out-md outputs/external_performance_report.md
 ```
 
 Generate seed-ensemble interval baselines and merge with conformal baselines:
@@ -358,7 +358,7 @@ Build claim-level significance and sharpness reports:
 ```bash
 python scripts/build_claim_significance_report.py ^
   --baseline-json outputs/baseline_comparison.json ^
-  --policy-sweep-json outputs/external_policy_replay_sweep_all_v1/summary.json ^
+  --policy-sweep-json outputs/external_policy_replay_sweep_retrain_v3/summary.json ^
   --out-json outputs/publication_full_rtx4050/claim_significance_report.json ^
   --out-md outputs/publication_full_rtx4050/claim_significance_report.md
 
@@ -403,14 +403,14 @@ python scripts/sweep_external_policy_replay.py ^
   --batch-size 128 ^
   --num-workers 0 ^
   --reuse-artifacts-root outputs/external_real_eval_retrain_robustness_v2 ^
-  --alpha-grid 0.001,0.002,0.003,0.005 ^
-  --lambda-grid 0.03,0.04,0.05 ^
-  --margin-grid 0.20,0.25,0.30 ^
+  --alpha-grid 0.005,0.01 ^
+  --lambda-grid 0.05,0.08,0.10 ^
+  --margin-grid 0.00,0.02,0.05,0.08,0.10 ^
   --cov-target 0.95 ^
   --tau-target 0.05 ^
-  --out-root outputs/external_policy_replay_sweep_retrain_v2 ^
-  --out-json outputs/external_policy_replay_sweep_retrain_v2/summary.json ^
-  --out-md outputs/external_policy_replay_sweep_retrain_v2/summary.md
+  --out-root outputs/external_policy_replay_sweep_retrain_v3 ^
+  --out-json outputs/external_policy_replay_sweep_retrain_v3/summary.json ^
+  --out-md outputs/external_policy_replay_sweep_retrain_v3/summary.md
 ```
 
 Freeze submission artifact checksums:

@@ -11,7 +11,7 @@ import numpy as np
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Build claim-level significance/effect report with multiplicity correction.")
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
-    p.add_argument("--policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_all_v1/summary.json")
+    p.add_argument("--policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
     p.add_argument("--out-json", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.json")
     p.add_argument("--out-md", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.md")
     p.add_argument("--bootstrap", type=int, default=4000)

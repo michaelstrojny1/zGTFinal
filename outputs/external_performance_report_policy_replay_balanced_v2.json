@@ -1,6 +1,6 @@
 {
   "settings": {
-    "data_root": "C:\\Users\\micha\\zGTFinal\\data\\rul_datasets",
+    "data_root": "C:\\Users\\micha\\.rul-datasets",
     "datasets": [
       "femto",
       "xjtu_sy",
@@ -11,9 +11,9 @@
     "seed_mode": "dataset_adler32_mod_10000",
     "max_rul": 125,
     "batch_size": 256,
-    "num_workers": 8,
+    "num_workers": 0,
     "prefetch_factor": 4,
-    "epochs": 12,
+    "epochs": 0,
     "lr": 0.003,
     "weight_decay": 0.0001,
     "hidden": 128,
@@ -25,14 +25,14 @@
     "low_rul_weight_datasets": [],
     "dataset_overrides_json": "",
     "dataset_overrides": {},
-    "reuse_artifacts_root": "outputs/external_real_eval_final_policy_v8",
-    "alpha": 0.002,
-    "lambda_bet": 0.03,
+    "reuse_artifacts_root": "outputs\\external_real_eval_retrain_robustness_v2",
+    "alpha": 0.005,
+    "lambda_bet": 0.08,
     "calibration_source": "val",
     "calibration_fraction": 0.2,
     "calibration_bins": 8,
     "calibration_min_bin_size": 128,
-    "pvalue_safety_margin": 0.15,
+    "pvalue_safety_margin": 0.05,
     "amp_enabled": true,
     "compile_requested": false
   },
@@ -43,12 +43,12 @@
       "fd": 1,
       "num_runs": 4,
       "metrics": {
-        "rmse": 14.362340764708255,
-        "mae": 7.9930289020702485,
-        "rmse_last": 52.873386800339176,
-        "mae_last": 50.39453125,
-        "rul_cov": 0.31616399845618104,
-        "tau_v": 1.0,
+        "rmse": 15.114770283139741,
+        "mae": 3.600779250988602,
+        "rmse_last": 93.48235754341565,
+        "mae_last": 91.34375,
+        "rul_cov": 1.0,
+        "tau_v": 0.0,
         "tau_identifiability_ratio": 1.0
       },
       "effective_settings": {
@@ -79,10 +79,10 @@
       "fd": 1,
       "num_runs": 2,
       "metrics": {
-        "rmse": 30.132575039658928,
-        "mae": 23.68440193965517,
-        "rmse_last": 33.171326685294034,
-        "mae_last": 33.15625,
+        "rmse": 29.11658330311506,
+        "mae": 23.34460308908046,
+        "rmse_last": 34.58151742847977,
+        "mae_last": 34.578125,
         "rul_cov": 1.0,
         "tau_v": 0.0,
         "tau_identifiability_ratio": 1.0
@@ -99,11 +99,11 @@
         "low_rul_weight_power": 1.0
       },
       "artifacts": {
-        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_xjtu_v1\\xjtu_sy_fd001",
-        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_xjtu_v1\\xjtu_sy_fd001\\model_fd001.pt",
-        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_xjtu_v1\\xjtu_sy_fd001\\calibration_bundle_fd001.npz",
-        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_xjtu_v1\\xjtu_sy_fd001\\train_metrics_fd001.json",
-        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_xjtu_v1\\xjtu_sy_fd001\\tem_metrics_fd001.json"
+        "run_dir": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\xjtu_sy_fd001",
+        "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\xjtu_sy_fd001\\model_fd001.pt",
+        "calibration_bundle": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\xjtu_sy_fd001\\calibration_bundle_fd001.npz",
+        "train_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\xjtu_sy_fd001\\train_metrics_fd001.json",
+        "tem_metrics": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\xjtu_sy_fd001\\tem_metrics_fd001.json"
       },
       "notes": [
         "Policy replay mode: loaded checkpoint and calibration bundle from reuse_artifacts_root."
@@ -115,12 +115,12 @@
       "fd": 1,
       "num_runs": 100,
       "metrics": {
-        "rmse": 16.395882779406683,
-        "mae": 10.992469856438799,
-        "rmse_last": 16.62348723677968,
-        "mae_last": 12.2186328125,
-        "rul_cov": 1.0,
-        "tau_v": 0.0,
+        "rmse": 18.352673163175382,
+        "mae": 13.415135990829738,
+        "rmse_last": 16.18856123225618,
+        "mae_last": 12.268046875,
+        "rul_cov": 0.9969665343165058,
+        "tau_v": 0.02247191011235955,
         "tau_identifiability_ratio": 0.89
       },
       "effective_settings": {

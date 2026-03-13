@@ -21,7 +21,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--rul-dataset-summary", type=str, default="outputs/rul_dataset_summary.json")
     p.add_argument("--external-performance-report", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--strict-main-root", type=str, default="outputs/publication_full_rtx4050/strict_main")
-    p.add_argument("--external-root", type=str, default="outputs/external_real_eval_final_policy_v8")
+    p.add_argument("--external-root", type=str, default="outputs/external_real_eval_final_policy_v9")
     p.add_argument("--pub-dir", type=str, default="outputs/publication_full_rtx4050")
     p.add_argument("--out-json", type=str, default="outputs/publication_full_rtx4050/publication_gate_summary.json")
     p.add_argument("--out-md", type=str, default="outputs/publication_full_rtx4050/publication_gate_summary.md")
@@ -71,10 +71,10 @@ def main() -> None:
     ext_summary_json = Path("outputs/external_dataset_summary.json")
     ext_summary_md = Path("outputs/external_dataset_summary.md")
     strict_deep_json = pub_dir / "deep_check_results_strict_main.json"
-    ext_deep_json = pub_dir / "deep_check_results_external_real_eval_v8.json"
+    ext_deep_json = pub_dir / "deep_check_results_external_canonical.json"
     full_curated_json = pub_dir / "deep_check_results_full_bundle_curated.json"
     strict_reg_json = pub_dir / "deep_check_regimes_stricter_strict_main.json"
-    ext_reg_json = pub_dir / "deep_check_regimes_external_v8.json"
+    ext_reg_json = pub_dir / "deep_check_regimes_external_canonical.json"
     plus_reg_json = pub_dir / "deep_check_regimes_strict_plus_external.json"
     readiness_json = pub_dir / "stats_conference_readiness.json"
     readiness_md = pub_dir / "stats_conference_readiness.md"
@@ -161,7 +161,7 @@ def main() -> None:
             "--out-json",
             str(ext_reg_json),
             "--out-md",
-            str(pub_dir / "deep_check_regimes_external_v8.md"),
+            str(pub_dir / "deep_check_regimes_external_canonical.md"),
         ]
     )
     _run(
@@ -261,10 +261,10 @@ def main() -> None:
 
     checks = [
         {"name": "deep_check_strict_main", "pass": int(strict_deep.get("num_findings", 1)) == 0, "detail": f"findings={strict_deep.get('num_findings')}"},
-        {"name": "deep_check_external_v8", "pass": int(ext_deep.get("num_findings", 1)) == 0, "detail": f"findings={ext_deep.get('num_findings')}"},
+        {"name": "deep_check_external_canonical", "pass": int(ext_deep.get("num_findings", 1)) == 0, "detail": f"findings={ext_deep.get('num_findings')}"},
         {"name": "deep_check_full_curated", "pass": int(full_cur.get("num_findings", 1)) == 0, "detail": f"findings={full_cur.get('num_findings')}"},
         {"name": "regimes_strict_main", "pass": int(strict_reg.get("num_findings_total", 1)) == 0, "detail": f"findings={strict_reg.get('num_findings_total')}"},
-        {"name": "regimes_external_v8", "pass": int(ext_reg.get("num_findings_total", 1)) == 0, "detail": f"findings={ext_reg.get('num_findings_total')}"},
+        {"name": "regimes_external_canonical", "pass": int(ext_reg.get("num_findings_total", 1)) == 0, "detail": f"findings={ext_reg.get('num_findings_total')}"},
         {"name": "regimes_strict_plus_external", "pass": int(plus_reg.get("num_findings_total", 1)) == 0, "detail": f"findings={plus_reg.get('num_findings_total')}"},
         {
             "name": "readiness_scores",

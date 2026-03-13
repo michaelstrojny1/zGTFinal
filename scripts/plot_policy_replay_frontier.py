@@ -11,8 +11,8 @@ import numpy as np
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Plot external policy replay frontier from sweep summary JSON.")
-    p.add_argument("--summary-json", type=str, default="outputs/external_policy_replay_sweep_all_v1/summary.json")
-    p.add_argument("--out-png", type=str, default="outputs/external_policy_replay_sweep_all_v1/frontier_cov_tau.png")
+    p.add_argument("--summary-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
+    p.add_argument("--out-png", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/frontier_cov_tau.png")
     return p.parse_args()
 
 

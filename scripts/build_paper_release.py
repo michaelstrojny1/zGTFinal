@@ -20,7 +20,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--paper-fig-dir", type=str, default="paper/figures")
     p.add_argument("--external-report", type=str, default="outputs/external_performance_report.json")
     p.add_argument("--retrain-robustness-json", type=str, default="outputs/external_performance_report_retrain_robustness_v2.json")
-    p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v2/summary.json")
+    p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
     p.add_argument("--claim-significance-json", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.json")
     p.add_argument("--policy-sharpness-json", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.json")
@@ -314,9 +314,9 @@ def main() -> None:
         readiness_path,
         Path("outputs/artifact_consistency_report.json").resolve(),
         Path("outputs/publication_full_rtx4050/deep_check_results_strict_main.json").resolve(),
-        Path("outputs/publication_full_rtx4050/deep_check_results_external_real_eval_v8.json").resolve(),
+        Path("outputs/publication_full_rtx4050/deep_check_results_external_canonical.json").resolve(),
         Path("outputs/publication_full_rtx4050/deep_check_regimes_stricter_strict_main.json").resolve(),
-        Path("outputs/publication_full_rtx4050/deep_check_regimes_external_v8.json").resolve(),
+        Path("outputs/publication_full_rtx4050/deep_check_regimes_external_canonical.json").resolve(),
         Path("outputs/publication_full_rtx4050/publication_gate_summary.json").resolve(),
         paper_generated_dir / "provenance.json",
         paper_path,

@@ -24,9 +24,9 @@
 ## Real External Model Performance
 - Source: `C:\Users\micha\zGTFinal\outputs\external_performance_report.json`
 - Successful dataset evaluations: 3 / 3
-- femto: status=ok, runs=4, rul_cov=1.0, tau_v=0.0, rmse=14.362340764708255, rmse_last=52.873386800339176, mae_last=50.39453125
-- xjtu_sy: status=ok, runs=2, rul_cov=1.0, tau_v=0.0, rmse=30.132575039658928, rmse_last=33.171326685294034, mae_last=33.15625
-- cmapss: status=ok, runs=100, rul_cov=1.0, tau_v=0.0, rmse=16.395882779406683, rmse_last=16.62348723677968, mae_last=12.2186328125
+- femto: status=ok, runs=4, rul_cov=1.0, tau_v=0.0, rmse=15.114770283139741, rmse_last=93.48235754341565, mae_last=91.34375
+- xjtu_sy: status=ok, runs=2, rul_cov=1.0, tau_v=0.0, rmse=29.11658330311506, rmse_last=34.58151742847977, mae_last=34.578125
+- cmapss: status=ok, runs=100, rul_cov=1.0, tau_v=0.0, rmse=18.352673163175382, rmse_last=16.18856123225618, mae_last=12.268046875
 
 ## Caveat
 - Includes synthetic shift stress and real external model-evaluation metrics.

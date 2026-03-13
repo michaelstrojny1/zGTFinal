@@ -1,0 +1,56 @@
+{
+  "fd": 1,
+  "dataset": "cmapss",
+  "checkpoint": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\cmapss_fd001\\model_fd001.pt",
+  "calibration_file": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\cmapss_fd001\\calibration_bundle_fd001.npz",
+  "checkpoint_leakage_flag": true,
+  "checkpoint_leakage_check_passed": true,
+  "checkpoint_leakage_detected": false,
+  "calibration_size": 3913,
+  "pred_source": "model_inference:cmapss",
+  "tem_fleet_source": "tem_metrics:C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_policy_replay_balanced_v2\\cmapss_fd001\\tem_metrics_fd001.json",
+  "num_runs": 100,
+  "num_points": 10196,
+  "use_conditional_calibration": true,
+  "cap_implied_rul": true,
+  "compute_tau_diagnostics": true,
+  "predict_batch_size": 128,
+  "pvalue_safety_margin": 0.05,
+  "pvalue_all": {
+    "n": 10196,
+    "mean_p": 0.5944125842807859,
+    "frac_le_0.1": 0.06041584935268733,
+    "frac_le_0.2": 0.13377795213809338,
+    "frac_le_0.5": 0.41065123577873675,
+    "superuniform_margin_0.1": 0.039584150647312674,
+    "superuniform_margin_0.2": 0.06622204786190664,
+    "superuniform_margin_0.5": 0.08934876422126325
+  },
+  "pvalue_healthy_prefix": {
+    "n": 7069,
+    "mean_p": 0.6211995778253595,
+    "frac_le_0.1": 0.04937049087565427,
+    "frac_le_0.2": 0.10524826708162399,
+    "frac_le_0.5": 0.36511529212052624,
+    "superuniform_margin_0.1": 0.05062950912434574,
+    "superuniform_margin_0.2": 0.09475173291837602,
+    "superuniform_margin_0.5": 0.13488470787947376
+  },
+  "tem_fleet": {
+    "num_engines": 100,
+    "num_tau_diagnostics_engines": 89,
+    "num_alerted": 0,
+    "alert_rate": 0.0,
+    "mean_first_alert_step": -1.0,
+    "mean_temporal_rul_coverage": 0.9969665343165058,
+    "tau_anytime_violation_rate": 0.02247191011235955,
+    "mean_temporal_tau_coverage": 0.9965916115915796
+  },
+  "notes": {
+    "superuniform_reference": {
+      "frac_le_0.1_should_be_<=~": 0.1,
+      "frac_le_0.2_should_be_<=~": 0.2,
+      "frac_le_0.5_should_be_<=~": 0.5
+    }
+  }
+}

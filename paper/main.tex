@@ -24,7 +24,7 @@
 \maketitle
 
 \begin{abstract}
-We present a publication-focused evaluation package for Topological Evidence Monitoring (TEM), a conformal e-value monitoring method for remaining useful life (RUL) prediction with topology-aware evidence summaries. The canonical external package passes all internal quality gates with readiness score \ReadinessScore/10 and conservative readiness score \ReadinessConservativeScore/10, with \ExternalDatasetsOk/\ExternalDatasetsTotal external datasets passing the canonical policy configuration. We provide a full artifact-linked manuscript build, theorem statements aligned to fixed-grid e-process monitoring, and policy replay experiments from frozen checkpoints/calibration bundles to quantify the validity-sharpness tradeoff. Remaining publication risk is disclosed explicitly: the current canonical external policy is conservative, and the smallest external splits remain data-limited.
+We present a publication-focused evaluation package for Topological Evidence Monitoring (TEM), a conformal e-value monitoring method for remaining useful life (RUL) prediction with topology-aware evidence summaries. The canonical external package passes all internal quality gates with readiness score \ReadinessScore/10 and conservative readiness score \ReadinessConservativeScore/10, with \ExternalDatasetsOk/\ExternalDatasetsTotal external datasets passing the canonical policy configuration. We provide a full artifact-linked manuscript build, theorem statements aligned to fixed-grid e-process monitoring, and policy replay experiments from frozen checkpoints/calibration bundles to quantify the validity-sharpness tradeoff. Remaining publication risk is disclosed explicitly: the external package is materially sharper than the earlier conservative snapshot, but XJTU-SY remains near full-support width and the smallest external splits remain data-limited.
 \end{abstract}
 
 \section{Introduction}
@@ -86,17 +86,13 @@ All tables and figures in this manuscript are generated from artifact files list
 \input{generated/tables.tex}
 
 \subsection{Policy Replay Tradeoff}
-Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. In our replay runs, FEMTO validity degrades sharply under less conservative settings, while XJTU-SY and C-MAPSS remain stable for the same parameter changes.
-To tighten this analysis beyond three hand-picked points, we run replay-only sweeps from frozen artifacts and include the strongest cross-dataset validity-preserving candidate as a robust replay row.
-In the all-dataset sweep, settings with margin $0.30$ satisfy the coverage/tau targets, while reducing margin to $0.25$ causes immediate FEMTO validity failures.
-Paired run-level comparator tests are reported with Holm correction, and we include a policy-level sharpness table to make conservatism-vs-validity tradeoffs explicit.
-We also include a true retrain robustness block (no checkpoint reuse) across FEMTO, XJTU-SY, and C-MAPSS to validate that conclusions are not purely replay artifacts. A fresh replay sweep on those retrained artifacts still leaves mean width saturated at the \num{125}-step budget, indicating that the external overconservatism is not just a frozen-checkpoint artifact.
+Policy replay keeps model weights and calibration bundles fixed and only changes $(\alpha,\lambda,\text{margin})$. As expected, RMSE remains invariant while validity metrics can shift substantially. To tighten this analysis beyond a few hand-picked points, we run replay-only sweeps from frozen artifacts and include the strongest cross-dataset validity-preserving candidate as a robust replay row. On the retrained external artifacts, a targeted 30-point sweep finds 18 validity-preserving points and a best target-valid policy at $(\alpha,\lambda,\text{margin})=(0.01,0.10,0.10)$ with $\min$ coverage $0.991$, $\max$ tau violation $0.045$, and mean width \num{118.0}. Under the stricter external publication gate, however, the sharpest point that also clears the deep/regime checks is $(0.01,0.10,0.19)$; that gate-clearing canonical package still improves mean width versus the earlier fully saturated snapshot, but the gain is smaller and remains dataset-dependent. Paired run-level comparator tests are reported with Holm correction, and we include a policy-level sharpness table to make conservatism-vs-validity tradeoffs explicit. We also include a true retrain robustness block (no checkpoint reuse) across FEMTO, XJTU-SY, and C-MAPSS to validate that conclusions are not purely replay artifacts. The replay sweep therefore shows that external conservatism is not absolute, while the gate-clearing canonical point makes clear that the feasible boundary remains tight and uneven across datasets.
 
 \subsection{Figures}
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.62\textwidth]{figures/policy_replay_frontier.png}
-\caption{External replay frontier over policy settings. Vertical and horizontal dashed lines denote coverage and tau targets; star marks selected robust point.}
+\caption{External replay frontier over policy settings. Vertical and horizontal dashed lines denote coverage and tau targets; star marks the sharpest target-valid replay point from the sweep.}
 \label{fig:policy-frontier}
 \end{figure}
 
@@ -136,15 +132,15 @@ No metric in the canonical snapshot is manually edited; all are read directly fr
 
 \section{Limitations}
 \begin{itemize}[leftmargin=1.3em]
-\item Conservative policy settings can over-prioritize validity margin versus sharpness; in the current canonical external package the mean set width saturates the \num{125}-step budget on FEMTO, XJTU-SY, and C-MAPSS.
+\item Even after promoting a sharper gate-clearing external policy, width contraction remains uneven: XJTU-SY stays near the \num{125}-step support and the sweep-optimal point on C-MAPSS sits close to the tau target, so the canonical package must remain slightly more conservative than the frontier optimum.
 \item Replay frontier granularity is still moderate; a denser grid could map the Pareto boundary more precisely.
-\item Broader true retrain coverage now reaches FEMTO, XJTU-SY, and C-MAPSS, but external sample size remains intrinsically small on FEMTO/XJTU-SY and the retrained replay sweep still does not recover sharper valid intervals.
+\item Broader true retrain coverage now reaches FEMTO, XJTU-SY, and C-MAPSS, and the retrained replay sweep identifies target-valid sharper points down to mean width \num{118.0}; however, the sharpest point that also clears the stricter external gate is more conservative.
 \item External sample size is limited on the smallest datasets, with only 4 FEMTO test runs and 2 XJTU-SY test runs in the current artifact-locked package.
 \item Internal readiness score is not a substitute for independent external review.
 \end{itemize}
 
 \section{Conclusion}
-The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing: conservative external widths that persist even after broader true retraining, limited external run counts on FEMTO/XJTU-SY, and replay-grid granularity rather than artifact inconsistency.
+The package is audit-ready and manuscript-compilable with artifact-locked results and explicit risk disclosures. Canonical external claims are reproducible and pass integrity checks. Remaining publication risk is primarily reviewer-facing: dataset-dependent external sharpness (especially XJTU-SY near-full width), limited external run counts on FEMTO/XJTU-SY, and the narrow gap between the replay frontier optimum and the stricter gate-clearing canonical point rather than artifact inconsistency.
 
 \bibliographystyle{plainnat}
 \bibliography{references}

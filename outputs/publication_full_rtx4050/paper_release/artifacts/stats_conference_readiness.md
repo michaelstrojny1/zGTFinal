@@ -13,9 +13,10 @@
 - [PASS] Split Robustness (val vs dev_holdout) (1.00/1.00): require |delta_cov|<=0.03 and |delta_tau|<=0.05 per FD
 - [PASS] Topology Signal Strength (1.50/1.50): raw_hits=3, unique_families=2 (required>=2), families=['persistent_valleys', 'surface_h1']
 - [PASS] Baseline Comparator Package (1.00/1.00): artifact=C:\Users\micha\zGTFinal\outputs\baseline_comparison.json; external_baselines=8; required>=2
-- [PASS] External Dataset Generalization (0.50/0.50): artifact=C:\Users\micha\zGTFinal\outputs\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=3; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3
+- [PASS] External Dataset Generalization (0.50/0.50): artifact=C:\Users\micha\zGTFinal\outputs\external_dataset_summary.json; availability_ok=3/3; external_eval_ok=3; required>=1; metric_alerts=4; near_perfect=3/3; strong_overconservative_evidence=False; audited=3/3
 - [PASS] Proof Maturity (0.50/0.50): paper should not rely on sketch-only theorem statements
 
 ## Immediate Priorities
-1. Freeze this run as v1.0 artifact bundle and lock submission hash.
+1. Investigate external terminal-window performance failures (high rmse_last) and report calibrated failure-onset diagnostics separately from sequence-average RMSE.
+2. Freeze this run as v1.0 artifact bundle and lock submission hash.
 

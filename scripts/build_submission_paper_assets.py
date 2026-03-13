@@ -22,7 +22,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--retrain-policy-sweep-json",
         type=str,
-        default="outputs/external_policy_replay_sweep_retrain_v2/summary.json",
+        default="outputs/external_policy_replay_sweep_retrain_v3/summary.json",
         help="Optional replay sweep summary from fresh retrained external artifacts.",
     )
     p.add_argument(
@@ -55,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--policy-frontier-fig",
         type=str,
-        default="outputs/external_policy_replay_sweep_all_v1/frontier_cov_tau.png",
+        default="outputs/external_policy_replay_sweep_retrain_v3/frontier_cov_tau.png",
         help="Optional policy replay frontier PNG to include in paper/figures.",
     )
     p.add_argument(
@@ -139,7 +139,7 @@ def _build_external_table(canonical: dict[str, Any]) -> list[str]:
     lines = [
         "\\begin{table}[t]",
         "\\centering",
-        "\\caption{Canonical external results (FD001 policy v8).}",
+        "\\caption{Canonical external results (FD001 gate-clearing package).}",
         "\\label{tab:external-canonical}",
         "\\begin{tabular}{lrrrrrr}",
         "\\toprule",

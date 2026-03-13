@@ -25,22 +25,22 @@
   - topology mean_gamma=32.182, local_minima=3.514, persistent_valleys=0.003, ridge_tv=166.069
   - corr(gamma,rul_cov)=0.01310665039849712, corr(ridge_tv,alert)=None, corr(minima,alert)=None
   - availability: audit_json=True, topology_runs=248/248
-- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v8\femto_fd001`
-  - RMSE=52.873, MAE=50.395, best_val_rmse=27.303, calibration_floor=n/a
+- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v9\femto_fd001`
+  - RMSE=93.482, MAE=91.344, best_val_rmse=27.165, calibration_floor=n/a
   - alert_rate=0.000, rul_cov=1.000, tau_cov=1.000, tau_violation=0.000, tau_diag_engines=4/4
-  - topology mean_gamma=1.365, local_minima=21.921, persistent_valleys=0.000, ridge_tv=3597.000
+  - topology mean_gamma=1.650, local_minima=3.687, persistent_valleys=0.000, ridge_tv=669.750
   - corr(gamma,rul_cov)=None, corr(ridge_tv,alert)=None, corr(minima,alert)=None
   - availability: audit_json=True, topology_runs=4/4
-- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v8\xjtu_sy_fd001`
-  - RMSE=33.171, MAE=33.156, best_val_rmse=44.967, calibration_floor=n/a
+- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v9\xjtu_sy_fd001`
+  - RMSE=34.582, MAE=34.578, best_val_rmse=39.840, calibration_floor=n/a
   - alert_rate=0.000, rul_cov=1.000, tau_cov=1.000, tau_violation=0.000, tau_diag_engines=2/2
-  - topology mean_gamma=1.115, local_minima=1.663, persistent_valleys=0.000, ridge_tv=65.000
+  - topology mean_gamma=1.500, local_minima=1.868, persistent_valleys=0.000, ridge_tv=80.000
   - corr(gamma,rul_cov)=None, corr(ridge_tv,alert)=None, corr(minima,alert)=None
   - availability: audit_json=True, topology_runs=2/2
-- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v8\cmapss_fd001`
-  - RMSE=16.623, MAE=12.219, best_val_rmse=16.954, calibration_floor=n/a
+- `C:\Users\micha\zGTFinal\outputs\external_real_eval_final_policy_v9\cmapss_fd001`
+  - RMSE=16.189, MAE=12.268, best_val_rmse=18.145, calibration_floor=n/a
   - alert_rate=0.000, rul_cov=1.000, tau_cov=1.000, tau_violation=0.000, tau_diag_engines=89/100
-  - topology mean_gamma=66.287, local_minima=3.592, persistent_valleys=0.002, ridge_tv=96.500
+  - topology mean_gamma=68.157, local_minima=3.068, persistent_valleys=0.022, ridge_tv=100.880
   - corr(gamma,rul_cov)=None, corr(ridge_tv,alert)=None, corr(minima,alert)=None
   - availability: audit_json=True, topology_runs=100/100
 

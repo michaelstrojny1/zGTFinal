@@ -28,7 +28,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument(
         "--reuse-artifacts-root",
         type=str,
-        default="outputs/external_real_eval_final_policy_v8",
+        default="outputs/external_real_eval_final_policy_v9",
         help="Root with existing model/calibration artifacts for replay mode.",
     )
     p.add_argument("--alpha-grid", type=str, default="0.001,0.0015,0.002,0.003")
