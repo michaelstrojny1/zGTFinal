@@ -200,9 +200,11 @@ Interpretation caveat:
 - Mean confidence width in the current canonical package is lower than the earlier fully saturated snapshot on FEMTO and C-MAPSS (`122.5` and `123.1` respectively), while XJTU-SY remains at full support (`125.0/125`).
 - A targeted 30-point replay sweep on the retrained artifacts found 18 target-valid points with valid-width range `118.005` to `124.976`; the sharpest target-valid point is `alpha=0.01`, `lambda_bet=0.1`, `pvalue_safety_margin=0.1`, but it fails the stricter external gate.
 - The gate-clearing canonical point is `alpha=0.01`, `lambda_bet=0.1`, `pvalue_safety_margin=0.19`; it keeps external coverage/tau perfect while retaining a smaller width gain than the frontier optimum.
+- Auxiliary leave-one-run-out crossfit on the small-sample datasets sharpens the interpretation: XJTU-SY remains fold-valid at the canonical policy with mean width `108.887`, whereas FEMTO does not (`cov_mean=0.865`, `tau_mean=0.143`, `width_mean=106.571` across 7 folds).
+- Replay on the frozen crossfit folds shows the binding constraint is FEMTO rather than XJTU-SY: the shared `femto+xjtu_sy` fold-valid sweep and the FEMTO-only fold-valid sweep both require full-support width `125.0`, while XJTU-SY alone is fold-valid at the canonical policy.
 - Validity is not the same as end-of-life point accuracy: FEMTO still has `RMSE_last=93.482`, so the canonical external package remains scientifically conservative in uncertainty while still weak at final-step point prediction.
 - Over-conservative readiness penalties are now audit-conditioned: penalty is applied only when all external datasets are near-perfect and all audited p-value profiles are strongly high. Current canonical external audits do not meet that stronger condition.
 - External FEMTO/XJTU/C-MAPSS artifacts now include backfilled `audit_*.json` and `audit_cache_*.npz` diagnostics from the saved external checkpoints.
-- Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2.
+- Current external test-run counts remain limited on the smallest datasets: FEMTO has 4 test runs and XJTU-SY has 2, and the new crossfit audit indicates that the fixed-split FEMTO result is sample-limited rather than evidence-rich.
 - The scripted suspicious-values audit is recorded in `outputs/publication_full_rtx4050/phd_suspicious_values_audit.json`.
 

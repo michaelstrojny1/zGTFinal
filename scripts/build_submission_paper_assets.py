@@ -32,6 +32,24 @@ def parse_args() -> argparse.Namespace:
         help="Optional replay sweep summary from fresh retrained external artifacts.",
     )
     p.add_argument(
+        "--small-sample-crossfit-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_v2/report.json",
+        help="Optional small-sample crossfit report JSON referenced in the manuscript limitations.",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_v1/summary.json",
+        help="Optional shared small-sample crossfit replay sweep summary JSON.",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-femto-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_femto_v1/summary.json",
+        help="Optional FEMTO-only small-sample crossfit replay sweep summary JSON.",
+    )
+    p.add_argument(
         "--robust-report",
         type=str,
         default="outputs/external_performance_report_policy_replay_robust_v1.json",
@@ -472,6 +490,13 @@ def main() -> None:
         "claim_significance_json": str(Path(args.claim_significance_json).resolve()) if Path(args.claim_significance_json).exists() else "",
         "policy_sharpness_json": str(Path(args.policy_sharpness_json).resolve()) if Path(args.policy_sharpness_json).exists() else "",
         "retrain_policy_sweep_json": str(Path(args.retrain_policy_sweep_json).resolve()) if retrain_sweep else "",
+        "small_sample_crossfit_json": str(Path(args.small_sample_crossfit_json).resolve()) if Path(args.small_sample_crossfit_json).exists() else "",
+        "small_sample_crossfit_sweep_json": str(Path(args.small_sample_crossfit_sweep_json).resolve()) if Path(args.small_sample_crossfit_sweep_json).exists() else "",
+        "small_sample_crossfit_femto_sweep_json": (
+            str(Path(args.small_sample_crossfit_femto_sweep_json).resolve())
+            if Path(args.small_sample_crossfit_femto_sweep_json).exists()
+            else ""
+        ),
         "policy_frontier_fig": str(extra_frontier) if extra_frontier is not None else "",
         "policy_sharpness_fig": str(extra_sharp) if extra_sharp is not None else "",
         "figures_copied": copied,

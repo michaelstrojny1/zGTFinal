@@ -22,6 +22,22 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--best-valid-report", type=str, default="outputs/external_performance_report_policy_replay_best_valid_v1.json")
     p.add_argument("--retrain-robustness-json", type=str, default="outputs/external_performance_report_retrain_robustness_v2.json")
     p.add_argument("--retrain-policy-sweep-json", type=str, default="outputs/external_policy_replay_sweep_retrain_v3/summary.json")
+    p.add_argument("--small-sample-crossfit-json", type=str, default="outputs/external_small_sample_crossfit_v2/report.json")
+    p.add_argument(
+        "--small-sample-crossfit-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_v1/summary.json",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-femto-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_femto_v1/summary.json",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-xjtu-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_xjtu_sy_v1/summary.json",
+    )
     p.add_argument("--baseline-json", type=str, default="outputs/baseline_comparison.json")
     p.add_argument("--claim-significance-json", type=str, default="outputs/publication_full_rtx4050/claim_significance_report.json")
     p.add_argument("--policy-sharpness-json", type=str, default="outputs/publication_full_rtx4050/policy_sharpness_report.json")
@@ -260,6 +276,10 @@ def main() -> None:
     best_valid_path = Path(args.best_valid_report).resolve()
     retrain_path = Path(args.retrain_robustness_json).resolve()
     retrain_sweep_path = Path(args.retrain_policy_sweep_json).resolve()
+    small_sample_crossfit_path = Path(args.small_sample_crossfit_json).resolve()
+    small_sample_crossfit_sweep_path = Path(args.small_sample_crossfit_sweep_json).resolve()
+    small_sample_crossfit_femto_sweep_path = Path(args.small_sample_crossfit_femto_sweep_json).resolve()
+    small_sample_crossfit_xjtu_sweep_path = Path(args.small_sample_crossfit_xjtu_sweep_json).resolve()
     baseline_path = Path(args.baseline_json).resolve()
     claim_sig_path = Path(args.claim_significance_json).resolve()
     policy_sharpness_path = Path(args.policy_sharpness_json).resolve()
@@ -275,6 +295,14 @@ def main() -> None:
     gate = _load_json(gate_path) if gate_path.exists() else {}
     suspicious = _load_json(suspicious_audit_path) if suspicious_audit_path.exists() else {}
     retrain_sweep_preview = _load_json(retrain_sweep_path) if retrain_sweep_path.exists() else {}
+    small_sample_crossfit = _load_json(small_sample_crossfit_path) if small_sample_crossfit_path.exists() else {}
+    small_sample_crossfit_sweep = _load_json(small_sample_crossfit_sweep_path) if small_sample_crossfit_sweep_path.exists() else {}
+    small_sample_crossfit_femto_sweep = (
+        _load_json(small_sample_crossfit_femto_sweep_path) if small_sample_crossfit_femto_sweep_path.exists() else {}
+    )
+    small_sample_crossfit_xjtu_sweep = (
+        _load_json(small_sample_crossfit_xjtu_sweep_path) if small_sample_crossfit_xjtu_sweep_path.exists() else {}
+    )
 
     # Release layout.
     figures_dir = out_dir / "figures"
@@ -283,7 +311,7 @@ def main() -> None:
     paper_dir = out_dir / "paper"
     for d in (figures_dir, reports_dir, artifacts_dir, paper_dir):
         d.mkdir(parents=True, exist_ok=True)
-    for stale_name in ("summary.json", "summary.md"):
+    for stale_name in ("summary.json", "summary.md", "report.json", "report.md"):
         stale_path = artifacts_dir / stale_name
         if stale_path.exists():
             stale_path.unlink()
@@ -343,6 +371,15 @@ def main() -> None:
                     dst_stem=f"{retrain_sweep_path.parent.name}_best_policy_report",
                 )
             )
+
+    for stem, src in (
+        ("small_sample_crossfit_report", small_sample_crossfit_path),
+        ("small_sample_crossfit_shared_sweep", small_sample_crossfit_sweep_path),
+        ("small_sample_crossfit_femto_sweep", small_sample_crossfit_femto_sweep_path),
+        ("small_sample_crossfit_xjtu_sweep", small_sample_crossfit_xjtu_sweep_path),
+    ):
+        if src.exists():
+            copied_artifacts.extend(_copy_with_sidecars(src, artifacts_dir, dst_stem=stem))
 
     if paper_pdf_path.exists():
         _copy_if_exists(paper_pdf_path, paper_dir / paper_pdf_path.name)
@@ -412,6 +449,37 @@ def main() -> None:
             f"width_mean={_fmt3(best.get('width_mean', np.nan))}, cov_min={_fmt3(best.get('cov_min', np.nan))}, "
             f"tau_max={_fmt3(best.get('tau_max', np.nan))}"
         )
+        annex.append("")
+    if small_sample_crossfit:
+        annex.append("### Small-Sample Crossfit")
+        annex.append("")
+        annex.append("| Dataset | Folds | RUL_cov_mean | Tau_mean | Width_mean |")
+        annex.append("|---|---:|---:|---:|---:|")
+        for row in list(small_sample_crossfit.get("datasets", [])):
+            if str(row.get("status", "")).lower() != "ok":
+                continue
+            summ = row.get("summary", {}) if isinstance(row.get("summary", {}), dict) else {}
+            annex.append(
+                f"| {row.get('dataset')} | {int(summ.get('num_folds', 0))} | {_fmt3(summ.get('rul_cov_mean', np.nan))} | "
+                f"{_fmt3(summ.get('tau_v_mean', np.nan))} | {_fmt3(summ.get('mean_width_mean', np.nan))} |"
+            )
+        annex.append("")
+        for label, sweep in (
+            ("Shared small-sample sweep", small_sample_crossfit_sweep),
+            ("FEMTO-only sweep", small_sample_crossfit_femto_sweep),
+            ("XJTU-SY-only sweep", small_sample_crossfit_xjtu_sweep),
+        ):
+            if not sweep:
+                continue
+            best = sweep.get("best_fold_valid", {}) if isinstance(sweep.get("best_fold_valid", {}), dict) else {}
+            overall = best.get("overall", {}) if isinstance(best.get("overall", {}), dict) else {}
+            annex.append(
+                f"- {label}: alpha={_fmt3(best.get('alpha', np.nan))}, lambda={_fmt3(best.get('lambda_bet', np.nan))}, "
+                f"margin={_fmt3(best.get('pvalue_safety_margin', np.nan))}, "
+                f"width_mean={_fmt3(overall.get('dataset_width_mean_mean', np.nan))}, "
+                f"fold_cov_min={_fmt3(overall.get('fold_cov_min', np.nan))}, "
+                f"fold_tau_max={_fmt3(overall.get('fold_tau_max', np.nan))}"
+            )
         annex.append("")
     if suspicious:
         summ = suspicious.get("summary", {}) if isinstance(suspicious.get("summary", {}), dict) else {}

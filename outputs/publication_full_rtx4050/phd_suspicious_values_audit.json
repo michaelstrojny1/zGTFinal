@@ -1,6 +1,6 @@
 {
   "summary": {
-    "generated_utc": "2026-03-13T23:55:06.056218+00:00",
+    "generated_utc": "2026-03-14T02:02:12.403661+00:00",
     "strict_main": [
       {
         "fd": 1,
@@ -71,9 +71,62 @@
         "tem_metrics_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_real_eval_final_policy_v9\\cmapss_fd001\\tem_metrics_fd001.json"
       }
     ],
-    "num_findings": 7,
+    "small_sample_crossfit": [
+      {
+        "dataset": "femto",
+        "num_folds": 7,
+        "rul_cov_mean": 0.8653461384553821,
+        "tau_v_mean": 0.14285714285714285,
+        "mean_width_mean": 106.57095417644311,
+        "report_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_small_sample_crossfit_v2\\report.json"
+      },
+      {
+        "dataset": "xjtu_sy",
+        "num_folds": 5,
+        "rul_cov_mean": 1.0,
+        "tau_v_mean": 0.0,
+        "mean_width_mean": 108.88661483594312,
+        "report_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_small_sample_crossfit_v2\\report.json"
+      }
+    ],
+    "small_sample_crossfit_policy_sweeps": [
+      {
+        "label": "shared_femto_xjtu_sy",
+        "best_tag": "a0p0030_l0p0200_m0p4000",
+        "alpha": 0.003,
+        "lambda_bet": 0.02,
+        "pvalue_safety_margin": 0.4,
+        "fold_cov_min": 1.0,
+        "fold_tau_max": 0.0,
+        "dataset_width_mean_mean": 125.0,
+        "summary_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_small_sample_crossfit_policy_sweep_v1\\summary.json"
+      },
+      {
+        "label": "femto",
+        "best_tag": "a0p0030_l0p0200_m0p4000",
+        "alpha": 0.003,
+        "lambda_bet": 0.02,
+        "pvalue_safety_margin": 0.4,
+        "fold_cov_min": 1.0,
+        "fold_tau_max": 0.0,
+        "dataset_width_mean_mean": 125.0,
+        "summary_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_small_sample_crossfit_policy_sweep_femto_v1\\summary.json"
+      },
+      {
+        "label": "xjtu_sy",
+        "best_tag": "a0p0100_l0p1000_m0p1900",
+        "alpha": 0.01,
+        "lambda_bet": 0.1,
+        "pvalue_safety_margin": 0.19,
+        "fold_cov_min": 1.0,
+        "fold_tau_max": 0.0,
+        "dataset_width_mean_mean": 108.88661483594312,
+        "summary_path": "C:\\Users\\micha\\zGTFinal\\outputs\\external_small_sample_crossfit_policy_sweep_xjtu_sy_v1\\summary.json"
+      }
+    ],
+    "num_findings": 9,
     "num_high": 0,
-    "num_medium": 7,
+    "num_medium": 9,
     "num_low": 0
   },
   "findings": [
@@ -111,6 +164,16 @@
       "severity": "medium",
       "type": "overconservative_external_policy",
       "message": "cmapss is near-perfect but mean_width=123.1/125"
+    },
+    {
+      "severity": "medium",
+      "type": "small_sample_crossfit_instability",
+      "message": "femto crossfit under canonical policy has cov_mean=0.865, tau_mean=0.143, mean_width=106.6, folds=7"
+    },
+    {
+      "severity": "medium",
+      "type": "small_sample_crossfit_fold_valid_saturation",
+      "message": "femto requires width_mean=125.0/125 to restore fold-valid small-sample replay"
     }
   ]
 }

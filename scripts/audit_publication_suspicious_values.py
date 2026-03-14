@@ -13,6 +13,26 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Audit publication artifacts for suspicious-value patterns.")
     p.add_argument("--strict-main-root", type=str, default="outputs/publication_full_rtx4050/strict_main")
     p.add_argument("--external-report", type=str, default="outputs/external_performance_report.json")
+    p.add_argument(
+        "--small-sample-crossfit-report",
+        type=str,
+        default="outputs/external_small_sample_crossfit_v2/report.json",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-policy-sweep-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_v1/summary.json",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-policy-sweep-femto-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_femto_v1/summary.json",
+    )
+    p.add_argument(
+        "--small-sample-crossfit-policy-sweep-xjtu-json",
+        type=str,
+        default="outputs/external_small_sample_crossfit_policy_sweep_xjtu_sy_v1/summary.json",
+    )
     p.add_argument("--r-max", type=int, default=125)
     p.add_argument("--tau-ident-threshold", type=float, default=0.75)
     p.add_argument("--tau-ident-warn-margin", type=float, default=0.05)
@@ -46,6 +66,12 @@ def main() -> None:
     args = parse_args()
     strict_root = Path(args.strict_main_root).resolve()
     external_report_path = Path(args.external_report).resolve()
+    small_sample_crossfit_path = Path(args.small_sample_crossfit_report).resolve()
+    small_sample_sweep_paths = {
+        "shared_femto_xjtu_sy": Path(args.small_sample_crossfit_policy_sweep_json).resolve(),
+        "femto": Path(args.small_sample_crossfit_policy_sweep_femto_json).resolve(),
+        "xjtu_sy": Path(args.small_sample_crossfit_policy_sweep_xjtu_json).resolve(),
+    }
 
     findings: list[dict[str, Any]] = []
     strict_rows: list[dict[str, Any]] = []
@@ -201,12 +227,106 @@ def main() -> None:
                 }
             )
 
+    small_sample_rows: list[dict[str, Any]] = []
+    if small_sample_crossfit_path.exists():
+        small_sample_crossfit = _load_json(small_sample_crossfit_path)
+        for row in list(small_sample_crossfit.get("datasets", [])):
+            dataset = str(row.get("dataset", "unknown")).lower()
+            status = str(row.get("status", "")).lower()
+            if status != "ok":
+                findings.append(
+                    {
+                        "severity": "medium",
+                        "type": "small_sample_crossfit_error",
+                        "message": f"{dataset} status={row.get('status', 'unknown')}",
+                    }
+                )
+                continue
+            summary = row.get("summary", {}) if isinstance(row.get("summary", {}), dict) else {}
+            num_folds = int(summary.get("num_folds", 0))
+            cov_mean = float(summary.get("rul_cov_mean", np.nan))
+            tau_mean = float(summary.get("tau_v_mean", np.nan))
+            width_mean = float(summary.get("mean_width_mean", np.nan))
+            small_sample_rows.append(
+                {
+                    "dataset": dataset,
+                    "num_folds": num_folds,
+                    "rul_cov_mean": cov_mean if np.isfinite(cov_mean) else None,
+                    "tau_v_mean": tau_mean if np.isfinite(tau_mean) else None,
+                    "mean_width_mean": width_mean if np.isfinite(width_mean) else None,
+                    "report_path": str(small_sample_crossfit_path),
+                }
+            )
+            if (not np.isfinite(cov_mean)) or (not np.isfinite(tau_mean)):
+                continue
+            if (cov_mean < 0.95) or (tau_mean > 0.05):
+                findings.append(
+                    {
+                        "severity": "medium",
+                        "type": "small_sample_crossfit_instability",
+                        "message": (
+                            f"{dataset} crossfit under canonical policy has cov_mean={cov_mean:.3f}, "
+                            f"tau_mean={tau_mean:.3f}, mean_width={width_mean:.1f}, folds={num_folds}"
+                        ),
+                    }
+                )
+            elif np.isfinite(width_mean) and (width_mean >= width_warn_threshold):
+                findings.append(
+                    {
+                        "severity": "medium",
+                        "type": "small_sample_crossfit_overconservative",
+                        "message": (
+                            f"{dataset} crossfit is valid but mean_width={width_mean:.1f}/{int(args.r_max)}"
+                        ),
+                    }
+                )
+
+    small_sample_sweeps: list[dict[str, Any]] = []
+    for label, path in small_sample_sweep_paths.items():
+        if not path.exists():
+            continue
+        sweep = _load_json(path)
+        best = sweep.get("best_fold_valid", {}) if isinstance(sweep.get("best_fold_valid", {}), dict) else {}
+        overall = best.get("overall", {}) if isinstance(best.get("overall", {}), dict) else {}
+        width_mean = float(overall.get("dataset_width_mean_mean", np.nan))
+        cov_min = float(overall.get("fold_cov_min", np.nan))
+        tau_max = float(overall.get("fold_tau_max", np.nan))
+        small_sample_sweeps.append(
+            {
+                "label": label,
+                "best_tag": str(best.get("tag", "")),
+                "alpha": float(best.get("alpha", np.nan)) if best else None,
+                "lambda_bet": float(best.get("lambda_bet", np.nan)) if best else None,
+                "pvalue_safety_margin": float(best.get("pvalue_safety_margin", np.nan)) if best else None,
+                "fold_cov_min": cov_min if np.isfinite(cov_min) else None,
+                "fold_tau_max": tau_max if np.isfinite(tau_max) else None,
+                "dataset_width_mean_mean": width_mean if np.isfinite(width_mean) else None,
+                "summary_path": str(path),
+            }
+        )
+        if np.isfinite(width_mean) and np.isfinite(cov_min) and np.isfinite(tau_max):
+            if (cov_min >= 0.95) and (tau_max <= 0.05) and (width_mean >= width_warn_threshold):
+                if (label == "shared_femto_xjtu_sy") and small_sample_sweep_paths.get("femto", Path()).exists():
+                    continue
+                findings.append(
+                    {
+                        "severity": "medium",
+                        "type": "small_sample_crossfit_fold_valid_saturation",
+                        "message": (
+                            f"{label} requires width_mean={width_mean:.1f}/{int(args.r_max)} "
+                            f"to restore fold-valid small-sample replay"
+                        ),
+                    }
+                )
+
     counts = _severity_counts(findings)
     report = {
         "summary": {
             "generated_utc": datetime.now(timezone.utc).isoformat(),
             "strict_main": strict_rows,
             "external": external_rows,
+            "small_sample_crossfit": small_sample_rows,
+            "small_sample_crossfit_policy_sweeps": small_sample_sweeps,
             "num_findings": len(findings),
             "num_high": counts["high"],
             "num_medium": counts["medium"],
@@ -242,6 +362,25 @@ def main() -> None:
             f"- {row['dataset']}: cov={_fmt(row['rul_cov'])}, tau={_fmt(row['tau_v'])}, "
             f"mean_width={width_txt}, width/rmax={width_frac}, n={int(row['num_runs'])}"
         )
+    if small_sample_rows:
+        lines.append("")
+        lines.append("## Small-Sample Crossfit Snapshot")
+        for row in small_sample_rows:
+            width_txt = _fmt(row["mean_width_mean"], 1) if row["mean_width_mean"] is not None else "n/a"
+            lines.append(
+                f"- {row['dataset']}: folds={int(row['num_folds'])}, cov_mean={_fmt(row['rul_cov_mean'])}, "
+                f"tau_mean={_fmt(row['tau_v_mean'])}, mean_width={width_txt}"
+            )
+    if small_sample_sweeps:
+        lines.append("")
+        lines.append("## Small-Sample Crossfit Policy Sweeps")
+        for row in small_sample_sweeps:
+            width_txt = _fmt(row["dataset_width_mean_mean"], 1) if row["dataset_width_mean_mean"] is not None else "n/a"
+            lines.append(
+                f"- {row['label']}: alpha={_fmt(row['alpha'],4)}, lambda={_fmt(row['lambda_bet'],4)}, "
+                f"margin={_fmt(row['pvalue_safety_margin'],4)}, fold_cov_min={_fmt(row['fold_cov_min'])}, "
+                f"fold_tau_max={_fmt(row['fold_tau_max'])}, width_mean={width_txt}"
+            )
     lines.append("")
     lines.append("## Findings")
     if findings:
